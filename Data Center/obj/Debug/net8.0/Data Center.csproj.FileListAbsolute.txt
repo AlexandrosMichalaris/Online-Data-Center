@@ -1,0 +1,54 @@
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/appsettings.Development.json
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/appsettings.json
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/Data Center
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/Data Center.deps.json
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/Data Center.runtimeconfig.json
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/Data Center.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/Data Center.pdb
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/Microsoft.AspNetCore.OpenApi.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Relational.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/Microsoft.Extensions.Caching.Abstractions.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/Microsoft.Extensions.Caching.Memory.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/Microsoft.Extensions.Configuration.Abstractions.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/Microsoft.Extensions.DependencyInjection.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/Microsoft.Extensions.Logging.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/Microsoft.Extensions.Logging.Abstractions.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/Microsoft.Extensions.Options.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/Microsoft.Extensions.Primitives.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/Microsoft.OpenApi.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/Npgsql.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/Swashbuckle.AspNetCore.Swagger.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerGen.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerUI.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/System.Diagnostics.DiagnosticSource.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/obj/Debug/net8.0/Data Center.csproj.AssemblyReference.cache
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/obj/Debug/net8.0/Data Center.GeneratedMSBuildEditorConfig.editorconfig
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/obj/Debug/net8.0/Data Center.AssemblyInfoInputs.cache
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/obj/Debug/net8.0/Data Center.AssemblyInfo.cs
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/obj/Debug/net8.0/Data Center.csproj.CoreCompileInputs.cache
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/obj/Debug/net8.0/Data Center.MvcApplicationPartsAssemblyInfo.cs
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/obj/Debug/net8.0/Data Center.MvcApplicationPartsAssemblyInfo.cache
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/obj/Debug/net8.0/Data Center.sourcelink.json
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/obj/Debug/net8.0/staticwebassets.build.json
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/obj/Debug/net8.0/staticwebassets.development.json
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/obj/Debug/net8.0/staticwebassets/msbuild.Data Center.Microsoft.AspNetCore.StaticWebAssets.props
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/obj/Debug/net8.0/staticwebassets/msbuild.build.Data Center.props
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.Data Center.props
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.Data Center.props
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/obj/Debug/net8.0/staticwebassets.pack.json
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/obj/Debug/net8.0/scopedcss/bundle/Data Center.styles.css
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/obj/Debug/net8.0/Data Cen.05913CD7.Up2Date
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/obj/Debug/net8.0/Data Center.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/obj/Debug/net8.0/refint/Data Center.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/obj/Debug/net8.0/Data Center.pdb
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/obj/Debug/net8.0/Data Center.genruntimeconfig.cache
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/obj/Debug/net8.0/ref/Data Center.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/StorageService.deps.json
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/StorageService.runtimeconfig.json
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/StorageService
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/StorageService.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/StorageService.pdb
