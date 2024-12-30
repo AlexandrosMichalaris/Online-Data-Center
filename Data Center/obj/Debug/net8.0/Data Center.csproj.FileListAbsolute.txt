@@ -47,8 +47,5 @@
 /Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/obj/Debug/net8.0/Data Center.pdb
 /Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/obj/Debug/net8.0/Data Center.genruntimeconfig.cache
 /Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/obj/Debug/net8.0/ref/Data Center.dll
-/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/StorageService.deps.json
-/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/StorageService.runtimeconfig.json
-/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/StorageService
 /Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/StorageService.dll
 /Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/StorageService.pdb

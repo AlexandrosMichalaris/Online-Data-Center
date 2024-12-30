@@ -15,11 +15,13 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Configuration\Constants\" />
       <Folder Include="Repository\" />
       <Folder Include="Service\Interfaces\" />
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\FileManagementService\FileManagementService.csproj" />
       <ProjectReference Include="..\StorageService\StorageService.csproj" />
     </ItemGroup>
 

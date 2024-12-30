@@ -247,6 +247,10 @@
         }
       },
       "StorageService/1.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "9.0.0",
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "9.0.2"
+        },
         "runtime": {
           "StorageService.dll": {
             "assemblyVersion": "1.0.0",

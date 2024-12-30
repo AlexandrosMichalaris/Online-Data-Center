@@ -14,5 +14,5 @@ public class FileInfo : ControllerBase
         return Ok();
     }
     
-    //Get all files of direcotry
+    
 }

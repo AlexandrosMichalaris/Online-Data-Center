@@ -2,7 +2,9 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data Center", "Data Center\Data Center.csproj", "{80F2DA65-ACF5-49A0-B30A-E16630F4247D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageService", "StorageService\StorageService.csproj", "{817BEEBF-5D55-4819-847A-E46CFE5A6976}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileManagementService", "FileManagementService\FileManagementService.csproj", "{817BEEBF-5D55-4819-847A-E46CFE5A6976}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageService", "StorageService\StorageService.csproj", "{5AAB8433-9CA3-4CDD-AEC3-A97F4A375F99}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +20,9 @@ Global
 		{817BEEBF-5D55-4819-847A-E46CFE5A6976}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{817BEEBF-5D55-4819-847A-E46CFE5A6976}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{817BEEBF-5D55-4819-847A-E46CFE5A6976}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AAB8433-9CA3-4CDD-AEC3-A97F4A375F99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AAB8433-9CA3-4CDD-AEC3-A97F4A375F99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AAB8433-9CA3-4CDD-AEC3-A97F4A375F99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AAB8433-9CA3-4CDD-AEC3-A97F4A375F99}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
