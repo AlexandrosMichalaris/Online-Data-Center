@@ -11,7 +11,7 @@ public interface ISaveFile
     
     public Task<FileStorageResult<FileMetadata>> SaveFileAsync(IFormFile file, string basePath);
     
-    public FileStorageResult<Stream> GetFileStream(string filePath);
+    public Task<FileStorageResult<Stream>> GetFileStream(string filePath);
 }
 
 

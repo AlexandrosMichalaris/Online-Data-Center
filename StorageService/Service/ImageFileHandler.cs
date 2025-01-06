@@ -52,8 +52,23 @@ public class ImageFileHandler : ISaveFile
         }
     }
 
-    public FileStorageResult<Stream> GetFileStream(string filePath)
+    public async Task<FileStorageResult<Stream>> GetFileStream(string filePath)
     {
-        throw new NotImplementedException();
+        try
+        {
+            if (!File.Exists(filePath))
+            {
+                return FileStorageResult<Stream>.Failure("File not found.");
+            }
+            
+            //TODO: Check chunks for each type
+
+            var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+            return FileStorageResult<Stream>.Success(fileStream);
+        }
+        catch (Exception ex)
+        {
+            return FileStorageResult<Stream>.Failure($"{typeof(ImageFileHandler)} Failed to retrieve file: {ex.Message}");
+        }
     }
 }
