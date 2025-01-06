@@ -11,14 +11,15 @@ public enum FileType
     Markdown,
     
     // Image Files
+    Jpg,
     Jpeg,
     Png,
     Gif,
     
     // Video Files
-    Mp4,
-    Avi,
-    Mkv,
+    // Mp4,
+    // Avi,
+    // Mkv,
     
     // Audio Files
     Mp3,
@@ -35,18 +36,18 @@ public enum FileType
     
     // Compressed Files
     Zip,
-    Rar,
+    Rar
     
     // Code Files
-    Cs,
-    Java,
-    Py,
-    Js,
-    Php,
-    Css,
-    Cpp,
-    H,
-    
+    //
+    // Java,
+    // Py,
+    // Js,
+    // Php,
+    // Css,
+    // Cpp,
+    // H,
+    //
+    // // Other
     // Other
-    Unknown
 }

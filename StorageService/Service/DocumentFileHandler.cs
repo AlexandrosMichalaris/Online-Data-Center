@@ -1,18 +1,21 @@
 using Data_Center.Configuration.Constants;
 using Microsoft.AspNetCore.Http;
+using StorageService.Extensions;
 using StorageService.Service.Interface;
 
 namespace StorageService.Service;
 
 public class DocumentFileHandler : ISaveFile
 {
-    public IEnumerable<FileType> FileType { get; }
+    public IEnumerable<FileType> FileTypes =>  new FileType().GetDocumentFileTypes();
+
+    public FolderType FolderType => FolderType.Documents;
     
     public async Task<FileStorageResult<FileMetadata>> SaveFileAsync(IFormFile file, string basePath)
     {
         try
         {
-            var folder = Path.Combine(basePath, "Others");
+            var folder = Path.Combine(basePath, this.FolderType.ToString());
             if (!Directory.Exists(folder))
             {
                 Directory.CreateDirectory(folder);
@@ -46,7 +49,12 @@ public class DocumentFileHandler : ISaveFile
         }
         catch (Exception e)
         {
-            return FileStorageResult<FileMetadata>.Failure($"Failed to save file: {e.Message}");
+            return FileStorageResult<FileMetadata>.Failure($"{typeof(DocumentFileHandler)} Failed to save file: {e.Message}");
         }
+    }
+
+    public FileStorageResult<Stream> GetFileStream(string filePath)
+    {
+        throw new NotImplementedException();
     }
 }

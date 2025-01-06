@@ -1,0 +1,16 @@
+/Users/alexandrosmichalaris/RiderProjects/Data Center/FileManagementService/bin/Debug/net8.0/FileManagementService.deps.json
+/Users/alexandrosmichalaris/RiderProjects/Data Center/FileManagementService/bin/Debug/net8.0/FileManagementService.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/FileManagementService/bin/Debug/net8.0/FileManagementService.pdb
+/Users/alexandrosmichalaris/RiderProjects/Data Center/FileManagementService/bin/Debug/net8.0/StorageService.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/FileManagementService/bin/Debug/net8.0/StorageService.pdb
+/Users/alexandrosmichalaris/RiderProjects/Data Center/FileManagementService/obj/Debug/net8.0/FileManagementService.csproj.AssemblyReference.cache
+/Users/alexandrosmichalaris/RiderProjects/Data Center/FileManagementService/obj/Debug/net8.0/FileManagementService.GeneratedMSBuildEditorConfig.editorconfig
+/Users/alexandrosmichalaris/RiderProjects/Data Center/FileManagementService/obj/Debug/net8.0/FileManagementService.AssemblyInfoInputs.cache
+/Users/alexandrosmichalaris/RiderProjects/Data Center/FileManagementService/obj/Debug/net8.0/FileManagementService.AssemblyInfo.cs
+/Users/alexandrosmichalaris/RiderProjects/Data Center/FileManagementService/obj/Debug/net8.0/FileManagementService.csproj.CoreCompileInputs.cache
+/Users/alexandrosmichalaris/RiderProjects/Data Center/FileManagementService/obj/Debug/net8.0/FileManagementService.sourcelink.json
+/Users/alexandrosmichalaris/RiderProjects/Data Center/FileManagementService/obj/Debug/net8.0/FileMana.7FD51A46.Up2Date
+/Users/alexandrosmichalaris/RiderProjects/Data Center/FileManagementService/obj/Debug/net8.0/FileManagementService.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/FileManagementService/obj/Debug/net8.0/refint/FileManagementService.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/FileManagementService/obj/Debug/net8.0/FileManagementService.pdb
+/Users/alexandrosmichalaris/RiderProjects/Data Center/FileManagementService/obj/Debug/net8.0/ref/FileManagementService.dll

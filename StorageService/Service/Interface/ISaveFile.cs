@@ -5,27 +5,17 @@ namespace StorageService.Service.Interface;
 
 public interface ISaveFile
 {
-    public IEnumerable<FileType> FileType { get; }
+    public IEnumerable<FileType> FileTypes { get; }
+    
+    public FolderType FolderType { get; }
     
     public Task<FileStorageResult<FileMetadata>> SaveFileAsync(IFormFile file, string basePath);
+    
+    public FileStorageResult<Stream> GetFileStream(string filePath);
 }
 
 
 // TODO: Decorator to check each accepted size.
-
-
-// public LocalStorageService(IConfiguration configuration)
-// {
-//     // Fetch storage path from configuration
-//     _storagePath = configuration.GetValue<string>("StoragePath") ?? "Storage";
-//         
-//     // Ensure the directory exists
-//     if (!Directory.Exists(_storagePath))
-//     {
-//         Directory.CreateDirectory(_storagePath);
-//     }
-// }
-
 
 // public async Task<IActionResult> UploadFile(IFormFile file)
 // {

@@ -49,3 +49,5 @@
 /Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/obj/Debug/net8.0/ref/Data Center.dll
 /Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/StorageService.dll
 /Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/StorageService.pdb
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/FileManagementService.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/FileManagementService.pdb

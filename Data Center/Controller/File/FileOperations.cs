@@ -6,8 +6,17 @@ namespace Data_Center.Controller;
 public class FileOperations : ControllerBase
 {
     //Upload
+    [HttpPost]
+    [Route("uploadfile")]
     public async Task<IActionResult> Upload(IFormFile file)
     {
+        if (file.Length == 0)
+        {
+            return BadRequest("No file uploaded.");
+        }
+        
+        
+        
         return Ok();
     }
 
@@ -15,7 +24,7 @@ public class FileOperations : ControllerBase
     
     //Download
     [HttpGet]
-    [Route("download/{id}")]
+    [Route("downloadfile/{id}")]
     public async Task<IActionResult> Download(int id)
     {
         return Ok();
@@ -29,11 +38,8 @@ public class FileOperations : ControllerBase
     }
 
     [HttpDelete]
-    
     public async Task<IActionResult> DeleteMultiple([FromBody] IEnumerable<int> ids)
     {
         return Ok();
     }
-    
-    
 }
