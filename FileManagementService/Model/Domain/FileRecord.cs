@@ -4,19 +4,50 @@ namespace StorageService.Model.Domain;
 
 public class FileRecord
 {
-    public int Id { get; set; }  // Primary key for the entity
+    public int Id { get; set; }
     
-    public string FileName { get; set; }  // Name of the file
+    /// <summary>
+    /// Name of the file
+    /// </summary>
+    public string FileName { get; set; }
     
-    public string FileType { get; set; }  // MIME type or extension (e.g., .jpg, .pdf)
+    /// <summary>
+    /// MIME type or extension (e.g., .jpg, .pdf)
+    /// </summary>
+    public string FileType { get; set; }
     
-    public long FileSize { get; set; }  // Size of the file in bytes
+    /// <summary>
+    /// Size of the file in bytes
+    /// </summary>
+    public long FileSize { get; set; }
     
-    public string FilePath { get; set; }  // Path to the file (e.g., file system path or URL)
+    /// <summary>
+    /// Path to the file (e.g., file system path or URL)
+    /// </summary>
+    public string FilePath { get; set; }
     
-    public DateTime UploadDate { get; set; }  // Date of file upload
+    /// <summary>
+    /// Date of file upload
+    /// </summary>
+    public DateTime UploadDate { get; set; }
     
-    public string Checksum { get; set; }  // Optional: Hash of the file for validation
+    /// <summary>
+    /// Last day that changes were made
+    /// </summary>
+    public DateTime UpdateDate { get; set; }
+    
+    /// <summary>
+    /// Optional: Hash of the file for validation
+    /// </summary>
+    public string Checksum { get; set; }
+    
+    // User Comments
+    public string? Comments { get; set; }
+    
+    /// <summary>
+    /// Status of file. (Pending, Completed, Failed)
+    /// </summary>
+    public FileStatus Status { get; set; }
 
     public FileRecordDto ToDto()
     {
@@ -28,7 +59,8 @@ public class FileRecord
             FileSize = this.FileSize,
             FilePath = this.FilePath,
             UploadDate = this.UploadDate,
-            Checksum = this.Checksum
+            Checksum = this.Checksum,
+            Status = this.Status
         };
     }
 }

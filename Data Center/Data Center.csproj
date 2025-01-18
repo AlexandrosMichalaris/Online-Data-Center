@@ -16,6 +16,7 @@
 
     <ItemGroup>
       <Folder Include="Configuration\Constants\" />
+      <Folder Include="Model\" />
       <Folder Include="Repository\" />
       <Folder Include="Service\Interfaces\" />
     </ItemGroup>

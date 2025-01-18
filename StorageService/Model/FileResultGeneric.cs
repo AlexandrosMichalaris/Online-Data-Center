@@ -1,4 +1,4 @@
-public class FileStorageResult<T> where T : class
+public class FileResultGeneric<T> where T : class
 {
     // Core Properties
     public bool IsSuccess { get; }
@@ -6,7 +6,7 @@ public class FileStorageResult<T> where T : class
     public T? Data { get; }
 
     // Private Constructor
-    private FileStorageResult(bool isSuccess, string? errorMessage, T? data)
+    private FileResultGeneric(bool isSuccess, string? errorMessage, T? data)
     {
         IsSuccess = isSuccess;
         ErrorMessage = errorMessage;
@@ -18,17 +18,17 @@ public class FileStorageResult<T> where T : class
     /// <summary>
     /// Creates a successful result.
     /// </summary>
-    public static FileStorageResult<T> Success(T data)
+    public static FileResultGeneric<T> Success(T data)
     {
-        return new FileStorageResult<T>(true, null, data);
+        return new FileResultGeneric<T>(true, null, data);
     }
 
     /// <summary>
     /// Creates a failure result.
     /// </summary>
-    public static FileStorageResult<T> Failure(string? errorMessage)
+    public static FileResultGeneric<T> Failure(string? errorMessage)
     {
-        return new FileStorageResult<T>(false, errorMessage, null);
+        return new FileResultGeneric<T>(false, errorMessage, null);
     }
 
     // ToString Override for Better Debugging

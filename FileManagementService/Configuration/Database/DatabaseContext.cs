@@ -6,7 +6,6 @@ namespace Data_Center.Configuration.Database;
 
 public class DatabaseContext : DbContext
 {
-    public DbSet<FileRecordDto> FileRecords { get; set; }
     
     public readonly IConfiguration _configuration;
 
@@ -15,10 +14,20 @@ public class DatabaseContext : DbContext
         _configuration = configuration;
     }
     
+    /// <summary>
+    /// This ensures the DbContext works even if DI fails to configure it properly.
+    /// </summary>
+    /// <param name="optionsBuilder"></param>
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql(_configuration.GetConnectionString("DataCenter"));
+        if (!optionsBuilder.IsConfigured) // Check if already configured
+        {
+            optionsBuilder.UseNpgsql(_configuration.GetConnectionString("DataCenter"));
+        }
     }
+    
+    public DbSet<FileRecordDto> FileRecords { get; set; }
+    
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -53,9 +62,9 @@ public class DatabaseContext : DbContext
             entity.Property(e => e.Checksum)
                 .HasColumnName("checksum");
             
+            entity.Property(e => e.Status)
+                .HasConversion<int>()
+                .IsRequired();
         });
     }
-    
-    
-    
 }

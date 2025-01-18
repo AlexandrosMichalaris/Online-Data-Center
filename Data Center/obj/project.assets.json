@@ -408,7 +408,10 @@
         },
         "runtime": {
           "bin/placeholder/FileManagementService.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       },
       "StorageService/1.0.0": {
         "type": "project",

@@ -1,5 +1,6 @@
 using Data_Center.Configuration.Constants;
 using Microsoft.AspNetCore.Http;
+using StorageService.Exceptions;
 using StorageService.Extensions;
 using StorageService.Service.Interface;
 
@@ -11,7 +12,7 @@ public class DocumentFileHandler : ISaveFile
 
     public FolderType FolderType => FolderType.Documents;
     
-    public async Task<FileStorageResult<FileMetadata>> SaveFileAsync(IFormFile file, string basePath)
+    public async Task<FileResultGeneric<FileMetadata>> SaveFileAsync(IFormFile file, string basePath)
     {
         try
         {
@@ -45,29 +46,29 @@ public class DocumentFileHandler : ISaveFile
                 storageFolder: folder
             );
 
-            return FileStorageResult<FileMetadata>.Success(metadata);
+            return FileResultGeneric<FileMetadata>.Success(metadata);
         }
         catch (Exception e)
         {
-            return FileStorageResult<FileMetadata>.Failure($"{typeof(DocumentFileHandler)} Failed to save file: {e.Message}");
+            throw new StorageException<FileMetadata>($"{typeof(DocumentFileHandler)} Failed to save file: {e.Message}");
         }
     }
 
-    public async Task<FileStorageResult<Stream>> GetFileStream(string filePath)
+    public async Task<FileResultGeneric<Stream>> GetFileStream(string filePath)
     {
         try
         {
             if (!File.Exists(filePath))
             {
-                return FileStorageResult<Stream>.Failure("File not found.");
+                return FileResultGeneric<Stream>.Failure("File not found.");
             }
 
             var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
-            return FileStorageResult<Stream>.Success(fileStream);
+            return FileResultGeneric<Stream>.Success(fileStream);
         }
         catch (Exception ex)
         {
-            return FileStorageResult<Stream>.Failure($"Failed to retrieve file: {ex.Message}");
+            throw new StorageException<Stream>($"Failed to retrieve file: {ex.Message}");
         }
     }
 }
