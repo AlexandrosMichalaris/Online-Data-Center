@@ -39,15 +39,17 @@ public class FileRecord
     /// <summary>
     /// Optional: Hash of the file for validation
     /// </summary>
-    public string Checksum { get; set; }
-    
-    // User Comments
-    public string? Comments { get; set; }
+    public string? Checksum { get; set; }
     
     /// <summary>
     /// Status of file. (Pending, Completed, Failed)
     /// </summary>
     public FileStatus Status { get; set; }
+    
+    /// <summary>
+    /// If file is deleted
+    /// </summary>
+    public bool IsDeleted { get; set; } = false;
 
     public FileRecordDto ToDto()
     {
@@ -60,7 +62,8 @@ public class FileRecord
             FilePath = this.FilePath,
             UploadDate = this.UploadDate,
             Checksum = this.Checksum,
-            Status = this.Status
+            Status = this.Status,
+            IsDeleted = this.IsDeleted
         };
     }
 }

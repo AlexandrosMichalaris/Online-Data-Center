@@ -47,6 +47,11 @@ public class FileRecordDto
     /// Status of file. (Pending, Completed, Failed)
     /// </summary>
     public FileStatus Status { get; set; }
+    
+    /// <summary>
+    /// If file is deleted
+    /// </summary>
+    public bool IsDeleted { get; set; } = false;
 
     public FileRecord ToDomain()
     {
@@ -59,7 +64,8 @@ public class FileRecordDto
             FilePath = this.FilePath,
             UploadDate = this.UploadDate,
             Checksum = this.Checksum,
-            Status = this.Status
+            Status = this.Status,
+            IsDeleted = this.IsDeleted
         };
     }
 }

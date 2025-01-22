@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using StorageService.Exceptions;
+using StorageService.Model.Domain;
 using StorageService.Repository.Interface;
 using StorageService.Service.Interface;
 
@@ -9,20 +10,51 @@ public class FileManagementService : IFileManagementService
 {
     private readonly IFileHandlerStrategy _fileHandlerStrategy;
     private readonly IFileRecordRepository _fileRecordRepository;
+    private readonly ICheckSumService _checkSumService;
     
     public FileManagementService(
         IFileHandlerStrategy fileHandlerStrategy,
-        IFileRecordRepository fileRecordRepository
+        IFileRecordRepository fileRecordRepository,
+        ICheckSumService checkSumService
         )
     {
         _fileHandlerStrategy = fileHandlerStrategy;
         _fileRecordRepository = fileRecordRepository;
+        _checkSumService = checkSumService;
     }
     
-    public Task<FileResultGeneric<FileMetadata>> UploadFileAsync(IFormFile file)
+    public async Task<FileResultGeneric<FileMetadata>> UploadFileAsync(IFormFile file)
     {
         try
         {
+            // Validate File type (second base) sos
+            
+            // Add a file record in database by extracting info from IFormFile with status Pending
+
+            var calculatedChecksum = await _checkSumService.ComputeChecksumAsync(file);
+            
+            if(await _fileRecordRepository.CheckDuplicateFile(file, calculatedChecksum))
+                return FileResultGeneric<FileMetadata>.Failure($"File {file.FileName} already exists.");
+            
+            var fileRecord = new FileRecord()
+            {
+                FileName = file.FileName,
+                FileType = Path.GetExtension(file.FileName),
+                FileSize = file.Length,
+                UploadDate = DateTime.Now,
+                UpdateDate = DateTime.Now,
+                Status = FileStatus.Pending,
+                Checksum = calculatedChecksum
+            }.ToDto();
+            
+            await _fileRecordRepository.AddAsync(fileRecord);
+            
+            
+
+            // Call storage service to save file at specific filepath
+
+            // Change status of file record in db to Complete.
+
 
         }
         catch (StorageException<FileMetadata> ex)
@@ -40,7 +72,7 @@ public class FileManagementService : IFileManagementService
     {
         try
         {
-
+            
         }
         catch (StorageException<FileMetadata> ex)
         {
@@ -61,7 +93,7 @@ public class FileManagementService : IFileManagementService
         }
         catch (StorageException<FileMetadata> ex)
         {
-            throw
+            throw;
         }
         catch (Exception e)
         {

@@ -1,4 +1,6 @@
 using Data_Center.Configuration.Database;
+using FileProcessing.Model;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using StorageService.Model.Domain;
 using StorageService.Repository.Interface;
@@ -9,15 +11,15 @@ namespace StorageService.Repository;
 /// File Record Repository
 /// Every operation done here, is considered to be done into the storage too.
 /// </summary>
-public class FileRecordRepository : Repository<FileRecord>, IFileRecordRepository
+public class FileRecordRepository : Repository<FileRecordDto>, IFileRecordRepository
 {
     private readonly DatabaseContext _dbContext;
-    private readonly DbSet<FileRecord> _dbSet;
+    private readonly DbSet<FileRecordDto> _dbSet;
     
     public FileRecordRepository(DatabaseContext dbContext) : base(dbContext)
     {
         _dbContext = dbContext;
-        _dbSet = _dbContext.Set<FileRecord>();
+        _dbSet = _dbContext.Set<FileRecordDto>();
     }
     
 
@@ -56,7 +58,7 @@ public class FileRecordRepository : Repository<FileRecord>, IFileRecordRepositor
         }
     }
 
-    //The path is going to include the file itself. That's why it's distinct.
+    //TODO: We might not need this
     public async Task UpdateStatusAsync(string filePath, FileStatus status)
     {
         try
@@ -73,5 +75,31 @@ public class FileRecordRepository : Repository<FileRecord>, IFileRecordRepositor
         {
             throw new ApplicationException($"Status of Record with filepath {filePath} could not be updated: {e.Message}");
         }
+    }
+
+    public override async Task DeleteAsync(int id)
+    {
+        try
+        {
+            var entity = await GetByIdAsync(id);
+            if (entity is not null)
+            {
+                entity.IsDeleted = true;
+                await _dbContext.SaveChangesAsync();
+            }
+        }
+        catch (Exception e)
+        {
+            throw new ApplicationException($"{typeof(Repository<FileRecordDto>)} Could not REMOVE record in Database: {e.Message}");
+        }
+    }
+
+    public async Task<bool> CheckDuplicateFile(IFormFile file, string computedChecksum)
+    {
+        // Check against database
+        return await _dbSet.AnyAsync(f => 
+            f.Checksum == computedChecksum &&
+            f.IsDeleted == false
+        );
     }
 }

@@ -27,12 +27,13 @@ public class Repository<T> : IRepository<T> where T : class
     /// </summary>
     /// <param name="entity">Entity must be DTO</param>
     /// <exception cref="ApplicationException"></exception>
-    public async Task AddAsync(T entity)
+    public async Task<T> AddAsync(T entity)
     {
         try
         {
-            _dbSet.Add(entity);
+            var dbEntity = _dbSet.Add(entity);
             await _dbContext.SaveChangesAsync();
+            return dbEntity.Entity;
         }
         catch (Exception e)
         {
@@ -77,7 +78,7 @@ public class Repository<T> : IRepository<T> where T : class
         }
     }
 
-    public async Task DeleteAsync(int id)
+    public virtual async Task DeleteAsync(int id)
     {
         try
         {
