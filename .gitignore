@@ -1,2 +1,3 @@
-"Data Center"/appsettings.Development.json
-"Data Center"/appsettings.json
+# Ignore the appsettings files
+appsettings.json
+appsettings.*.json
