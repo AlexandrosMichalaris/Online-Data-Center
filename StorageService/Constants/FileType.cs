@@ -36,7 +36,9 @@ public enum FileType
     
     // Compressed Files
     Zip,
-    Rar
+    Rar,
+    
+    Unknown
     
     // Code Files
     //

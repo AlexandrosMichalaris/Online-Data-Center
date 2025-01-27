@@ -1,3 +1,4 @@
+using Data_Center.Configuration;
 using Data_Center.Configuration.Database;
 using Data_Center.Configuration.DI;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,9 @@ builder.Services.ConfigureServices();
 
 builder.Services.AddDbContext<DatabaseContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DataCenter")));
+
+builder.Services.Configure<FileStorageOptions>(
+    builder.Configuration.GetSection("FileStorage"));
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -26,11 +26,7 @@ public class FileManagementService : IFileManagementService
     public async Task<FileResultGeneric<FileMetadata>> UploadFileAsync(IFormFile file)
     {
         try
-        {
-            // Validate File type (second base) sos
-            
-            // Add a file record in database by extracting info from IFormFile with status Pending
-
+        { //TODO: Validate File type (second base) sos
             var calculatedChecksum = await _checkSumService.ComputeChecksumAsync(file);
             
             if(await _fileRecordRepository.CheckDuplicateFile(file, calculatedChecksum))
@@ -39,23 +35,20 @@ public class FileManagementService : IFileManagementService
             var fileRecord = new FileRecord()
             {
                 FileName = file.FileName,
-                FileType = Path.GetExtension(file.FileName),
-                FileSize = file.Length,
-                UploadDate = DateTime.Now,
-                UpdateDate = DateTime.Now,
+                FileType = FileTypeMapper.GetFileTypeFromContentType(file.ContentType).ToString(),
                 Status = FileStatus.Pending,
                 Checksum = calculatedChecksum
             }.ToDto();
             
-            await _fileRecordRepository.AddAsync(fileRecord);
+            var record = await _fileRecordRepository.AddAsync(fileRecord);
             
+            var fileMetadata = await _fileHandlerStrategy
+                .GetFileHandler(FileTypeMapper.GetFileTypeFromContentType(file.ContentType))
+                .SaveFileAsync(file);
             
+            await _fileRecordRepository.UpdateStatusAsync(record.Id, FileStatus.Completed);
 
-            // Call storage service to save file at specific filepath
-
-            // Change status of file record in db to Complete.
-
-
+            return fileMetadata;
         }
         catch (StorageException<FileMetadata> ex)
         {
@@ -63,8 +56,7 @@ public class FileManagementService : IFileManagementService
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
-            throw;
+            throw new ApplicationException($"{typeof(FileManagementService)} Exception on Upload File Service {e.Message}, Stack Trace: {e.StackTrace}");
         }
     }
 
@@ -72,7 +64,7 @@ public class FileManagementService : IFileManagementService
     {
         try
         {
-            
+            throw new System.NotImplementedException();
         }
         catch (StorageException<FileMetadata> ex)
         {
@@ -80,8 +72,7 @@ public class FileManagementService : IFileManagementService
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
-            throw;
+            throw new ApplicationException($"{typeof(FileManagementService)} Exception on Download File Service {e.Message}, Stack Trace: {e.StackTrace}");
         }
     }
 
@@ -89,7 +80,8 @@ public class FileManagementService : IFileManagementService
     {
         try
         {
-
+            //Only for PDF Files
+            throw new System.NotImplementedException();
         }
         catch (StorageException<FileMetadata> ex)
         {
@@ -97,8 +89,7 @@ public class FileManagementService : IFileManagementService
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
-            throw;
+            throw new ApplicationException($"{typeof(FileManagementService)} Exception on Preview File Service {e.Message}, Stack Trace: {e.StackTrace}");
         }
     }
 }

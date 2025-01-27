@@ -54,7 +54,7 @@ public class FileRecordRepository : Repository<FileRecordDto>, IFileRecordReposi
         }
         catch (Exception e)
         {
-            throw new ApplicationException($"Status of Record with id {id} could not be updated: {e.Message}");
+            throw new ApplicationException($"{typeof(FileRecordRepository)} Status of Record with id {id} could not be updated: {e.Message}");
         }
     }
 
@@ -66,14 +66,14 @@ public class FileRecordRepository : Repository<FileRecordDto>, IFileRecordReposi
             var records = _dbSet.Where(record => record.FilePath == filePath).ToList();
 
             if (!records.Any() || records.Count > 1)
-                throw new ApplicationException($"Multiple records with the same filepath {filePath} exist.");
+                throw new ApplicationException($"{typeof(FileRecordRepository)} Multiple records with the same filepath {filePath} exist.");
             
             records.First().Status = status;
             await _dbContext.SaveChangesAsync();
         }
         catch (Exception e)
         {
-            throw new ApplicationException($"Status of Record with filepath {filePath} could not be updated: {e.Message}");
+            throw new ApplicationException($"{typeof(FileRecordRepository)} Status of Record with filepath {filePath} could not be updated: {e.Message}");
         }
     }
 

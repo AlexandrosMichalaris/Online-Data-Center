@@ -27,7 +27,6 @@ public class DatabaseContext : DbContext
     }
     
     public DbSet<FileRecordDto> FileRecords { get; set; }
-    
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -54,10 +53,13 @@ public class DatabaseContext : DbContext
             entity.Property(e => e.FilePath)
                 .HasColumnName("filepath");
             
-            entity.Property(e => e.UploadDate)
+            entity.Property(e => e.CreatedAt)
                 .IsRequired()
-                .HasColumnType("datetime2(3)") /////////
-                .HasColumnName("uploaddate");
+                .HasColumnName("created_at");
+            
+            entity.Property(e => e.UpdatedAt)
+                .IsRequired()
+                .HasColumnName("updated_at");
             
             entity.Property(e => e.Checksum)
                 .HasColumnName("checksum");

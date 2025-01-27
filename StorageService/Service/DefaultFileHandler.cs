@@ -1,5 +1,7 @@
+using Data_Center.Configuration;
 using Data_Center.Configuration.Constants;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
 using StorageService.Exceptions;
 using StorageService.Extensions;
 using StorageService.Service.Interface;
@@ -8,15 +10,22 @@ namespace StorageService;
 
 public class DefaultFileHandler : ISaveFile
 {
+    private readonly FileStorageOptions _options;
+
+    public DefaultFileHandler(IOptions<FileStorageOptions> options)
+    {
+        _options = options.Value;
+    }
+    
     public IEnumerable<FileType> FileTypes => new FileType().GetDefaultFileTypes();
 
     public FolderType FolderType => FolderType.Others;
 
-    public async Task<FileResultGeneric<FileMetadata>> SaveFileAsync(IFormFile file, string basePath)
+    public async Task<FileResultGeneric<FileMetadata>> SaveFileAsync(IFormFile file)
     {
         try
         {
-            var folder = Path.Combine(basePath, this.FolderType.ToString());
+            var folder = Path.Combine(_options.StoragePath, this.FolderType.ToString());
             if (!Directory.Exists(folder))
             {
                 Directory.CreateDirectory(folder);

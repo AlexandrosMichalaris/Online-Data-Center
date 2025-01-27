@@ -29,12 +29,12 @@ public class FileRecord
     /// <summary>
     /// Date of file upload
     /// </summary>
-    public DateTime UploadDate { get; set; }
+    public DateTimeOffset CreatedAt { get; set; }
     
     /// <summary>
-    /// Last day that changes were made
+    /// Updated timestamp
     /// </summary>
-    public DateTime UpdateDate { get; set; }
+    public DateTimeOffset UpdatedAt { get; set; }
     
     /// <summary>
     /// Optional: Hash of the file for validation
@@ -60,10 +60,11 @@ public class FileRecord
             FileType = this.FileType,
             FileSize = this.FileSize,
             FilePath = this.FilePath,
-            UploadDate = this.UploadDate,
+            UpdatedAt = this.UpdatedAt,
             Checksum = this.Checksum,
             Status = this.Status,
-            IsDeleted = this.IsDeleted
+            IsDeleted = this.IsDeleted,
+            CreatedAt = this.CreatedAt
         };
     }
 }
