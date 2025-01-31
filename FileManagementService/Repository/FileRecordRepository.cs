@@ -48,7 +48,7 @@ public class FileRecordRepository : Repository<FileRecordDto>, IFileRecordReposi
 
             if (record is not null)
             {
-                record.Status = status;
+                record.Status = (int)status;
                 await _dbContext.SaveChangesAsync();
             }
         }
@@ -58,24 +58,6 @@ public class FileRecordRepository : Repository<FileRecordDto>, IFileRecordReposi
         }
     }
 
-    //TODO: We might not need this
-    public async Task UpdateStatusAsync(string filePath, FileStatus status)
-    {
-        try
-        {
-            var records = _dbSet.Where(record => record.FilePath == filePath).ToList();
-
-            if (!records.Any() || records.Count > 1)
-                throw new ApplicationException($"{typeof(FileRecordRepository)} Multiple records with the same filepath {filePath} exist.");
-            
-            records.First().Status = status;
-            await _dbContext.SaveChangesAsync();
-        }
-        catch (Exception e)
-        {
-            throw new ApplicationException($"{typeof(FileRecordRepository)} Status of Record with filepath {filePath} could not be updated: {e.Message}");
-        }
-    }
 
     public override async Task DeleteAsync(int id)
     {

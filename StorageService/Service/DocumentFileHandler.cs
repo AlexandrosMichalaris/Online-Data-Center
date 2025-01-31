@@ -30,9 +30,8 @@ public class DocumentFileHandler : ISaveFile
             {
                 Directory.CreateDirectory(folder);
             }
-
-            var fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
-            var filePath = Path.Combine(folder, fileName);
+            
+            var filePath = Path.Combine(folder, file.FileName);
 
             // Stream the file to the target location
             using (var targetStream = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None, 4096, useAsync: true))
@@ -59,7 +58,7 @@ public class DocumentFileHandler : ISaveFile
         }
         catch (Exception e)
         {
-            throw new StorageException<FileMetadata>($"{typeof(DocumentFileHandler)} Failed to save file: {e.Message}");
+            throw new StorageException<FileMetadata>($"{typeof(DocumentFileHandler)} Failed to save file: {e.Message}, Stack Trace: {e.StackTrace}");
         }
     }
 

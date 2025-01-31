@@ -17,7 +17,8 @@ public static class FileTypeExtension
             FileType.Html,
 
             FileType.Zip,
-            FileType.Rar
+            FileType.Rar,
+            FileType.Unknown
         };
     }
 

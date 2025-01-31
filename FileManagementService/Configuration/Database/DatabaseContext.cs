@@ -32,9 +32,11 @@ public class DatabaseContext : DbContext
     {
         modelBuilder.Entity<FileRecordDto>(entity =>
         {
-            entity.ToTable("FileRecord");
+            entity.ToTable("filerecord");
+            
             entity.Property(e => e.Id)
-                .ValueGeneratedOnAdd();
+                .ValueGeneratedOnAdd()
+                .HasColumnName("id");
             
             entity.Property(e => e.FileName)
                 .IsRequired()
@@ -64,9 +66,14 @@ public class DatabaseContext : DbContext
             entity.Property(e => e.Checksum)
                 .HasColumnName("checksum");
             
+            entity.Property(e => e.IsDeleted)
+                .IsRequired()
+                .HasColumnName("isDeleted");
+            
             entity.Property(e => e.Status)
                 .HasConversion<int>()
-                .IsRequired();
+                .IsRequired()
+                .HasColumnName("status");
         });
     }
 }

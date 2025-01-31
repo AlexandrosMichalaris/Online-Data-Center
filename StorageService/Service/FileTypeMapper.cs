@@ -16,7 +16,6 @@ public class FileTypeMapper
 
         // Image Files
         { "image/jpeg", FileType.Jpg },  // Jpg and Jpeg can map to the same type if needed
-        { "image/jpeg", FileType.Jpeg },
         { "image/png", FileType.Png },
         { "image/gif", FileType.Gif },
 

@@ -15,7 +15,9 @@ public static class DiConfiguration
         services.AddScoped<IFileManagementService, FileManagementService>();
         services.AddScoped<IFileRecordRepository, FileRecordRepository>();
         services.AddScoped<ICheckSumService, CheckSumService>();
-
+        
+        services.AddScoped<IFileRecordRepository, FileRecordRepository>();
+        
         services.AddScoped<ISaveFile, DefaultFileHandler>();
         services.AddScoped<ISaveFile, DocumentFileHandler>();
         services.AddScoped<ISaveFile, ImageFileHandler>();

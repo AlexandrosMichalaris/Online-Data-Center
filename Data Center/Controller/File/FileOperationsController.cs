@@ -6,11 +6,11 @@ using StorageService.Service.Interface;
 namespace Data_Center.Controller;
 
 [Route("api/[controller]")]
-public class FileOperations : ControllerBase
+public class FileOperationsController : ControllerBase
 {
     private readonly IFileManagementService _fileManagementService;
 
-    public FileOperations(IFileManagementService fileManagementService)
+    public FileOperationsController(IFileManagementService fileManagementService)
     {
         _fileManagementService = fileManagementService;
     }
@@ -18,19 +18,19 @@ public class FileOperations : ControllerBase
     //Upload
     [HttpPost]
     [Route("uploadfile")]
-    public async Task<ActionResult<ApiResponse<FileMetadata>>> Upload(IFormFile file)
+    public async Task<ActionResult<ApiResponse<FileMetadata>>> Upload([FromForm]IFormFile file)
     {
         if (file.Length == 0)
             return BadRequest(new ApiResponse<FileMetadata>(null, false, "No file uploaded"));
         
         var result = await _fileManagementService.UploadFileAsync(file);
         
-        if(result.Data is null)
-            return StatusCode(500, new ApiResponse<FileMetadata>(null, false, "Error uploading file, Data result was null."));
-
         if (!result.IsSuccess)
-            return StatusCode(500, new ApiResponse<FileMetadata>(result.Data, false, "Error uploading file."));
+            return StatusCode(500, new ApiResponse<FileMetadata>(result.Data, false, result.ErrorMessage ?? "Error uploading file. Result failed."));
         
+        if(result.Data is null)
+            return StatusCode(500, new ApiResponse<FileMetadata>(null, false, result.ErrorMessage ?? "Error uploading file, Data result was null."));
+
         return new ApiResponse<FileMetadata>(result.Data, "File uploaded successfully.");
     }
 

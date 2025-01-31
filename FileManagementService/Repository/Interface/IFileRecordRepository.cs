@@ -10,7 +10,5 @@ public interface IFileRecordRepository : IRepository<FileRecordDto>
     
     public Task UpdateStatusAsync(int id, FileStatus status);
     
-    public Task UpdateStatusAsync(string filePath, FileStatus status);
-    
     public Task<bool> CheckDuplicateFile(IFormFile file, string computedChecksum);
 }

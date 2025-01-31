@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 namespace Data_Center.Controller;
 
 [Route("api/[controller]")]
-public class FileInfo : ControllerBase
+public class FileInfoController : ControllerBase
 {
     //TODO: File identification is going to change
     [HttpGet]

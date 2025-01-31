@@ -51,7 +51,7 @@ public class FileRecordDto
     /// <summary>
     /// Status of file. (Pending, Completed, Failed)
     /// </summary>
-    public FileStatus Status { get; set; }
+    public int Status { get; set; }
     
     /// <summary>
     /// If file is deleted
@@ -69,7 +69,7 @@ public class FileRecordDto
             FilePath = this.FilePath,
             UpdatedAt = this.UpdatedAt,
             Checksum = this.Checksum,
-            Status = this.Status,
+            Status = (FileStatus)this.Status,
             IsDeleted = this.IsDeleted,
             CreatedAt = this.CreatedAt
         };

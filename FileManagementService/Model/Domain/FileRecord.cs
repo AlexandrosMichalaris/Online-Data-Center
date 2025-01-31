@@ -62,7 +62,7 @@ public class FileRecord
             FilePath = this.FilePath,
             UpdatedAt = this.UpdatedAt,
             Checksum = this.Checksum,
-            Status = this.Status,
+            Status = (int)this.Status,
             IsDeleted = this.IsDeleted,
             CreatedAt = this.CreatedAt
         };

@@ -27,28 +27,52 @@ public class FileManagementService : IFileManagementService
     {
         try
         { //TODO: Validate File type (second base) sos
+            //Calculate unique file hash
             var calculatedChecksum = await _checkSumService.ComputeChecksumAsync(file);
             
             if(await _fileRecordRepository.CheckDuplicateFile(file, calculatedChecksum))
                 return FileResultGeneric<FileMetadata>.Failure($"File {file.FileName} already exists.");
             
+            //Build file record dto object
             var fileRecord = new FileRecord()
             {
                 FileName = file.FileName,
                 FileType = FileTypeMapper.GetFileTypeFromContentType(file.ContentType).ToString(),
                 Status = FileStatus.Pending,
-                Checksum = calculatedChecksum
+                Checksum = calculatedChecksum,
+                FileSize = file.Length
             }.ToDto();
             
             var record = await _fileRecordRepository.AddAsync(fileRecord);
-            
-            var fileMetadata = await _fileHandlerStrategy
-                .GetFileHandler(FileTypeMapper.GetFileTypeFromContentType(file.ContentType))
-                .SaveFileAsync(file);
-            
-            await _fileRecordRepository.UpdateStatusAsync(record.Id, FileStatus.Completed);
 
-            return fileMetadata;
+            FileResultGeneric<FileMetadata> fileStorageResult;
+            
+            // If an exception occurs on storage service, change status to failed.
+            try
+            {
+                fileStorageResult = await _fileHandlerStrategy
+                    .GetFileHandler(FileTypeMapper.GetFileTypeFromContentType(file.ContentType))
+                    .SaveFileAsync(file);
+            }
+            catch (Exception e)
+            {
+                await _fileRecordRepository.UpdateStatusAsync(record.Id, FileStatus.Failed);
+                throw;
+            }
+            
+            //Update file path and status of record
+            if (!fileStorageResult.IsSuccess)
+            {
+                await _fileRecordRepository.UpdateStatusAsync(record.Id, FileStatus.Failed);
+                return fileStorageResult;
+            }
+            
+            record.FilePath = fileStorageResult.Data.FilePath;
+            record.Status = (int)FileStatus.Completed;
+            
+            await _fileRecordRepository.UpdateAsync(record);
+
+            return fileStorageResult;
         }
         catch (StorageException<FileMetadata> ex)
         {
