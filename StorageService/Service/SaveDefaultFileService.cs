@@ -8,11 +8,11 @@ using StorageService.Service.Interface;
 
 namespace StorageService;
 
-public class DefaultFileHandler : ISaveFile
+public class SaveDefaultFile : ISaveFile
 {
     private readonly FileStorageOptions _options;
 
-    public DefaultFileHandler(IOptions<FileStorageOptions> options)
+    public SaveDefaultFile(IOptions<FileStorageOptions> options)
     {
         _options = options.Value;
     }
@@ -57,7 +57,7 @@ public class DefaultFileHandler : ISaveFile
         }
         catch (Exception e)
         {
-            throw new StorageException<FileMetadata>($"{typeof(DefaultFileHandler)} Failed to save file: {e.Message}, Stack Trace: {e.StackTrace}");
+            throw new StorageException<FileMetadata>($"{typeof(SaveDefaultFile)} Failed to save file: {e.Message}, Stack Trace: {e.StackTrace}");
         }
     }
 

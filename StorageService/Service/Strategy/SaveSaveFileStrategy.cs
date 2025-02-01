@@ -3,11 +3,11 @@ using StorageService.Service.Interface;
 
 namespace StorageService.Service.Strategy;
 
-public class FileHandlerStrategy : IFileHandlerStrategy
+public class SaveFileStrategy : IFileHandlerStrategy
 {
     private readonly IEnumerable<ISaveFile> _handlers;
 
-    public FileHandlerStrategy(IEnumerable<ISaveFile> handlers)
+    public SaveFileStrategy(IEnumerable<ISaveFile> handlers)
     {
         _handlers = handlers;
     }

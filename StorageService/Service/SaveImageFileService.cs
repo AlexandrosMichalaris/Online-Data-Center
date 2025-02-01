@@ -8,19 +8,19 @@ using StorageService.Service.Interface;
 
 namespace StorageService.Service;
 
-public class DocumentFileHandler : ISaveFile
+public class SaveImageFile : ISaveFile
 {
     private readonly FileStorageOptions _options;
 
-    public DocumentFileHandler(IOptions<FileStorageOptions> options)
+    public SaveImageFile(IOptions<FileStorageOptions> options)
     {
         _options = options.Value;
     }
     
-    public IEnumerable<FileType> FileTypes =>  new FileType().GetDocumentFileTypes();
+    public IEnumerable<FileType> FileTypes => new FileType().GetImageFileTypes();
 
-    public FolderType FolderType => FolderType.Documents;
-    
+    public FolderType FolderType => FolderType.Images;
+
     public async Task<FileResultGeneric<FileMetadata>> SaveFileAsync(IFormFile file)
     {
         try
@@ -30,14 +30,13 @@ public class DocumentFileHandler : ISaveFile
             {
                 Directory.CreateDirectory(folder);
             }
-            
+
             var filePath = Path.Combine(folder, file.FileName);
 
             // Stream the file to the target location
             using (var targetStream = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None, 4096, useAsync: true))
             using (var sourceStream = file.OpenReadStream())
             {
-                //Todo: Consider to change this into Promise.WhenAll()
                 await sourceStream.CopyToAsync(targetStream);
             }
             
@@ -58,7 +57,7 @@ public class DocumentFileHandler : ISaveFile
         }
         catch (Exception e)
         {
-            throw new StorageException<FileMetadata>($"{typeof(DocumentFileHandler)} Failed to save file: {e.Message}, Stack Trace: {e.StackTrace}");
+            throw new StorageException<FileMetadata>($"{typeof(SaveImageFile)} Failed to save file: {e.Message}, Stack Trace: {e.StackTrace}");
         }
     }
 
@@ -67,16 +66,17 @@ public class DocumentFileHandler : ISaveFile
         try
         {
             if (!File.Exists(filePath))
-            {
                 return FileResultGeneric<Stream>.Failure("File not found.");
-            }
+            
+            //TODO: Check chunks for each type
 
             var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+
             return FileResultGeneric<Stream>.Success(fileStream);
         }
         catch (Exception ex)
         {
-            throw new StorageException<Stream>($"Failed to retrieve file: {ex.Message}");
+            throw new StorageException<Stream>($"{typeof(SaveImageFile)} Failed to retrieve file: {ex.Message}");
         }
     }
 }
