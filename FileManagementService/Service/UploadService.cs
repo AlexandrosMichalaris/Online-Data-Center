@@ -6,19 +6,19 @@ using StorageService.Service.Interface;
 
 namespace StorageService.Service;
 
-public class FileManagementService : IFileManagementService
+public class UploadService : IUploadService
 {
-    private readonly IFileHandlerStrategy _fileHandlerStrategy;
+    private readonly ISaveFileStrategy _saveFileStrategy;
     private readonly IFileRecordRepository _fileRecordRepository;
     private readonly ICheckSumService _checkSumService;
     
-    public FileManagementService(
-        IFileHandlerStrategy fileHandlerStrategy,
+    public UploadService(
+        ISaveFileStrategy saveFileStrategy,
         IFileRecordRepository fileRecordRepository,
         ICheckSumService checkSumService
         )
     {
-        _fileHandlerStrategy = fileHandlerStrategy;
+        _saveFileStrategy = saveFileStrategy;
         _fileRecordRepository = fileRecordRepository;
         _checkSumService = checkSumService;
     }
@@ -44,29 +44,20 @@ public class FileManagementService : IFileManagementService
             }.ToDto();
             
             var record = await _fileRecordRepository.AddAsync(fileRecord);
-
-            FileResultGeneric<FileMetadata> fileStorageResult;
             
-            // If an exception occurs on storage service, change status to failed.
-            try
-            {
-                fileStorageResult = await _fileHandlerStrategy
-                    .GetFileHandler(FileTypeMapper.GetFileTypeFromContentType(file.ContentType))
-                    .SaveFileAsync(file);
-            }
-            catch (Exception e)
-            {
-                await _fileRecordRepository.UpdateStatusAsync(record.Id, FileStatus.Failed);
-                throw;
-            }
+            // Get storage strategy handler based on file type.
+            var saveFileStrategyHandler = _saveFileStrategy.GetFileHandler(FileTypeMapper.GetFileTypeFromContentType(file.ContentType));
             
-            //Update file path and status of record
-            if (!fileStorageResult.IsSuccess)
+            var fileStorageResult = await SaveFileWithHandlingAsync(saveFileStrategyHandler, file, record.Id);
+            
+            // If result is corrupted, update db and return result
+            if (!fileStorageResult.IsSuccess || fileStorageResult.Data is null)
             {
                 await _fileRecordRepository.UpdateStatusAsync(record.Id, FileStatus.Failed);
                 return fileStorageResult;
             }
             
+            //Update file path and status of record
             record.FilePath = fileStorageResult.Data.FilePath;
             record.Status = (int)FileStatus.Completed;
             
@@ -80,40 +71,28 @@ public class FileManagementService : IFileManagementService
         }
         catch (Exception e)
         {
-            throw new ApplicationException($"{typeof(FileManagementService)} Exception on Upload File Service {e.Message}, Stack Trace: {e.StackTrace}");
+            throw new ApplicationException($"{typeof(UploadService)} Exception on Upload File Service {e.Message}, Stack Trace: {e.StackTrace}");
         }
     }
-
-    public Task<FileResultGeneric<Stream>> DownloadFileAsync(string filePath)
+    
+    /// <summary>
+    /// Created separate function for this operation in order to encapsulate this
+    /// into a try catch that calls the db in case of exception
+    /// </summary>
+    /// <param name="saveFileHandler"></param>
+    /// <param name="file"></param>
+    /// <param name="recordId"></param>
+    /// <returns></returns>
+    private async Task<FileResultGeneric<FileMetadata>> SaveFileWithHandlingAsync(ISaveFile saveFileHandler, IFormFile file, int recordId)
     {
         try
         {
-            throw new System.NotImplementedException();
+            return await saveFileHandler.SaveFileAsync(file);
         }
-        catch (StorageException<FileMetadata> ex)
+        catch (Exception)
         {
+            await _fileRecordRepository.UpdateStatusAsync(recordId, FileStatus.Failed);
             throw;
-        }
-        catch (Exception e)
-        {
-            throw new ApplicationException($"{typeof(FileManagementService)} Exception on Download File Service {e.Message}, Stack Trace: {e.StackTrace}");
-        }
-    }
-
-    public Task<FileResultGeneric<Stream>> PreviewFileAsync(string filePath)
-    {
-        try
-        {
-            //Only for PDF Files
-            throw new System.NotImplementedException();
-        }
-        catch (StorageException<FileMetadata> ex)
-        {
-            throw;
-        }
-        catch (Exception e)
-        {
-            throw new ApplicationException($"{typeof(FileManagementService)} Exception on Preview File Service {e.Message}, Stack Trace: {e.StackTrace}");
         }
     }
 }

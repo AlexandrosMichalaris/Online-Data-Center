@@ -12,15 +12,16 @@ public static class DiConfiguration
 {
     public static void ConfigureServices(this IServiceCollection services)
     {
-        services.AddScoped<IFileManagementService, FileManagementService>();
+        services.AddScoped<IUploadService, UploadService>();
+        services.AddScoped<IDownloadService, DownloadService>();
         services.AddScoped<IFileRecordRepository, FileRecordRepository>();
         services.AddScoped<ICheckSumService, CheckSumService>();
         
         services.AddScoped<IFileRecordRepository, FileRecordRepository>();
         
-        services.AddScoped<ISaveFile, DefaultFileHandler>();
-        services.AddScoped<ISaveFile, DocumentFileHandler>();
-        services.AddScoped<ISaveFile, ImageFileHandler>();
-        services.AddScoped<IFileHandlerStrategy, FileHandlerStrategy>();
+        services.AddScoped<ISaveFile, SaveDefaultFileService>();
+        services.AddScoped<ISaveFile, SaveDocumentFileService>();
+        services.AddScoped<ISaveFile, SaveImageFileService>();
+        services.AddScoped<ISaveFileStrategy, SaveSaveFileStrategy>();
     }
 }

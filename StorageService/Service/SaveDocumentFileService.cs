@@ -8,11 +8,11 @@ using StorageService.Service.Interface;
 
 namespace StorageService.Service;
 
-public class SaveDocumentFile : ISaveFile
+public class SaveDocumentFileService : ISaveFile
 {
     private readonly FileStorageOptions _options;
 
-    public SaveDocumentFile(IOptions<FileStorageOptions> options)
+    public SaveDocumentFileService(IOptions<FileStorageOptions> options)
     {
         _options = options.Value;
     }
@@ -58,25 +58,7 @@ public class SaveDocumentFile : ISaveFile
         }
         catch (Exception e)
         {
-            throw new StorageException<FileMetadata>($"{typeof(SaveDocumentFile)} Failed to save file: {e.Message}, Stack Trace: {e.StackTrace}");
-        }
-    }
-
-    public async Task<FileResultGeneric<Stream>> GetFileStream(string filePath)
-    {
-        try
-        {
-            if (!File.Exists(filePath))
-            {
-                return FileResultGeneric<Stream>.Failure("File not found.");
-            }
-
-            var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
-            return FileResultGeneric<Stream>.Success(fileStream);
-        }
-        catch (Exception ex)
-        {
-            throw new StorageException<Stream>($"Failed to retrieve file: {ex.Message}");
+            throw new StorageException<FileMetadata>($"{typeof(SaveDocumentFileService)} Failed to save file: {e.Message}, Stack Trace: {e.StackTrace}");
         }
     }
 }

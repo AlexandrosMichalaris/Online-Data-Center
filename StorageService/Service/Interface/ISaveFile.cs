@@ -11,6 +11,4 @@ public interface ISaveFile
     public FolderType FolderType { get; }
     
     public Task<FileResultGeneric<FileMetadata>> SaveFileAsync(IFormFile file);
-    
-    public Task<FileResultGeneric<Stream>> GetFileStream(string filePath);
 }

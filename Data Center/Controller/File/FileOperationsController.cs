@@ -8,11 +8,11 @@ namespace Data_Center.Controller;
 [Route("api/[controller]")]
 public class FileOperationsController : ControllerBase
 {
-    private readonly IFileManagementService _fileManagementService;
+    private readonly IUploadService _uploadService;
 
-    public FileOperationsController(IFileManagementService fileManagementService)
+    public FileOperationsController(IUploadService uploadService)
     {
-        _fileManagementService = fileManagementService;
+        _uploadService = uploadService;
     }
     
     //Upload
@@ -23,7 +23,7 @@ public class FileOperationsController : ControllerBase
         if (file.Length == 0)
             return BadRequest(new ApiResponse<FileMetadata>(null, false, "No file uploaded"));
         
-        var result = await _fileManagementService.UploadFileAsync(file);
+        var result = await _uploadService.UploadFileAsync(file);
         
         if (!result.IsSuccess)
             return StatusCode(500, new ApiResponse<FileMetadata>(result.Data, false, result.ErrorMessage ?? "Error uploading file. Result failed."));
