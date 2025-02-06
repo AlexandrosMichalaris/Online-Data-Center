@@ -33,4 +33,11 @@ public class ApiResponse
         this.Success = success;
         this.Message = message;
     }
+    
+    public ApiResponse(string message, bool success, int eventId)
+    {
+        this.Success = success;
+        this.Message = message;
+        this.EventId = eventId;
+    }
 }

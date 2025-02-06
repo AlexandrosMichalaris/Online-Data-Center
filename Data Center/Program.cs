@@ -25,6 +25,8 @@ var app = builder.Build();
 
 app.UseHttpsRedirection();
 
+app.UseMiddleware<ExceptionMiddleware>(); // Register the exception middleware
+
 app.MapControllers();
 
 app.UseRouting();

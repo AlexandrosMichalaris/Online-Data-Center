@@ -31,7 +31,7 @@ public class UploadService : IUploadService
             var calculatedChecksum = await _checkSumService.ComputeChecksumAsync(file);
             
             if(await _fileRecordRepository.CheckDuplicateFile(file, calculatedChecksum))
-                return FileResultGeneric<FileMetadata>.Failure($"File {file.FileName} already exists.");
+                return FileResultGeneric<FileMetadata>.Failure($"File {file.FileName} already exists.", 400);
             
             //Build file record dto object
             var fileRecord = new FileRecord()

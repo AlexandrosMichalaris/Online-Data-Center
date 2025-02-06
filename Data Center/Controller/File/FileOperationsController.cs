@@ -1,3 +1,4 @@
+using System.Net;
 using ApiResponse;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -9,10 +10,12 @@ namespace Data_Center.Controller;
 public class FileOperationsController : ControllerBase
 {
     private readonly IUploadService _uploadService;
+    private readonly IDownloadService _downloadService;
 
-    public FileOperationsController(IUploadService uploadService)
+    public FileOperationsController(IUploadService uploadService, IDownloadService downloadService)
     {
         _uploadService = uploadService;
+        _downloadService = downloadService;
     }
     
     //Upload
@@ -26,10 +29,13 @@ public class FileOperationsController : ControllerBase
         var result = await _uploadService.UploadFileAsync(file);
         
         if (!result.IsSuccess)
-            return StatusCode(500, new ApiResponse<FileMetadata>(result.Data, false, result.ErrorMessage ?? "Error uploading file. Result failed."));
+            return StatusCode(result.StatusCode ?? (int)HttpStatusCode.InternalServerError, new ApiResponse<FileMetadata>(result.Data, false, result.ErrorMessage ?? 
+                (result.StatusCode == (int)HttpStatusCode.BadRequest ? "Error uploading file. The data you provided is not valid." : 
+                    "Error uploading file. Result failed.")));
         
         if(result.Data is null)
-            return StatusCode(500, new ApiResponse<FileMetadata>(null, false, result.ErrorMessage ?? "Error uploading file, Data result was null."));
+            return StatusCode(
+                (int)HttpStatusCode.InternalServerError, new ApiResponse<FileMetadata>(null, false, result.ErrorMessage ?? "Error uploading file, Data result was null."));
 
         return new ApiResponse<FileMetadata>(result.Data, "File uploaded successfully.");
     }
