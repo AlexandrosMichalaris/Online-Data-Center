@@ -9,13 +9,19 @@ namespace Data_Center.Controller;
 [Route("api/[controller]")]
 public class FileOperationsController : ControllerBase
 {
+    private readonly ILogger<FileOperationsController> _logger;
     private readonly IUploadService _uploadService;
     private readonly IDownloadService _downloadService;
 
-    public FileOperationsController(IUploadService uploadService, IDownloadService downloadService)
+    public FileOperationsController(
+        IUploadService uploadService,
+        IDownloadService downloadService,
+        ILogger<FileOperationsController> logger
+    )
     {
         _uploadService = uploadService;
         _downloadService = downloadService;
+        _logger = logger;
     }
     
     //Upload
@@ -23,6 +29,8 @@ public class FileOperationsController : ControllerBase
     [Route("uploadfile")]
     public async Task<ActionResult<ApiResponse<FileMetadata>>> Upload([FromForm]IFormFile file)
     {
+        _logger.LogInformation("Upload file START");
+        
         if (file.Length == 0)
             return BadRequest(new ApiResponse<FileMetadata>(null, false, "No file uploaded"));
         

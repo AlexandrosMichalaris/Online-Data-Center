@@ -2,6 +2,7 @@ using Data_Center.Configuration;
 using Data_Center.Configuration.Database;
 using Data_Center.Configuration.DI;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +22,15 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddControllers();
 
+// Replace default logging with Serilog and Read Serilog config from appsettings.json
+builder.Host.UseSerilog((context, config) =>
+    config.ReadFrom.Configuration(context.Configuration));
+
 var app = builder.Build();
+
+// Inject Serilog via Dependency Injection
+var logger = app.Services.GetRequiredService<ILogger<Program>>();
+logger.LogInformation("Application started with Serilog!");
 
 app.UseHttpsRedirection();
 

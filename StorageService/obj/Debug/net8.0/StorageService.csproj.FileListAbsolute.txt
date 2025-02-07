@@ -10,3 +10,4 @@
 /Users/alexandrosmichalaris/RiderProjects/Data Center/StorageService/obj/Debug/net8.0/refint/StorageService.dll
 /Users/alexandrosmichalaris/RiderProjects/Data Center/StorageService/obj/Debug/net8.0/StorageService.pdb
 /Users/alexandrosmichalaris/RiderProjects/Data Center/StorageService/obj/Debug/net8.0/ref/StorageService.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/StorageService/obj/Debug/net8.0/StorageService.csproj.AssemblyReference.cache
