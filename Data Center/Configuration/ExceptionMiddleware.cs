@@ -7,10 +7,14 @@ public class ExceptionMiddleware
 {
     private readonly RequestDelegate _next;
 
+    #region Ctor
+    
     public ExceptionMiddleware(RequestDelegate next)
     {
         _next = next;
     }
+    
+    #endregion
 
     public async Task InvokeAsync(HttpContext context)
     {

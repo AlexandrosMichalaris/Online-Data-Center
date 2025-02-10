@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using StorageService.Exceptions;
 using StorageService.Model.Domain;
 using StorageService.Repository.Interface;
@@ -8,23 +9,30 @@ namespace StorageService.Service;
 
 public class UploadService : IUploadService
 {
+    private readonly ILogger<UploadService> _logger;
     private readonly ISaveFileStrategy _saveFileStrategy;
     private readonly IFileRecordRepository _fileRecordRepository;
     private readonly ICheckSumService _checkSumService;
     
+    #region Ctor
     public UploadService(
         ISaveFileStrategy saveFileStrategy,
         IFileRecordRepository fileRecordRepository,
-        ICheckSumService checkSumService
-        )
+        ICheckSumService checkSumService,
+        ILogger<UploadService> logger
+    )
     {
+        _logger = logger;
         _saveFileStrategy = saveFileStrategy;
         _fileRecordRepository = fileRecordRepository;
         _checkSumService = checkSumService;
     }
-    
+    #endregion
+
     public async Task<FileResultGeneric<FileMetadata>> UploadFileAsync(IFormFile file)
     {
+        _logger.LogInformation($"{typeof(UploadService)} - UploadFileAsync - Uploading file {file.FileName}");
+        
         try
         { //TODO: Validate File type (second base) sos
             //Calculate unique file hash
@@ -53,6 +61,7 @@ public class UploadService : IUploadService
             // If result is corrupted, update db and return result
             if (!fileStorageResult.IsSuccess || fileStorageResult.Data is null)
             {
+                _logger.LogError($"{typeof(UploadService)} - UploadFileAsync - File {file.FileName} could not be saved. FileStorageResult: {fileStorageResult}");
                 await _fileRecordRepository.UpdateStatusAsync(record.Id, FileStatus.Failed);
                 return fileStorageResult;
             }
@@ -67,11 +76,13 @@ public class UploadService : IUploadService
         }
         catch (StorageException<FileMetadata> ex)
         {
+            _logger.LogError(ex, $"{typeof(UploadService)} - UploadFileAsync - Storage Exception on upload. {ex.Message}");
             throw;
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            throw new ApplicationException($"{typeof(UploadService)} Exception on Upload File Service {e.Message}, Stack Trace: {e.StackTrace}");
+            _logger.LogError(ex, $"{typeof(UploadService)} - UploadFileAsync failed. {ex.Message}");
+            throw new ApplicationException($"{typeof(UploadService)} Exception on Upload File Service {ex.Message}, Stack Trace: {ex.StackTrace}");
         }
     }
     

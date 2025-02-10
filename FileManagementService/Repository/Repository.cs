@@ -1,6 +1,7 @@
 using Data_Center.Configuration.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using StorageService.Exceptions;
 using StorageService.Model.Domain;
 using StorageService.Repository.Interface;
@@ -9,11 +10,13 @@ namespace StorageService.Repository;
 
 public class Repository<T> : IRepository<T> where T : class
 {
+    private readonly ILogger<Repository<T>> _logger;
     private readonly DatabaseContext _dbContext;
     private readonly DbSet<T> _dbSet;
     
-    public Repository(DatabaseContext dbContext)
+    public Repository(DatabaseContext dbContext, ILogger<Repository<T>> logger)
     {
+        _logger = logger;
         _dbContext = dbContext;
         _dbSet = _dbContext.Set<T>();
     }
@@ -35,9 +38,10 @@ public class Repository<T> : IRepository<T> where T : class
             await _dbContext.SaveChangesAsync();
             return dbEntity.Entity;
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            throw new ApplicationException($"{typeof(Repository<T>)} Could not ADD record in Databse: {e.Message}");
+            _logger.LogError(ex, $"{typeof(Repository<T>)} - AddAsync - Could not ADD record in Database: {ex.Message}");
+            throw new ApplicationException($"{typeof(Repository<T>)} Could not ADD record in Database: {ex.Message}");
         }
     }
 
@@ -54,9 +58,10 @@ public class Repository<T> : IRepository<T> where T : class
             _dbSet.AddRange(entities);
             await _dbContext.SaveChangesAsync();
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            throw new ApplicationException($"{typeof(Repository<T>)} Could not ADD multiple records in Database: {e.Message}");
+            _logger.LogError(ex, $"{typeof(Repository<T>)} - AddMultipleAsync - Could not ADD multiple records in Database: {ex.Message}");
+            throw new ApplicationException($"{typeof(Repository<T>)} Could not ADD multiple records in Database: {ex.Message}");
         }
     }
 
@@ -72,9 +77,10 @@ public class Repository<T> : IRepository<T> where T : class
             _dbSet.Update(entity);
             await _dbContext.SaveChangesAsync();
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            throw new ApplicationException($"{typeof(Repository<T>)} Could not UPDATE record in Database: {e.Message}");
+            _logger.LogError(ex, $"{typeof(Repository<T>)} - UpdateAsync - Could not UPDATE record in Database: {ex.Message}");
+            throw new ApplicationException($"{typeof(Repository<T>)} Could not UPDATE record in Database: {ex.Message}");
         }
     }
 
@@ -89,9 +95,10 @@ public class Repository<T> : IRepository<T> where T : class
                 await _dbContext.SaveChangesAsync();
             }
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            throw new ApplicationException($"{typeof(Repository<T>)} Could not REMOVE record in Database: {e.Message}");
+            _logger.LogError(ex, $"{typeof(Repository<T>)} - DeleteAsync - Could not REMOVE record in Database: {ex.Message}");
+            throw new ApplicationException($"{typeof(Repository<T>)} Could not REMOVE record in Database: {ex.Message}");
         }
     }
 }

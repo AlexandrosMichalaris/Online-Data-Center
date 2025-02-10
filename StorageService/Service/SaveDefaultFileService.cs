@@ -1,6 +1,7 @@
 using Data_Center.Configuration;
 using Data_Center.Configuration.Constants;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using StorageService.Exceptions;
 using StorageService.Extensions;
@@ -10,12 +11,18 @@ namespace StorageService;
 
 public class SaveDefaultFileService : ISaveFile
 {
+    private readonly ILogger<SaveDefaultFileService> _logger;
     private readonly FileStorageOptions _options;
 
-    public SaveDefaultFileService(IOptions<FileStorageOptions> options)
+    #region Ctor
+
+    public SaveDefaultFileService(IOptions<FileStorageOptions> options, ILogger<SaveDefaultFileService> logger)
     {
+        _logger = logger;
         _options = options.Value;
     }
+
+    #endregion
     
     public IEnumerable<FileType> FileTypes => new FileType().GetDefaultFileTypes();
 
@@ -23,6 +30,8 @@ public class SaveDefaultFileService : ISaveFile
 
     public async Task<FileResultGeneric<FileMetadata>> SaveFileAsync(IFormFile file)
     {
+        _logger.LogInformation($"{typeof(SaveDefaultFileService)} - SaveFileAsync. Saving general file {file.FileName}");
+        
         try
         {
             var folder = Path.Combine(_options.StoragePath, this.FolderType.ToString());
@@ -55,9 +64,10 @@ public class SaveDefaultFileService : ISaveFile
 
             return FileResultGeneric<FileMetadata>.Success(metadata);
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            throw new StorageException<FileMetadata>($"{typeof(SaveDefaultFileService)} Failed to save file: {e.Message}, Stack Trace: {e.StackTrace}");
+            _logger.LogError(ex, $"{typeof(SaveDefaultFileService)} - SaveFileAsync failed. {ex.Message}");
+            throw new StorageException<FileMetadata>($"{typeof(SaveDefaultFileService)} Failed to save file: {ex.Message}, Stack Trace: {ex.StackTrace}");
         }
     }
 }

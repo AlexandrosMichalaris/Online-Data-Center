@@ -13,6 +13,7 @@ public class FileOperationsController : ControllerBase
     private readonly IUploadService _uploadService;
     private readonly IDownloadService _downloadService;
 
+    #region Ctor
     public FileOperationsController(
         IUploadService uploadService,
         IDownloadService downloadService,
@@ -23,6 +24,7 @@ public class FileOperationsController : ControllerBase
         _downloadService = downloadService;
         _logger = logger;
     }
+    #endregion
     
     //Upload
     [HttpPost]

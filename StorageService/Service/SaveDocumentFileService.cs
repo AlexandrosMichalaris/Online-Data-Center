@@ -1,6 +1,7 @@
 using Data_Center.Configuration;
 using Data_Center.Configuration.Constants;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using StorageService.Exceptions;
 using StorageService.Extensions;
@@ -10,12 +11,18 @@ namespace StorageService.Service;
 
 public class SaveDocumentFileService : ISaveFile
 {
+    private readonly ILogger<SaveDocumentFileService> _logger;
     private readonly FileStorageOptions _options;
 
-    public SaveDocumentFileService(IOptions<FileStorageOptions> options)
+    #region Ctor
+
+    public SaveDocumentFileService(IOptions<FileStorageOptions> options,  ILogger<SaveDocumentFileService> logger)
     {
         _options = options.Value;
+        _logger = logger;
     }
+
+    #endregion
     
     public IEnumerable<FileType> FileTypes =>  new FileType().GetDocumentFileTypes();
 
@@ -23,6 +30,8 @@ public class SaveDocumentFileService : ISaveFile
     
     public async Task<FileResultGeneric<FileMetadata>> SaveFileAsync(IFormFile file)
     {
+        _logger.LogInformation($"{typeof(SaveDocumentFileService)} - SaveFileAsync. Saving document file {file.FileName}");
+        
         try
         {
             var folder = Path.Combine(_options.StoragePath, this.FolderType.ToString());
@@ -56,9 +65,10 @@ public class SaveDocumentFileService : ISaveFile
 
             return FileResultGeneric<FileMetadata>.Success(metadata);
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            throw new StorageException<FileMetadata>($"{typeof(SaveDocumentFileService)} Failed to save file: {e.Message}, Stack Trace: {e.StackTrace}");
+            _logger.LogError(ex, $"{typeof(SaveDocumentFileService)} - SaveFileAsync failed. {ex.Message}");
+            throw new StorageException<FileMetadata>($"{typeof(SaveDocumentFileService)} Failed to save file: {ex.Message}, Stack Trace: {ex.StackTrace}");
         }
     }
 }

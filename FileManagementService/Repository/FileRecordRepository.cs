@@ -2,6 +2,7 @@ using Data_Center.Configuration.Database;
 using FileProcessing.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using StorageService.Model.Domain;
 using StorageService.Repository.Interface;
 
@@ -15,11 +16,13 @@ public class FileRecordRepository : Repository<FileRecordDto>, IFileRecordReposi
 {
     private readonly DatabaseContext _dbContext;
     private readonly DbSet<FileRecordDto> _dbSet;
+    private readonly ILogger<FileRecordRepository> _logger;
     
-    public FileRecordRepository(DatabaseContext dbContext) : base(dbContext)
+    public FileRecordRepository(DatabaseContext dbContext, ILogger<FileRecordRepository> logger) : base(dbContext, logger)
     {
         _dbContext = dbContext;
         _dbSet = _dbContext.Set<FileRecordDto>();
+        _logger = logger;
     }
     
 
@@ -34,9 +37,10 @@ public class FileRecordRepository : Repository<FileRecordDto>, IFileRecordReposi
             
             return await Task.FromResult(record.FilePath);
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            throw new ApplicationException($"{typeof(FileRecordRepository)} Could not GET FILE PATH of record in Database: {e.Message}");
+            _logger.LogError(ex, $"{typeof(FileRecordRepository)} - GetFilePathAsync - Could not GET FILE PATH of record in Database: {ex.Message}");
+            throw new ApplicationException($"{typeof(FileRecordRepository)} Could not GET FILE PATH of record in Database: {ex.Message}");
         }
     }
 
@@ -52,9 +56,10 @@ public class FileRecordRepository : Repository<FileRecordDto>, IFileRecordReposi
                 await _dbContext.SaveChangesAsync();
             }
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            throw new ApplicationException($"{typeof(FileRecordRepository)} Status of Record with id {id} could not be updated: {e.Message}");
+            _logger.LogError(ex, $"{typeof(FileRecordRepository)} - UpdateStatusAsync - Status of Record with id {id} could not be updated: {ex.Message}");
+            throw new ApplicationException($"{typeof(FileRecordRepository)} Status of Record with id {id} could not be updated: {ex.Message}");
         }
     }
 
@@ -70,9 +75,10 @@ public class FileRecordRepository : Repository<FileRecordDto>, IFileRecordReposi
                 await _dbContext.SaveChangesAsync();
             }
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            throw new ApplicationException($"{typeof(Repository<FileRecordDto>)} Could not REMOVE record in Database: {e.Message}");
+            _logger.LogError(ex, $"{typeof(FileRecordRepository)} - DeleteAsync - Could not REMOVE record in Database: {ex.Message}");
+            throw new ApplicationException($"{typeof(FileRecordRepository)} Could not REMOVE record in Database: {ex.Message}");
         }
     }
 
