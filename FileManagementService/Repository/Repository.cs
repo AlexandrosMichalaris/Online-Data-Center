@@ -40,8 +40,8 @@ public class Repository<T> : IRepository<T> where T : class
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"{typeof(Repository<T>)} - AddAsync - Could not ADD record in Database: {ex.Message}");
-            throw new ApplicationException($"{typeof(Repository<T>)} Could not ADD record in Database: {ex.Message}");
+            _logger.LogError(ex, $"{nameof(Repository<T>)} - AddAsync - Could not ADD record in Database: {ex.Message}");
+            throw new ApplicationException($"{nameof(Repository<T>)} Could not ADD record in Database: {ex.Message}");
         }
     }
 
@@ -60,8 +60,8 @@ public class Repository<T> : IRepository<T> where T : class
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"{typeof(Repository<T>)} - AddMultipleAsync - Could not ADD multiple records in Database: {ex.Message}");
-            throw new ApplicationException($"{typeof(Repository<T>)} Could not ADD multiple records in Database: {ex.Message}");
+            _logger.LogError(ex, $"{nameof(Repository<T>)} - AddMultipleAsync - Could not ADD multiple records in Database: {ex.Message}");
+            throw new ApplicationException($"{nameof(Repository<T>)} Could not ADD multiple records in Database: {ex.Message}");
         }
     }
 
@@ -79,8 +79,8 @@ public class Repository<T> : IRepository<T> where T : class
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"{typeof(Repository<T>)} - UpdateAsync - Could not UPDATE record in Database: {ex.Message}");
-            throw new ApplicationException($"{typeof(Repository<T>)} Could not UPDATE record in Database: {ex.Message}");
+            _logger.LogError(ex, $"{nameof(Repository<T>)} - UpdateAsync - Could not UPDATE record in Database: {ex.Message}");
+            throw new ApplicationException($"{nameof(Repository<T>)} Could not UPDATE record in Database: {ex.Message}");
         }
     }
 
@@ -97,8 +97,8 @@ public class Repository<T> : IRepository<T> where T : class
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"{typeof(Repository<T>)} - DeleteAsync - Could not REMOVE record in Database: {ex.Message}");
-            throw new ApplicationException($"{typeof(Repository<T>)} Could not REMOVE record in Database: {ex.Message}");
+            _logger.LogError(ex, $"{nameof(Repository<T>)} - DeleteAsync - Could not REMOVE record in Database: {ex.Message}");
+            throw new ApplicationException($"{nameof(Repository<T>)} Could not REMOVE record in Database: {ex.Message}");
         }
     }
 }

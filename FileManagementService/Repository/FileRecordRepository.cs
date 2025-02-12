@@ -31,16 +31,19 @@ public class FileRecordRepository : Repository<FileRecordDto>, IFileRecordReposi
         try
         {
             var record = await _dbSet.FindAsync(id);
-
+            
             if (record is null)
-                throw new ApplicationException($"Record with id {id} not found");
+            {
+                _logger.LogError($"{nameof(FileRecordRepository)} - GetFilePathAsync - Record with id {id} not found");
+                throw new ApplicationException($"{nameof(FileRecordRepository)} - GetFilePathAsync - Record with id {id} not found");
+            }
             
             return await Task.FromResult(record.FilePath);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"{typeof(FileRecordRepository)} - GetFilePathAsync - Could not GET FILE PATH of record in Database: {ex.Message}");
-            throw new ApplicationException($"{typeof(FileRecordRepository)} Could not GET FILE PATH of record in Database: {ex.Message}");
+            _logger.LogError(ex, $"{nameof(FileRecordRepository)} - GetFilePathAsync - Could not GET FILE PATH of record in Database: {ex.Message}");
+            throw new ApplicationException($"{nameof(FileRecordRepository)} Could not GET FILE PATH of record in Database: {ex.Message}");
         }
     }
 
@@ -58,8 +61,8 @@ public class FileRecordRepository : Repository<FileRecordDto>, IFileRecordReposi
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"{typeof(FileRecordRepository)} - UpdateStatusAsync - Status of Record with id {id} could not be updated: {ex.Message}");
-            throw new ApplicationException($"{typeof(FileRecordRepository)} Status of Record with id {id} could not be updated: {ex.Message}");
+            _logger.LogError(ex, $"{nameof(FileRecordRepository)} - UpdateStatusAsync - Status of Record with id {id} could not be updated: {ex.Message}");
+            throw new ApplicationException($"{nameof(FileRecordRepository)} Status of Record with id {id} could not be updated: {ex.Message}");
         }
     }
 
@@ -77,8 +80,8 @@ public class FileRecordRepository : Repository<FileRecordDto>, IFileRecordReposi
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"{typeof(FileRecordRepository)} - DeleteAsync - Could not REMOVE record in Database: {ex.Message}");
-            throw new ApplicationException($"{typeof(FileRecordRepository)} Could not REMOVE record in Database: {ex.Message}");
+            _logger.LogError(ex, $"{nameof(FileRecordRepository)} - DeleteAsync - Could not REMOVE record in Database: {ex.Message}");
+            throw new ApplicationException($"{nameof(FileRecordRepository)} Could not REMOVE record in Database: {ex.Message}");
         }
     }
 
@@ -86,8 +89,8 @@ public class FileRecordRepository : Repository<FileRecordDto>, IFileRecordReposi
     {
         // Check against database
         return await _dbSet.AnyAsync(f => 
-            f.Checksum == computedChecksum &&
-            f.IsDeleted == false
+            f.Checksum == computedChecksum 
+            //&& f.IsDeleted == false
         );
     }
 }

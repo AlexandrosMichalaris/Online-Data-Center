@@ -57,7 +57,17 @@ public class FileOperationsController : ControllerBase
     [Route("downloadfile/{id}")]
     public async Task<IActionResult> Download(int id)
     {
-        return Ok();
+        _logger.LogInformation($"{typeof(FileOperationsController)} - Download file START.");
+        
+        var result = await _downloadService.DownloadFileAsync(id);
+        
+        if (result.Data is null || !result.IsSuccess)
+        {
+            _logger.LogError($"{nameof(FileOperationsController)} - Download file FAILED.");
+            return NotFound(result.ErrorMessage);
+        }
+
+        return File(result.Data.Stream, result.Data.FileContentType, result.Data.FileName);
     }
     
     //Download multiple (in .zip)

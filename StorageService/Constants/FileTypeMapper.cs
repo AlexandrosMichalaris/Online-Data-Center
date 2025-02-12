@@ -46,4 +46,10 @@ public class FileTypeMapper
             ? fileType
             : FileType.Unknown;
     }
+
+    public static string GetContentTypeFromFileType(FileType fileType)
+    {
+        // Get the first one that matches. Values do not necessarily have to be unique, so we have to do a lookup. 
+        return MimeTypeMap.FirstOrDefault(x => x.Value == fileType).Key;
+    }
 }

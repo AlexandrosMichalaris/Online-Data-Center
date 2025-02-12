@@ -31,7 +31,7 @@ public class UploadService : IUploadService
 
     public async Task<FileResultGeneric<FileMetadata>> UploadFileAsync(IFormFile file)
     {
-        _logger.LogInformation($"{typeof(UploadService)} - UploadFileAsync - Uploading file {file.FileName}");
+        _logger.LogInformation($"{nameof(UploadService)} - UploadFileAsync - Uploading file {file.FileName}");
         
         try
         { //TODO: Validate File type (second base) sos
@@ -61,7 +61,7 @@ public class UploadService : IUploadService
             // If result is corrupted, update db and return result
             if (!fileStorageResult.IsSuccess || fileStorageResult.Data is null)
             {
-                _logger.LogError($"{typeof(UploadService)} - UploadFileAsync - File {file.FileName} could not be saved. FileStorageResult: {fileStorageResult}");
+                _logger.LogError($"{nameof(UploadService)} - UploadFileAsync - File {file.FileName} could not be saved. FileStorageResult: {fileStorageResult}");
                 await _fileRecordRepository.UpdateStatusAsync(record.Id, FileStatus.Failed);
                 return fileStorageResult;
             }
@@ -76,13 +76,13 @@ public class UploadService : IUploadService
         }
         catch (StorageException<FileMetadata> ex)
         {
-            _logger.LogError(ex, $"{typeof(UploadService)} - UploadFileAsync - Storage Exception on upload. {ex.Message}");
+            _logger.LogError(ex, $"{nameof(UploadService)} - UploadFileAsync - Storage Exception on upload. {ex.Message}");
             throw;
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"{typeof(UploadService)} - UploadFileAsync failed. {ex.Message}");
-            throw new ApplicationException($"{typeof(UploadService)} Exception on Upload File Service {ex.Message}, Stack Trace: {ex.StackTrace}");
+            _logger.LogError(ex, $"{nameof(UploadService)} - UploadFileAsync failed. {ex.Message}");
+            throw new ApplicationException($"{nameof(UploadService)} Exception on Upload File Service {ex.Message}, Stack Trace: {ex.StackTrace}");
         }
     }
     

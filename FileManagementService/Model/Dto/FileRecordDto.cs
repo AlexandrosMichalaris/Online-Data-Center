@@ -1,10 +1,11 @@
 using System.ComponentModel.DataAnnotations;
+using FileProcessing.Model.Interface;
 using Microsoft.EntityFrameworkCore;
 using StorageService.Model.Domain;
 
 namespace FileProcessing.Model;
 
-public class FileRecordDto
+public class FileRecordDto : IDeletable
 {
     /// <summary>
     /// Primary key for the entity

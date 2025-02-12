@@ -30,7 +30,7 @@ public class SaveDefaultFileService : ISaveFile
 
     public async Task<FileResultGeneric<FileMetadata>> SaveFileAsync(IFormFile file)
     {
-        _logger.LogInformation($"{typeof(SaveDefaultFileService)} - SaveFileAsync. Saving general file {file.FileName}");
+        _logger.LogInformation($"{nameof(SaveDefaultFileService)} - SaveFileAsync. Saving general file {file.FileName}");
         
         try
         {
@@ -66,8 +66,8 @@ public class SaveDefaultFileService : ISaveFile
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"{typeof(SaveDefaultFileService)} - SaveFileAsync failed. {ex.Message}");
-            throw new StorageException<FileMetadata>($"{typeof(SaveDefaultFileService)} Failed to save file: {ex.Message}, Stack Trace: {ex.StackTrace}");
+            _logger.LogError(ex, $"{nameof(SaveDefaultFileService)} - SaveFileAsync failed. {ex.Message}");
+            throw new StorageException<FileMetadata>($"{nameof(SaveDefaultFileService)} Failed to save file: {ex.Message}, Stack Trace: {ex.StackTrace}");
         }
     }
 }

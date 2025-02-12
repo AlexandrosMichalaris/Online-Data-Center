@@ -16,6 +16,7 @@ public static class DiConfiguration
         services.AddScoped<IDownloadService, DownloadService>();
         services.AddScoped<IFileRecordRepository, FileRecordRepository>();
         services.AddScoped<ICheckSumService, CheckSumService>();
+        services.AddScoped<IGetFileStreamService, GetFileStreamService>();
         
         services.AddScoped<IFileRecordRepository, FileRecordRepository>();
         

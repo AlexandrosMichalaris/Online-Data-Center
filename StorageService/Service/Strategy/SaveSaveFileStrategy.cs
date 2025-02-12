@@ -17,7 +17,7 @@ public class SaveSaveFileStrategy : ISaveFileStrategy
         var strategy = _handlers.SingleOrDefault(x => x.FileTypes.Contains(fileType));
         
         if(strategy is null)
-            throw new ApplicationException("Invalid strategy type");
+            throw new ApplicationException($"{nameof(SaveSaveFileStrategy)} - Invalid strategy type");
         
         return strategy;
     }
