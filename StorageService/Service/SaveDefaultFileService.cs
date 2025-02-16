@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 using StorageService.Exceptions;
 using StorageService.Extensions;
 using StorageService.Service.Interface;
+using StorageService.StorageConstants;
 
 namespace StorageService;
 
@@ -13,13 +14,18 @@ public class SaveDefaultFileService : ISaveFile
 {
     private readonly ILogger<SaveDefaultFileService> _logger;
     private readonly FileStorageOptions _options;
+    private readonly IProgressNotifier _progressNotifier;
 
     #region Ctor
 
-    public SaveDefaultFileService(IOptions<FileStorageOptions> options, ILogger<SaveDefaultFileService> logger)
+    public SaveDefaultFileService(
+        IOptions<FileStorageOptions> options, 
+        ILogger<SaveDefaultFileService> logger,
+        IProgressNotifier progressNotifier)
     {
         _logger = logger;
         _options = options.Value;
+        _progressNotifier = progressNotifier;
     }
 
     #endregion
@@ -31,6 +37,7 @@ public class SaveDefaultFileService : ISaveFile
     public async Task<FileResultGeneric<FileMetadata>> SaveFileAsync(IFormFile file, string connectionId)
     {
         _logger.LogInformation($"{nameof(SaveDefaultFileService)} - SaveFileAsync. Saving general file {file.FileName}");
+        long totalRead = 0; //Total read of file to be uploaded used in the progress report
         
         try
         {
@@ -43,13 +50,24 @@ public class SaveDefaultFileService : ISaveFile
             var filePath = Path.Combine(folder, file.FileName);
 
             // Stream the file to the target location
-            using (var targetStream = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None, 4096, useAsync: true))
+            using (var targetStream = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None, Constants.DefaultFileBufferSize, useAsync: true))
             using (var sourceStream = file.OpenReadStream())
             {
-                await sourceStream.CopyToAsync(targetStream);
+                // Buffer size of chunk
+                byte[] buffer = new byte[Constants.DefaultFileBufferSize];
+                int bytesRead;
+
+                // while you haven't read the entire file.
+                while ((bytesRead = await sourceStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                {
+                    await targetStream.WriteAsync(buffer, 0, bytesRead);
+                    totalRead += bytesRead; // Increase the total read of file
+
+                    var progressPercentage = (int)((totalRead * 100) / file.Length);
+
+                    await _progressNotifier.ReportProgressAsync(connectionId, progressPercentage);
+                }
             }
-            
-            //Todo: Check size accordingly
             
             var mimeType = file.ContentType;
 

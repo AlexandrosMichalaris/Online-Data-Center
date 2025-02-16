@@ -66,7 +66,7 @@ public class FileOperationsController : ControllerBase
         
         var result = await _downloadService.DownloadFileAsync(id);
         
-        if (result.Data is null || !result.IsSuccess) ///
+        if (result.Data is null || !result.IsSuccess)
         {
             _logger.LogError($"{nameof(FileOperationsController)} - Download file FAILED.");
             return NotFound(result.ErrorMessage);
