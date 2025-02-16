@@ -28,7 +28,7 @@ public class SaveDefaultFileService : ISaveFile
 
     public FolderType FolderType => FolderType.Others;
 
-    public async Task<FileResultGeneric<FileMetadata>> SaveFileAsync(IFormFile file)
+    public async Task<FileResultGeneric<FileMetadata>> SaveFileAsync(IFormFile file, string connectionId)
     {
         _logger.LogInformation($"{nameof(SaveDefaultFileService)} - SaveFileAsync. Saving general file {file.FileName}");
         

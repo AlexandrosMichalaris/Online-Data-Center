@@ -63,7 +63,7 @@ public class DownloadService : IDownloadService
         }
     }
     
-    public async Task<FileResultGeneric<StreamData>> DownloadFileAsync(string filePath)
+    public async Task<FileResultGeneric<StreamData>> DownloadMultipleFilesAsync(IEnumerable<int> ids)
     {
         try
         {

@@ -28,7 +28,7 @@ public class SaveDocumentFileService : ISaveFile
 
     public FolderType FolderType => FolderType.Documents;
     
-    public async Task<FileResultGeneric<FileMetadata>> SaveFileAsync(IFormFile file)
+    public async Task<FileResultGeneric<FileMetadata>> SaveFileAsync(IFormFile file, string connectionId)
     {
         _logger.LogInformation($"{nameof(SaveDocumentFileService)} - SaveFileAsync. Saving document file {file.FileName}");
         

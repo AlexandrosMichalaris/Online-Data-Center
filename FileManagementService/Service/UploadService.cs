@@ -29,7 +29,7 @@ public class UploadService : IUploadService
     }
     #endregion
 
-    public async Task<FileResultGeneric<FileMetadata>> UploadFileAsync(IFormFile file)
+    public async Task<FileResultGeneric<FileMetadata>> UploadFileAsync(IFormFile file, string connectionId)
     {
         _logger.LogInformation($"{nameof(UploadService)} - UploadFileAsync - Uploading file {file.FileName}");
         
@@ -56,7 +56,7 @@ public class UploadService : IUploadService
             // Get storage strategy handler based on file type.
             var saveFileStrategyHandler = _saveFileStrategy.GetFileHandler(FileTypeMapper.GetFileTypeFromContentType(file.ContentType));
             
-            var fileStorageResult = await SaveFileWithHandlingAsync(saveFileStrategyHandler, file, record.Id);
+            var fileStorageResult = await SaveFileWithHandlingAsync(saveFileStrategyHandler, file, record.Id, connectionId);
             
             // If result is corrupted, update db and return result
             if (!fileStorageResult.IsSuccess || fileStorageResult.Data is null)
@@ -94,11 +94,11 @@ public class UploadService : IUploadService
     /// <param name="file"></param>
     /// <param name="recordId"></param>
     /// <returns></returns>
-    private async Task<FileResultGeneric<FileMetadata>> SaveFileWithHandlingAsync(ISaveFile saveFileHandler, IFormFile file, int recordId)
+    private async Task<FileResultGeneric<FileMetadata>> SaveFileWithHandlingAsync(ISaveFile saveFileHandler, IFormFile file, int recordId, string connectionId)
     {
         try
         {
-            return await saveFileHandler.SaveFileAsync(file);
+            return await saveFileHandler.SaveFileAsync(file, connectionId);
         }
         catch (Exception)
         {

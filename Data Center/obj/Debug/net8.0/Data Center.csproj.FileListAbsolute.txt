@@ -69,3 +69,6 @@
 /Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/System.Text.Encodings.Web.dll
 /Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/System.Text.Json.dll
 /Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/runtimes/browser/lib/net8.0/System.Text.Encodings.Web.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/Microsoft.Extensions.ObjectPool.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/Newtonsoft.Json.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/System.Net.WebSockets.WebSocketProtocol.dll

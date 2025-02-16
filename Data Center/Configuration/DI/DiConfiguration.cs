@@ -1,3 +1,4 @@
+using Data_Center.Notifications;
 using Microsoft.EntityFrameworkCore;
 using StorageService;
 using StorageService.Repository;
@@ -17,6 +18,7 @@ public static class DiConfiguration
         services.AddScoped<IFileRecordRepository, FileRecordRepository>();
         services.AddScoped<ICheckSumService, CheckSumService>();
         services.AddScoped<IGetFileStreamService, GetFileStreamService>();
+        services.AddScoped<IProgressNotifier, ProgressNotifier>();
         
         services.AddScoped<IFileRecordRepository, FileRecordRepository>();
         

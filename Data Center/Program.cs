@@ -21,6 +21,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddControllers();
+builder.Services.AddSignalR();
 
 // Replace default logging with Serilog and Read Serilog config from appsettings.json
 builder.Host.UseSerilog((context, config) =>
@@ -37,6 +38,7 @@ app.UseHttpsRedirection();
 app.UseMiddleware<ExceptionMiddleware>(); // Register the exception middleware
 
 app.MapControllers();
+app.MapHub<UploadProgressHub>("/uploadProgressHub");
 
 app.UseRouting();
 

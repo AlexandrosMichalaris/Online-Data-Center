@@ -26,17 +26,22 @@ public class FileOperationsController : ControllerBase
     }
     #endregion
     
-    //Upload
+    /// <summary>
+    /// Upload file controller
+    /// </summary>
+    /// <param name="file"></param>
+    /// <param name="connectionId">Connection id for signalR to show the percentage.</param>
+    /// <returns></returns>
     [HttpPost]
     [Route("uploadfile")]
-    public async Task<ActionResult<ApiResponse<FileMetadata>>> Upload([FromForm]IFormFile file)
+    public async Task<ActionResult<ApiResponse<FileMetadata>>> Upload([FromForm]IFormFile file, [FromQuery] string connectionId)
     {
         _logger.LogInformation("Upload file START");
         
         if (file.Length == 0)
             return BadRequest(new ApiResponse<FileMetadata>(null, false, "No file uploaded"));
         
-        var result = await _uploadService.UploadFileAsync(file);
+        var result = await _uploadService.UploadFileAsync(file, connectionId);
         
         if (!result.IsSuccess)
             return StatusCode(result.StatusCode ?? (int)HttpStatusCode.InternalServerError, new ApiResponse<FileMetadata>(result.Data, false, result.ErrorMessage ?? 
@@ -61,7 +66,7 @@ public class FileOperationsController : ControllerBase
         
         var result = await _downloadService.DownloadFileAsync(id);
         
-        if (result.Data is null || !result.IsSuccess)
+        if (result.Data is null || !result.IsSuccess) ///
         {
             _logger.LogError($"{nameof(FileOperationsController)} - Download file FAILED.");
             return NotFound(result.ErrorMessage);
