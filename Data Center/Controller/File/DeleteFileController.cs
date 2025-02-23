@@ -33,7 +33,14 @@ public class DeleteFileController : ControllerBase
         if (result.Data is null || !result.IsSuccess)
         {
             _logger.LogError($"{nameof(DeleteFileController)} - Delete file FAILED.");
-            return StatusCode((int)HttpStatusCode.InternalServerError, $"Error On Deletion. Result failed with data null.");
+            return StatusCode(
+                (int)HttpStatusCode.InternalServerError, 
+                new ApiResponse<FileMetadata>(
+                    null, 
+                    false, 
+                    $"Error On Deletion. Result failed with data null."
+                )
+            );
         }
         
         return new ApiResponse<FileMetadata>(result.Data, "File Deleted successfully. File recover can happen the next 30 days");

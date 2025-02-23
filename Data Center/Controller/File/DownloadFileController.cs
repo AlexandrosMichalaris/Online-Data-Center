@@ -1,3 +1,4 @@
+using System.Net;
 using ApiResponse;
 using Microsoft.AspNetCore.Mvc;
 using StorageService.Service.Interface;
@@ -36,7 +37,14 @@ public class DownloadFileController : ControllerBase
         if (result.Data is null || !result.IsSuccess)
         {
             _logger.LogError($"{nameof(DownloadFileController)} - Download file FAILED.");
-            return NotFound(result.ErrorMessage);
+            return StatusCode(
+                (int)HttpStatusCode.NotFound, 
+                new ApiResponse<FileMetadata>(
+                    null, 
+                    false, 
+                    result.ErrorMessage ?? "Download file FAILED."
+                )
+            );
         }
 
         return File(result.Data.Stream, result.Data.FileContentType, result.Data.FileName);
