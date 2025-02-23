@@ -15,7 +15,7 @@ public static class FileTypeExtension
             FileType.Xml,
             FileType.Markdown,
             FileType.Html,
-
+            FileType.Mp3,
             FileType.Zip,
             FileType.Rar,
             FileType.Unknown

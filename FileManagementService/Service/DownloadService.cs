@@ -34,14 +34,14 @@ public class DownloadService : IDownloadService
             if (fileRecord is null)
             {
                 _logger.LogError($"{nameof(DownloadService)} - DownloadFileAsync failed. File Record {id} was not found.");
-                throw new FileNotFoundException($"{nameof(DownloadService)} - DownloadFileAsync failed. File Record {id} was not found.");
+                return FileResultGeneric<StreamData>.Failure($"{nameof(DownloadService)} - DownloadFileAsync failed. File Record {id} was not found.");
             }
             
             var stream = await _getFileStreamService.GetFileStreamAsync(fileRecord.FilePath);
             if (stream.Data is null || !stream.IsSuccess)
             {
                 _logger.LogError($"{nameof(DownloadService)} - DownloadFileAsync failed. Stream Data failed.");
-                throw new FileNotFoundException($"{nameof(DownloadService)} - DownloadFileAsync failed. File Record {id} was not found.");
+                return FileResultGeneric<StreamData>.Failure($"{nameof(DownloadService)} - DownloadFileAsync failed. Stream Data failed.");
             }
             
             return FileResultGeneric<StreamData>.Success(new StreamData()
@@ -58,8 +58,8 @@ public class DownloadService : IDownloadService
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"{nameof(DownloadService)} - DownloadFileAsync failed. {ex.Message}");
-            throw new ApplicationException($"{nameof(DownloadService)} Exception on Download File Service {ex.Message}, Stack Trace: {ex.StackTrace}");
+            _logger.LogError(ex, $"{nameof(DownloadService)} - DownloadFileAsync failed. {ex.Message}, Stack Trace: {ex.StackTrace}");
+            throw new ApplicationException($"{nameof(DownloadService)} Exception on Download File Service {ex.Message}");
         }
     }
     

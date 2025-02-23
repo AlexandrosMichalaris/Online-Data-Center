@@ -2,6 +2,9 @@ using Data_Center.Configuration;
 using Data_Center.Configuration.Database;
 using Data_Center.Configuration.DI;
 using Microsoft.EntityFrameworkCore;
+using Hangfire;
+using Hangfire.MemoryStorage;
+using Hangfire.PostgreSql;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +26,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 builder.Services.AddSignalR();
 
+builder.Services.AddHangfire(config => config.UseMemoryStorage());
+builder.Services.AddHangfireServer();
+
+builder.Services.AddHangfire(config =>
+    config.UsePostgreSqlStorage(builder.Configuration.GetConnectionString("DataCenter")));
+
 // Replace default logging with Serilog and Read Serilog config from appsettings.json
 builder.Host.UseSerilog((context, config) =>
     config.ReadFrom.Configuration(context.Configuration));
@@ -41,5 +50,8 @@ app.MapControllers();
 app.MapHub<UploadProgressHub>("/uploadProgressHub");
 
 app.UseRouting();
+
+// Add Hangfire Dashboard to monitor jobs
+app.UseHangfireDashboard();
 
 app.Run();

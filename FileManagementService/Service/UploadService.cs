@@ -51,10 +51,10 @@ public class UploadService : IUploadService
                 FileSize = file.Length
             }.ToDto();
             
-            var record = await _fileRecordRepository.AddAsync(fileRecord);
-            
             // Get storage strategy handler based on file type.
             var saveFileStrategyHandler = _saveFileStrategy.GetFileHandler(FileTypeMapper.GetFileTypeFromContentType(file.ContentType));
+            
+            var record = await _fileRecordRepository.AddAsync(fileRecord);
             
             var fileStorageResult = await SaveFileWithHandlingAsync(saveFileStrategyHandler, file, record.Id, connectionId);
             
@@ -81,8 +81,8 @@ public class UploadService : IUploadService
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"{nameof(UploadService)} - UploadFileAsync failed. {ex.Message}");
-            throw new ApplicationException($"{nameof(UploadService)} Exception on Upload File Service {ex.Message}, Stack Trace: {ex.StackTrace}");
+            _logger.LogError(ex, $"{nameof(UploadService)} - UploadFileAsync failed. {ex.Message}, Stack Trace: {ex.StackTrace}");
+            throw new ApplicationException($"{nameof(UploadService)} Exception on Upload File Service {ex.Message}");
         }
     }
     

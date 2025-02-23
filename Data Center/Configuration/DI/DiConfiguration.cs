@@ -19,6 +19,8 @@ public static class DiConfiguration
         services.AddScoped<ICheckSumService, CheckSumService>();
         services.AddScoped<IGetFileStreamService, GetFileStreamService>();
         services.AddScoped<IProgressNotifier, ProgressNotifier>();
+        services.AddScoped<IDeleteFileService, DeleteFileService>();
+        services.AddScoped<IDeleteService, DeleteService>();
         
         services.AddScoped<IFileRecordRepository, FileRecordRepository>();
         

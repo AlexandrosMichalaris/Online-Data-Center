@@ -1,27 +1,23 @@
 using System.Net;
 using ApiResponse;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using StorageService.Service.Interface;
 
 namespace Data_Center.Controller;
 
-[Route("api/[controller]")]
-public class FileOperationsController : ControllerBase
+[Route("api/file_operations")]
+public class UploadFileController : ControllerBase
 {
-    private readonly ILogger<FileOperationsController> _logger;
+    private readonly ILogger<DownloadFileController> _logger;
     private readonly IUploadService _uploadService;
-    private readonly IDownloadService _downloadService;
-
+    
     #region Ctor
-    public FileOperationsController(
+    public UploadFileController(
         IUploadService uploadService,
-        IDownloadService downloadService,
-        ILogger<FileOperationsController> logger
+        ILogger<DownloadFileController> logger
     )
     {
         _uploadService = uploadService;
-        _downloadService = downloadService;
         _logger = logger;
     }
     #endregion
@@ -33,8 +29,8 @@ public class FileOperationsController : ControllerBase
     /// <param name="connectionId">Connection id for signalR to show the percentage.</param>
     /// <returns></returns>
     [HttpPost]
-    [Route("uploadfile")]
-    public async Task<ActionResult<ApiResponse<FileMetadata>>> Upload([FromForm]IFormFile file, [FromQuery] string connectionId)
+    [Route("[controller]")]
+    public async Task<ActionResult<ApiResponse<FileMetadata>>> Upload([FromForm]IFormFile file, [FromQuery] string connectionId = "")
     {
         _logger.LogInformation("Upload file START");
         
@@ -53,38 +49,5 @@ public class FileOperationsController : ControllerBase
                 (int)HttpStatusCode.InternalServerError, new ApiResponse<FileMetadata>(null, false, result.ErrorMessage ?? "Error uploading file, Data result was null."));
 
         return new ApiResponse<FileMetadata>(result.Data, "File uploaded successfully.");
-    }
-
-    //Maybe upload multiple
-    
-    //Download
-    [HttpGet]
-    [Route("downloadfile/{id}")]
-    public async Task<IActionResult> Download(int id)
-    {
-        _logger.LogInformation($"{typeof(FileOperationsController)} - Download file START.");
-        
-        var result = await _downloadService.DownloadFileAsync(id);
-        
-        if (result.Data is null || !result.IsSuccess)
-        {
-            _logger.LogError($"{nameof(FileOperationsController)} - Download file FAILED.");
-            return NotFound(result.ErrorMessage);
-        }
-
-        return File(result.Data.Stream, result.Data.FileContentType, result.Data.FileName);
-    }
-    
-    //Download multiple (in .zip)
-    [HttpPost]
-    public async Task<IActionResult> DownloadMultiple([FromBody] IEnumerable<int> ids)
-    {
-        return Ok();
-    }
-
-    [HttpDelete]
-    public async Task<IActionResult> DeleteMultiple([FromBody] IEnumerable<int> ids)
-    {
-        return Ok();
     }
 }
