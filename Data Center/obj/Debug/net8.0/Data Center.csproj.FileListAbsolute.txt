@@ -25,9 +25,7 @@
 /Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerGen.dll
 /Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerUI.dll
 /Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/System.Diagnostics.DiagnosticSource.dll
-/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/FileManagementService.dll
 /Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/StorageService.dll
-/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/FileManagementService.pdb
 /Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/StorageService.pdb
 /Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/obj/Debug/net8.0/Data Center.csproj.AssemblyReference.cache
 /Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/obj/Debug/net8.0/Data Center.GeneratedMSBuildEditorConfig.editorconfig
@@ -92,3 +90,6 @@
 /Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/tr-TR/Hangfire.Core.resources.dll
 /Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/zh-TW/Hangfire.Core.resources.dll
 /Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/zh/Hangfire.Core.resources.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/AutoMapper.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/DataCenter.FileManagementService.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/DataCenter.FileManagementService.pdb

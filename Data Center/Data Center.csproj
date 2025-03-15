@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="AutoMapper" Version="14.0.0" />
         <PackageReference Include="Hangfire.AspNetCore" Version="1.8.18" />
         <PackageReference Include="Hangfire.Core" Version="1.8.18" />
         <PackageReference Include="Hangfire.MemoryStorage" Version="1.8.1.1" />
@@ -23,7 +24,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\FileManagementService\FileManagementService.csproj" />
+      <ProjectReference Include="..\DataCenter.FileManagementService\DataCenter.FileManagementService.csproj" />
       <ProjectReference Include="..\StorageService\StorageService.csproj" />
     </ItemGroup>
 

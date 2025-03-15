@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "4SAjOSm7BZ4=",
+  "dgSpecHash": "Tx14VLbUKVU=",
   "success": true,
   "projectFilePath": "/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/Data Center.csproj",
   "expectedPackageFiles": [
+    "/Users/alexandrosmichalaris/.nuget/packages/automapper/14.0.0/automapper.14.0.0.nupkg.sha512",
     "/Users/alexandrosmichalaris/.nuget/packages/dapper/2.0.123/dapper.2.0.123.nupkg.sha512",
     "/Users/alexandrosmichalaris/.nuget/packages/hangfire.aspnetcore/1.8.18/hangfire.aspnetcore.1.8.18.nupkg.sha512",
     "/Users/alexandrosmichalaris/.nuget/packages/hangfire.core/1.8.18/hangfire.core.1.8.18.nupkg.sha512",

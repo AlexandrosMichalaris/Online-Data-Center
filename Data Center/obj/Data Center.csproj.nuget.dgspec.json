@@ -26,8 +26,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/Users/alexandrosmichalaris/RiderProjects/Data Center/FileManagementService/FileManagementService.csproj": {
-                "projectPath": "/Users/alexandrosmichalaris/RiderProjects/Data Center/FileManagementService/FileManagementService.csproj"
+              "/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.FileManagementService/DataCenter.FileManagementService.csproj": {
+                "projectPath": "/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.FileManagementService/DataCenter.FileManagementService.csproj"
               },
               "/Users/alexandrosmichalaris/RiderProjects/Data Center/StorageService/StorageService.csproj": {
                 "projectPath": "/Users/alexandrosmichalaris/RiderProjects/Data Center/StorageService/StorageService.csproj"
@@ -50,6 +50,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[14.0.0, )"
+            },
             "Hangfire.AspNetCore": {
               "target": "Package",
               "version": "[1.8.18, )"
@@ -122,14 +126,14 @@
         }
       }
     },
-    "/Users/alexandrosmichalaris/RiderProjects/Data Center/FileManagementService/FileManagementService.csproj": {
+    "/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.FileManagementService/DataCenter.FileManagementService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/alexandrosmichalaris/RiderProjects/Data Center/FileManagementService/FileManagementService.csproj",
-        "projectName": "FileManagementService",
-        "projectPath": "/Users/alexandrosmichalaris/RiderProjects/Data Center/FileManagementService/FileManagementService.csproj",
+        "projectUniqueName": "/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.FileManagementService/DataCenter.FileManagementService.csproj",
+        "projectName": "DataCenter.FileManagementService",
+        "projectPath": "/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.FileManagementService/DataCenter.FileManagementService.csproj",
         "packagesPath": "/Users/alexandrosmichalaris/.nuget/packages/",
-        "outputPath": "/Users/alexandrosmichalaris/RiderProjects/Data Center/FileManagementService/obj/",
+        "outputPath": "/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.FileManagementService/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/alexandrosmichalaris/.nuget/NuGet/NuGet.Config"
@@ -165,6 +169,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[14.0.0, )"
+            },
             "Hangfire.AspNetCore": {
               "target": "Package",
               "version": "[1.8.18, )"
@@ -264,6 +272,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[14.0.0, )"
+            },
             "Hangfire.AspNetCore": {
               "target": "Package",
               "version": "[1.8.18, )"

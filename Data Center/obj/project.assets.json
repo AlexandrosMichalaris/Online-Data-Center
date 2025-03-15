@@ -2,6 +2,22 @@
   "version": 3,
   "targets": {
     "net8.0": {
+      "AutoMapper/14.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Options": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/AutoMapper.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/AutoMapper.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Dapper/2.0.123": {
         "type": "package",
         "compile": {
@@ -1324,10 +1340,11 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "FileManagementService/1.0.0": {
+      "DataCenter.FileManagementService/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "AutoMapper": "14.0.0",
           "Hangfire.AspNetCore": "1.8.18",
           "Hangfire.Core": "1.8.18",
           "Hangfire.MemoryStorage": "1.8.1.1",
@@ -1340,10 +1357,10 @@
           "StorageService": "1.0.0"
         },
         "compile": {
-          "bin/placeholder/FileManagementService.dll": {}
+          "bin/placeholder/DataCenter.FileManagementService.dll": {}
         },
         "runtime": {
-          "bin/placeholder/FileManagementService.dll": {}
+          "bin/placeholder/DataCenter.FileManagementService.dll": {}
         },
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
@@ -1353,6 +1370,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "AutoMapper": "14.0.0",
           "Hangfire.AspNetCore": "1.8.18",
           "Hangfire.Core": "1.8.18",
           "Hangfire.MemoryStorage": "1.8.1.1",
@@ -1375,6 +1393,21 @@
     }
   },
   "libraries": {
+    "AutoMapper/14.0.0": {
+      "sha512": "OC+1neAPM4oCCqQj3g2GJ2shziNNhOkxmNB9cVS8jtx4JbgmRzLcUOxB9Tsz6cVPHugdkHgCaCrTjjSI0Z5sCQ==",
+      "type": "package",
+      "path": "automapper/14.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "automapper.14.0.0.nupkg.sha512",
+        "automapper.nuspec",
+        "icon.png",
+        "lib/net8.0/AutoMapper.dll",
+        "lib/net8.0/AutoMapper.xml"
+      ]
+    },
     "Dapper/2.0.123": {
       "sha512": "RDFF4rBLLmbpi6pwkY7q/M6UXHRJEOerplDGE5jwEkP/JGJnBauAClYavNKJPW1yOTWRPIyfj4is3EaJxQXILQ==",
       "type": "package",
@@ -3374,10 +3407,10 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "FileManagementService/1.0.0": {
+    "DataCenter.FileManagementService/1.0.0": {
       "type": "project",
-      "path": "../FileManagementService/FileManagementService.csproj",
-      "msbuildProject": "../FileManagementService/FileManagementService.csproj"
+      "path": "../DataCenter.FileManagementService/DataCenter.FileManagementService.csproj",
+      "msbuildProject": "../DataCenter.FileManagementService/DataCenter.FileManagementService.csproj"
     },
     "StorageService/1.0.0": {
       "type": "project",
@@ -3387,7 +3420,8 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
-      "FileManagementService >= 1.0.0",
+      "AutoMapper >= 14.0.0",
+      "DataCenter.FileManagementService >= 1.0.0",
       "Hangfire.AspNetCore >= 1.8.18",
       "Hangfire.Core >= 1.8.18",
       "Hangfire.MemoryStorage >= 1.8.1.1",
@@ -3428,8 +3462,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/Users/alexandrosmichalaris/RiderProjects/Data Center/FileManagementService/FileManagementService.csproj": {
-              "projectPath": "/Users/alexandrosmichalaris/RiderProjects/Data Center/FileManagementService/FileManagementService.csproj"
+            "/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.FileManagementService/DataCenter.FileManagementService.csproj": {
+              "projectPath": "/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.FileManagementService/DataCenter.FileManagementService.csproj"
             },
             "/Users/alexandrosmichalaris/RiderProjects/Data Center/StorageService/StorageService.csproj": {
               "projectPath": "/Users/alexandrosmichalaris/RiderProjects/Data Center/StorageService/StorageService.csproj"
@@ -3452,6 +3486,10 @@
       "net8.0": {
         "targetAlias": "net8.0",
         "dependencies": {
+          "AutoMapper": {
+            "target": "Package",
+            "version": "[14.0.0, )"
+          },
           "Hangfire.AspNetCore": {
             "target": "Package",
             "version": "[1.8.18, )"

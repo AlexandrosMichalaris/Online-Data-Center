@@ -21,12 +21,17 @@ public static class DiConfiguration
         services.AddScoped<IProgressNotifier, ProgressNotifier>();
         services.AddScoped<IDeleteFileService, DeleteFileService>();
         services.AddScoped<IDeleteService, DeleteService>();
-        
-        services.AddScoped<IFileRecordRepository, FileRecordRepository>();
+        services.AddScoped<IRecoverService, RecoverService>();
+        services.AddScoped<IRecoverFileService, RecoverFileService>();
+        services.AddScoped<IHangfireJobRepository, HangfireJobRepository>();
+        services.AddScoped<IJobFileRecordRepository, JobFileRecordRepository>();
         
         services.AddScoped<ISaveFile, SaveDefaultFileService>();
         services.AddScoped<ISaveFile, SaveDocumentFileService>();
         services.AddScoped<ISaveFile, SaveImageFileService>();
         services.AddScoped<ISaveFileStrategy, SaveSaveFileStrategy>();
+        
+        // Auto register profiles
+        services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
     }
 }

@@ -34,7 +34,7 @@ public class DownloadFileController : ControllerBase
         
         var result = await _downloadService.DownloadFileAsync(id);
         
-        if (result.Data is null || !result.IsSuccess)
+        if (!result.IsSuccess || result.Data is null)
         {
             _logger.LogError($"{nameof(DownloadFileController)} - Download file FAILED.");
             return StatusCode(

@@ -5,9 +5,9 @@ public class FileMetadata
     public long FileSize { get; }
     public string MimeType { get; }
     public DateTime UploadTime { get; }
-    public string StorageFolder { get; }
+    public string? StorageFolder { get; }
 
-    public FileMetadata(string filePath, string fileName, long fileSize, string mimeType, DateTime uploadTime, string storageFolder)
+    public FileMetadata(string filePath, string fileName, long fileSize, string mimeType, DateTime uploadTime, string? storageFolder)
     {
         FilePath = filePath;
         FileName = fileName;

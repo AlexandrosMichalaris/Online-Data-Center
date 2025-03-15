@@ -30,13 +30,13 @@ public class DeleteFileController : ControllerBase
         
         var result = await _deleteService.DeleteFileAsync(id);
         
-        if (result.Data is null || !result.IsSuccess)
+        if (!result.IsSuccess || result.Data is null)
         {
             _logger.LogError($"{nameof(DeleteFileController)} - Delete file FAILED.");
             return StatusCode(
                 (int)HttpStatusCode.InternalServerError, 
                 new ApiResponse<FileMetadata>(
-                    null, 
+                    result.Data, 
                     false, 
                     $"Error On Deletion. Result failed with data null."
                 )
@@ -44,6 +44,11 @@ public class DeleteFileController : ControllerBase
         }
         
         return new ApiResponse<FileMetadata>(result.Data, "File Deleted successfully. File recover can happen the next 30 days");
+    }
+
+    public async Task<ActionResult<ApiResponse<FileMetadata>>> RecoverFile(int id)
+    {
+        return Ok();
     }
     
 }
