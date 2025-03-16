@@ -45,10 +45,4 @@ public class DeleteFileController : ControllerBase
         
         return new ApiResponse<FileMetadata>(result.Data, "File Deleted successfully. File recover can happen the next 30 days");
     }
-
-    public async Task<ActionResult<ApiResponse<FileMetadata>>> RecoverFile(int id)
-    {
-        return Ok();
-    }
-    
 }
