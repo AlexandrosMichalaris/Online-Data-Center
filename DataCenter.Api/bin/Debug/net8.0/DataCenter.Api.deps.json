@@ -11,7 +11,6 @@
           "AutoMapper": "14.0.0",
           "DataCenter.FileManagement": "1.0.0",
           "DataCenter.Mapping": "1.0.0",
-          "DataCenter.Storage": "1.0.0",
           "Hangfire.AspNetCore": "1.8.18",
           "Hangfire.Core": "1.8.18",
           "Hangfire.MemoryStorage": "1.8.1.1",
