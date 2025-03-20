@@ -1,0 +1,13 @@
+/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.StorageService/bin/Debug/net8.0/DataCenter.StorageService.deps.json
+/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.StorageService/bin/Debug/net8.0/DataCenter.StorageService.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.StorageService/bin/Debug/net8.0/DataCenter.StorageService.pdb
+/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.StorageService/obj/Debug/net8.0/DataCenter.StorageService.csproj.AssemblyReference.cache
+/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.StorageService/obj/Debug/net8.0/DataCenter.StorageService.GeneratedMSBuildEditorConfig.editorconfig
+/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.StorageService/obj/Debug/net8.0/DataCenter.StorageService.AssemblyInfoInputs.cache
+/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.StorageService/obj/Debug/net8.0/DataCenter.StorageService.AssemblyInfo.cs
+/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.StorageService/obj/Debug/net8.0/DataCenter.StorageService.csproj.CoreCompileInputs.cache
+/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.StorageService/obj/Debug/net8.0/DataCenter.StorageService.sourcelink.json
+/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.StorageService/obj/Debug/net8.0/DataCenter.StorageService.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.StorageService/obj/Debug/net8.0/refint/DataCenter.StorageService.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.StorageService/obj/Debug/net8.0/DataCenter.StorageService.pdb
+/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.StorageService/obj/Debug/net8.0/ref/DataCenter.StorageService.dll

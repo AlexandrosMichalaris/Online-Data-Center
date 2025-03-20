@@ -11,7 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\DataCenter.FileManagementService\DataCenter.FileManagementService.csproj" />
+      <ProjectReference Include="..\DataCenter.FileManagement\DataCenter.FileManagement.csproj" />
     </ItemGroup>
 
 </Project>

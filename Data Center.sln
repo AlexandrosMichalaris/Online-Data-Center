@@ -1,12 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data Center", "Data Center\Data Center.csproj", "{80F2DA65-ACF5-49A0-B30A-E16630F4247D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataCenter.Api", "DataCenter.Api\DataCenter.Api.csproj", "{80F2DA65-ACF5-49A0-B30A-E16630F4247D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataCenter.FileManagementService", "DataCenter.FileManagementService\DataCenter.FileManagementService.csproj", "{817BEEBF-5D55-4819-847A-E46CFE5A6976}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataCenter.FileManagement", "DataCenter.FileManagement\DataCenter.FileManagement.csproj", "{817BEEBF-5D55-4819-847A-E46CFE5A6976}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageService", "StorageService\StorageService.csproj", "{5AAB8433-9CA3-4CDD-AEC3-A97F4A375F99}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataCenter.Storage", "DataCenter.Storage\DataCenter.Storage.csproj", "{5AAB8433-9CA3-4CDD-AEC3-A97F4A375F99}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataCenter.Mapping", "DataCenter.Mapping\DataCenter.Mapping.csproj", "{834E4AE3-A610-4F38-8910-138BC46D170A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataCenter.Infrastructure", "DataCenter.Infrastructure\DataCenter.Infrastructure.csproj", "{3A97C640-72FA-4B34-913B-B8E0DBF59C20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataCenter.Domain", "DataCenter.Domain\DataCenter.Domain.csproj", "{5F115B60-0DD9-400D-878C-A51BFB128846}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,5 +34,15 @@ Global
 		{834E4AE3-A610-4F38-8910-138BC46D170A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{834E4AE3-A610-4F38-8910-138BC46D170A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{834E4AE3-A610-4F38-8910-138BC46D170A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A97C640-72FA-4B34-913B-B8E0DBF59C20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A97C640-72FA-4B34-913B-B8E0DBF59C20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A97C640-72FA-4B34-913B-B8E0DBF59C20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A97C640-72FA-4B34-913B-B8E0DBF59C20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F115B60-0DD9-400D-878C-A51BFB128846}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F115B60-0DD9-400D-878C-A51BFB128846}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F115B60-0DD9-400D-878C-A51BFB128846}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F115B60-0DD9-400D-878C-A51BFB128846}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
 EndGlobal

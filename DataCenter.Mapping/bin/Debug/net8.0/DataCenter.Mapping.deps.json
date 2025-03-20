@@ -9,7 +9,7 @@
       "DataCenter.Mapping/1.0.0": {
         "dependencies": {
           "AutoMapper": "14.0.0",
-          "DataCenter.FileManagementService": "1.0.0"
+          "DataCenter.FileManagement": "1.0.0"
         },
         "runtime": {
           "DataCenter.Mapping.dll": {}
@@ -698,10 +698,20 @@
         }
       },
       "System.Threading.Channels/8.0.0": {},
-      "DataCenter.FileManagementService/1.0.0": {
+      "DataCenter.Domain/1.0.0": {
+        "runtime": {
+          "DataCenter.Domain.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "DataCenter.FileManagement/1.0.0": {
         "dependencies": {
           "AutoMapper": "14.0.0",
-          "Hangfire.AspNetCore": "1.8.18",
+          "DataCenter.Domain": "1.0.0",
+          "DataCenter.Infrastructure": "1.0.0",
+          "DataCenter.Storage": "1.0.0",
           "Hangfire.Core": "1.8.18",
           "Hangfire.MemoryStorage": "1.8.1.1",
           "Hangfire.PostgreSql": "1.20.10",
@@ -709,17 +719,36 @@
           "Npgsql.EntityFrameworkCore.PostgreSQL": "9.0.2",
           "Serilog.AspNetCore": "9.0.0",
           "Serilog.Sinks.Console": "6.0.0",
-          "Serilog.Sinks.File": "6.0.0",
-          "StorageService": "1.0.0"
+          "Serilog.Sinks.File": "6.0.0"
         },
         "runtime": {
-          "DataCenter.FileManagementService.dll": {
+          "DataCenter.FileManagement.dll": {
             "assemblyVersion": "1.0.0",
             "fileVersion": "1.0.0.0"
           }
         }
       },
-      "StorageService/1.0.0": {
+      "DataCenter.Infrastructure/1.0.0": {
+        "dependencies": {
+          "AutoMapper": "14.0.0",
+          "DataCenter.Domain": "1.0.0",
+          "Hangfire.Core": "1.8.18",
+          "Hangfire.MemoryStorage": "1.8.1.1",
+          "Hangfire.PostgreSql": "1.20.10",
+          "Microsoft.EntityFrameworkCore": "9.0.0",
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "9.0.2",
+          "Serilog.AspNetCore": "9.0.0",
+          "Serilog.Sinks.Console": "6.0.0",
+          "Serilog.Sinks.File": "6.0.0"
+        },
+        "runtime": {
+          "DataCenter.Infrastructure.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "DataCenter.Storage/1.0.0": {
         "dependencies": {
           "AutoMapper": "14.0.0",
           "Hangfire.AspNetCore": "1.8.18",
@@ -732,7 +761,7 @@
           "Serilog.Sinks.File": "6.0.0"
         },
         "runtime": {
-          "StorageService.dll": {
+          "DataCenter.Storage.dll": {
             "assemblyVersion": "1.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -1222,12 +1251,22 @@
       "path": "system.threading.channels/8.0.0",
       "hashPath": "system.threading.channels.8.0.0.nupkg.sha512"
     },
-    "DataCenter.FileManagementService/1.0.0": {
+    "DataCenter.Domain/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "StorageService/1.0.0": {
+    "DataCenter.FileManagement/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DataCenter.Infrastructure/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DataCenter.Storage/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

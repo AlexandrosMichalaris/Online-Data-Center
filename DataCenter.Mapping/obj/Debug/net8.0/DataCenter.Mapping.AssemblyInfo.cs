@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DataCenter.Mapping")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7e06e2840fa55e3a6b00ae09b4777596fb8e7fdd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+17a6fc568f885c4f2d354a123d75574c2a2c3473")]
 [assembly: System.Reflection.AssemblyProductAttribute("DataCenter.Mapping")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DataCenter.Mapping")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

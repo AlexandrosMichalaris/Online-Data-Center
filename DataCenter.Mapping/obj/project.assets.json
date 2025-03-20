@@ -1234,12 +1234,24 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "DataCenter.FileManagementService/1.0.0": {
+      "DataCenter.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/DataCenter.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DataCenter.Domain.dll": {}
+        }
+      },
+      "DataCenter.FileManagement/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
           "AutoMapper": "14.0.0",
-          "Hangfire.AspNetCore": "1.8.18",
+          "DataCenter.Domain": "1.0.0",
+          "DataCenter.Infrastructure": "1.0.0",
+          "DataCenter.Storage": "1.0.0",
           "Hangfire.Core": "1.8.18",
           "Hangfire.MemoryStorage": "1.8.1.1",
           "Hangfire.PostgreSql": "1.20.10",
@@ -1247,20 +1259,41 @@
           "Npgsql.EntityFrameworkCore.PostgreSQL": "9.0.2",
           "Serilog.AspNetCore": "9.0.0",
           "Serilog.Sinks.Console": "6.0.0",
-          "Serilog.Sinks.File": "6.0.0",
-          "StorageService": "1.0.0"
+          "Serilog.Sinks.File": "6.0.0"
         },
         "compile": {
-          "bin/placeholder/DataCenter.FileManagementService.dll": {}
+          "bin/placeholder/DataCenter.FileManagement.dll": {}
         },
         "runtime": {
-          "bin/placeholder/DataCenter.FileManagementService.dll": {}
+          "bin/placeholder/DataCenter.FileManagement.dll": {}
         },
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
         ]
       },
-      "StorageService/1.0.0": {
+      "DataCenter.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "AutoMapper": "14.0.0",
+          "DataCenter.Domain": "1.0.0",
+          "Hangfire.Core": "1.8.18",
+          "Hangfire.MemoryStorage": "1.8.1.1",
+          "Hangfire.PostgreSql": "1.20.10",
+          "Microsoft.EntityFrameworkCore": "9.0.0",
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "9.0.2",
+          "Serilog.AspNetCore": "9.0.0",
+          "Serilog.Sinks.Console": "6.0.0",
+          "Serilog.Sinks.File": "6.0.0"
+        },
+        "compile": {
+          "bin/placeholder/DataCenter.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DataCenter.Infrastructure.dll": {}
+        }
+      },
+      "DataCenter.Storage/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
@@ -1275,10 +1308,10 @@
           "Serilog.Sinks.File": "6.0.0"
         },
         "compile": {
-          "bin/placeholder/StorageService.dll": {}
+          "bin/placeholder/DataCenter.Storage.dll": {}
         },
         "runtime": {
-          "bin/placeholder/StorageService.dll": {}
+          "bin/placeholder/DataCenter.Storage.dll": {}
         },
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
@@ -2938,21 +2971,31 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "DataCenter.FileManagementService/1.0.0": {
+    "DataCenter.Domain/1.0.0": {
       "type": "project",
-      "path": "../DataCenter.FileManagementService/DataCenter.FileManagementService.csproj",
-      "msbuildProject": "../DataCenter.FileManagementService/DataCenter.FileManagementService.csproj"
+      "path": "../DataCenter.Domain/DataCenter.Domain.csproj",
+      "msbuildProject": "../DataCenter.Domain/DataCenter.Domain.csproj"
     },
-    "StorageService/1.0.0": {
+    "DataCenter.FileManagement/1.0.0": {
       "type": "project",
-      "path": "../StorageService/StorageService.csproj",
-      "msbuildProject": "../StorageService/StorageService.csproj"
+      "path": "../DataCenter.FileManagement/DataCenter.FileManagement.csproj",
+      "msbuildProject": "../DataCenter.FileManagement/DataCenter.FileManagement.csproj"
+    },
+    "DataCenter.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../DataCenter.Infrastructure/DataCenter.Infrastructure.csproj",
+      "msbuildProject": "../DataCenter.Infrastructure/DataCenter.Infrastructure.csproj"
+    },
+    "DataCenter.Storage/1.0.0": {
+      "type": "project",
+      "path": "../DataCenter.Storage/DataCenter.Storage.csproj",
+      "msbuildProject": "../DataCenter.Storage/DataCenter.Storage.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
       "AutoMapper >= 14.0.0",
-      "DataCenter.FileManagementService >= 1.0.0"
+      "DataCenter.FileManagement >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -2980,8 +3023,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.FileManagementService/DataCenter.FileManagementService.csproj": {
-              "projectPath": "/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.FileManagementService/DataCenter.FileManagementService.csproj"
+            "/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.FileManagement/DataCenter.FileManagement.csproj": {
+              "projectPath": "/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.FileManagement/DataCenter.FileManagement.csproj"
             }
           }
         }
