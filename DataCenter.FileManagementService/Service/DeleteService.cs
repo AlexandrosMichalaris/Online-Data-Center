@@ -106,15 +106,19 @@ public class DeleteService : IDeleteService
         {
             FileId = fileRecord.Id,
             JobId = long.Parse(jobId),
-            FileName = fileRecord.FilePath
+            FileName = fileRecord.FileName,
         };
 
         await _jobFileRecordRepository.AddAsync(jobRecord);
     }
     
-    private void DeleteJobFiles(FileRecord fileRecord)
+    /// <summary>
+    /// Function is public because job scheduling needs a public function
+    /// </summary>
+    /// <param name="fileRecord"></param>
+    public void DeleteJobFiles(FileRecord fileRecord)
     {
-        _deleteFileService.DeleteFileAsync(fileRecord.FilePath).GetAwaiter().GetResult();
+        _deleteFileService.DeleteFileFromTrashAsync(fileRecord.FilePath).GetAwaiter().GetResult();
         _jobFileRecordRepository.DeleteJobByRecordIdAsync(fileRecord.Id).GetAwaiter().GetResult();
     }
 }

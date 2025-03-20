@@ -93,3 +93,5 @@
 /Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/AutoMapper.dll
 /Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/DataCenter.FileManagementService.dll
 /Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/DataCenter.FileManagementService.pdb
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/DataCenter.Mapping.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/Data Center/bin/Debug/net8.0/DataCenter.Mapping.pdb

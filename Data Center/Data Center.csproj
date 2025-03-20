@@ -25,6 +25,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\DataCenter.FileManagementService\DataCenter.FileManagementService.csproj" />
+      <ProjectReference Include="..\DataCenter.Mapping\DataCenter.Mapping.csproj" />
       <ProjectReference Include="..\StorageService\StorageService.csproj" />
     </ItemGroup>
 

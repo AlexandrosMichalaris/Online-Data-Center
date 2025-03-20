@@ -9,6 +9,8 @@ public class FileRecordConfiguration : IEntityTypeConfiguration<FileRecordDto>
     public void Configure(EntityTypeBuilder<FileRecordDto> builder)
     {
         builder.ToTable("filerecord");
+        
+        builder.HasKey(x => x.Id);
 
         builder.Property(e => e.Id)
             .ValueGeneratedOnAdd()

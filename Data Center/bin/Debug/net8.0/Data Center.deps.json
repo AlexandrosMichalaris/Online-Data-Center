@@ -10,6 +10,7 @@
         "dependencies": {
           "AutoMapper": "14.0.0",
           "DataCenter.FileManagementService": "1.0.0",
+          "DataCenter.Mapping": "1.0.0",
           "Hangfire.AspNetCore": "1.8.18",
           "Hangfire.Core": "1.8.18",
           "Hangfire.MemoryStorage": "1.8.1.1",
@@ -790,6 +791,18 @@
           }
         }
       },
+      "DataCenter.Mapping/1.0.0": {
+        "dependencies": {
+          "AutoMapper": "14.0.0",
+          "DataCenter.FileManagementService": "1.0.0"
+        },
+        "runtime": {
+          "DataCenter.Mapping.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "StorageService/1.0.0": {
         "dependencies": {
           "AutoMapper": "14.0.0",
@@ -1343,6 +1356,11 @@
       "hashPath": "system.threading.channels.8.0.0.nupkg.sha512"
     },
     "DataCenter.FileManagementService/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DataCenter.Mapping/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -9,4 +9,6 @@ public class HangfireJobDto
 {
     [Key]
     public long Id { get; set; }
+    
+    public virtual ICollection<JobFileRecordDto> JobFileRecords { get; set; }
 }

@@ -57,12 +57,17 @@ public class RecoverService : IRecoverService
                 return FileResultGeneric<FileMetadata>.Failure($"{nameof(RecoverService)} - RecoverFileAsync failed. No active job was found for record {id}.");
             }
             
+            // Move file from trash to original folder
             await _recoverFileService.RecoverFileAsync(fileRecord.FilePath);
 
             // Remove scheduled delete job
             BackgroundJob.Delete(activeJob.JobId.ToString());
 
+            // Make isDeleted = false
             await _fileRecordRepository.RecoverAsync(fileRecord.Id);
+            
+            // Delete job record entry
+            await _jobFileRecordRepository.DeleteJobByRecordIdAsync(fileRecord.Id);
             
             return FileResultGeneric<FileMetadata>.Success(new FileMetadata(
                 filePath: fileRecord.FilePath,

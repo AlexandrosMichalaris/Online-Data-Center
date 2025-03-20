@@ -1,4 +1,5 @@
 using Data_Center.Notifications;
+using DataCenter.Mapping;
 using Microsoft.EntityFrameworkCore;
 using StorageService;
 using StorageService.Repository;
@@ -33,5 +34,7 @@ public static class DiConfiguration
         
         // Auto register profiles
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+        services.AddAutoMapper(typeof(FileRecordProfile)); // points to any profile in that assembly
+        services.AddAutoMapper(typeof(JobFileRecordProfile)); // points to any profile in that assembly
     }
 }

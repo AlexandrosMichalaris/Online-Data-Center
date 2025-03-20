@@ -9,6 +9,6 @@ public class HangfireJobConfiguration : IEntityTypeConfiguration<HangfireJobDto>
 {
     public void Configure(EntityTypeBuilder<HangfireJobDto> builder)
     {
-        builder.ToTable("Job", "Hangfire");
+        builder.ToTable("job", "Hangfire");
     }
 }

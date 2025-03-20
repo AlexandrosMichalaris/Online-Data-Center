@@ -8,6 +8,6 @@ public class HangfireStatusConfiguration: IEntityTypeConfiguration<HangfireState
 {
     public void Configure(EntityTypeBuilder<HangfireStateDto> builder)
     {
-        builder.ToTable("State", "Hangfire");
+        builder.ToTable("state", "Hangfire");
     }
 }

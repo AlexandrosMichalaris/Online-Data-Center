@@ -47,6 +47,14 @@ public class DeleteFileService : IDeleteFileService
         }
     }
 
+    public async Task<FileResultGeneric<string>> DeleteFileFromTrashAsync(string filePath)
+    {
+        var (fileName, trashFolder) = StorageHelper.GetFileNameAndTrashFolder(filePath);
+        
+        return await this.DeleteFileAsync(StorageHelper.Combine(trashFolder, fileName));
+    }
+
+
     public async Task<FileResultGeneric<string>> RecycleFileAsync(string filepath)
     {
         try

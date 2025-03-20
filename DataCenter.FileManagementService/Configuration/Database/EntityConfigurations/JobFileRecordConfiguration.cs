@@ -8,25 +8,40 @@ public class JobFileRecordConfiguration: IEntityTypeConfiguration<JobFileRecordD
 {
     public void Configure(EntityTypeBuilder<JobFileRecordDto> builder)
     {
-        builder.ToTable("JobFileRecords");
+        builder.ToTable("jobfilerecords");
+        
+        builder.HasKey(x => x.Id);
 
         builder.Property(e => e.Id)
             .ValueGeneratedOnAdd()
-            .HasColumnName("Id");
+            .HasColumnName("id");
 
         builder.Property(e => e.FileId)
             .IsRequired()
-            .HasColumnName("FileId");
+            .HasColumnName("fileid");
 
         builder.Property(e => e.JobId)
             .IsRequired()
-            .HasColumnName("JobId");
+            .HasColumnName("jobid");
 
         builder.Property(e => e.FileName)
             .IsRequired()
-            .HasColumnName("FileName");
+            .HasColumnName("filename");
         
         builder.Property(e => e.ScheduledAt)
-            .HasColumnName("ScheduledAt");
+            .HasColumnName("scheduledat");
+        
+        builder.HasOne(e => e.File)
+            .WithMany(f => f.JobFileRecords)  // assumes you have ICollection<JobFileRecordDto> in FileRecord
+            .HasForeignKey(e => e.FileId)
+            .HasPrincipalKey(f => f.Id)       // <-- explicitly linking to FileRecord.Id
+            .OnDelete(DeleteBehavior.Cascade); // or whatever behavior fits
+
+        // Relationship to HangfireJobDto
+        builder.HasOne(e => e.JobDto)
+            .WithMany(h => h.JobFileRecords) // assumes ICollection<JobFileRecordDto> in HangfireJobDto
+            .HasForeignKey(e => e.JobId)
+            .HasPrincipalKey(h => h.Id)      // explicitly linking to HangfireJobDto.Id
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

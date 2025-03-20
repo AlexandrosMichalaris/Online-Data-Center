@@ -30,7 +30,7 @@ public class JobFileRecordRepository : Repository<JobFileRecordDto>, IJobFileRec
     public async Task<JobFileRecordDto?> GetActiveJobOfFileRecordAsync(int fileRecordId)
     {
         var jobs = await _dbSet
-            .Where(job => job.FileId == fileRecordId && job.ScheduledAt > DateTimeOffset.Now)
+            .Where(job => job.FileId == fileRecordId && job.ScheduledAt > DateTimeOffset.UtcNow)
             .ToListAsync();
 
         if (jobs.Count != 1)

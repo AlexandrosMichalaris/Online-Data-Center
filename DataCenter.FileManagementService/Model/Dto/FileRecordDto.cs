@@ -59,7 +59,5 @@ public class FileRecordDto : IDeletable
     /// </summary>
     public bool IsDeleted { get; set; } = false;
     
-    // Navigation properties
-    [ForeignKey("FileId")]
-    public virtual IEnumerable<JobFileRecordDto> JobFiles { get; set; }
+    public virtual ICollection<JobFileRecordDto> JobFileRecords { get; set; }
 }
