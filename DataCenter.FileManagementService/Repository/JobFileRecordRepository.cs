@@ -66,13 +66,26 @@ public class JobFileRecordRepository : Repository<JobFileRecordDto>, IJobFileRec
             )
             .GroupJoin(
                 _dbContext.HangfireStates,
-                j => j.hjob.Id,
+                joinResult => joinResult.hjob.Id,
                 state => state.JobId,
-                (j, states) => new { j.jfr, latestState = states.OrderByDescending(s => s.CreateDate).FirstOrDefault() }
+                (joinResult, states) => new
+                {
+                    joinResult.jfr,
+                    latestState = states
+                        .OrderByDescending(s => s.CreatedAt) // assuming CreatedAt is the field name
+                        .FirstOrDefault()
+                }
             )
-            .Where(j => j.latestState != null && 
-                        (j.latestState.Name == "Scheduled" || j.latestState.Name == "Enqueued"))
-            .Select(j => j.jfr)
+            .Where(result => result.latestState != null &&
+                             (result.latestState.Name == "Scheduled" || result.latestState.Name == "Enqueued"))
+            .Select(result => new JobFileRecordDto
+            {
+                Id = result.jfr.Id,
+                FileId = result.jfr.FileId,
+                JobId = result.jfr.JobId,
+                FileName = result.jfr.FileName,
+                ScheduledAt = result.jfr.ScheduledAt
+            })
             .ToList();
     }
 }

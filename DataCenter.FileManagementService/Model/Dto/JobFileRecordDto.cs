@@ -19,9 +19,10 @@ public class JobFileRecordDto
     public long JobId { get; set; } // Foreign key to Hangfire Job table
     
     [Required]
-    [Column("filename")]
+    [Column("filename", TypeName = "varchar(255)")]
     public string FileName { get; set; }
 
+    [Column("scheduledat")]
     public DateTime ScheduledAt { get; set; } = DateTime.UtcNow.AddDays(30);
 
     // Navigation properties
