@@ -1,33 +1,29 @@
 using Data_Center.Configuration.Database;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using StorageService.Exceptions;
-using StorageService.Model.Domain;
 using StorageService.Repository.Interface;
 
 namespace StorageService.Repository;
 
-public class Repository<T> : IRepository<T> where T : class
+public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
 {
     private readonly DatabaseContext _dbContext;
-    private readonly DbSet<T> _dbSet;
+    private readonly DbSet<TEntity> _dbSet;
     
     public Repository(DatabaseContext dbContext)
     {
         _dbContext = dbContext;
-        _dbSet = _dbContext.Set<T>();
+        _dbSet = _dbContext.Set<TEntity>();
     }
     
-    public async Task<T?> GetByIdAsync(int id) => await _dbSet.FindAsync(id);
+    public async Task<TEntity?> GetByIdAsync(int id) => await _dbSet.FindAsync(id);
 
-    public async Task<IEnumerable<T>> GetAllAsync() => await _dbSet.ToListAsync();
+    public async Task<IEnumerable<TEntity>> GetAllAsync() => await _dbSet.ToListAsync();
 
     /// <summary>
     /// Add entry
     /// </summary>
     /// <param name="entity">Entity must be DTO</param>
-    public async Task<T> AddAsync(T entity)
+    public async Task<TEntity> AddAsync(TEntity entity)
     {
         var dbEntity = _dbSet.Add(entity);
         await _dbContext.SaveChangesAsync();
@@ -39,7 +35,7 @@ public class Repository<T> : IRepository<T> where T : class
     /// </summary>
     /// <param name="entities">All of them need to be Dtos</param>
     /// <returns></returns>
-    public async Task AddMultipleAsync(IEnumerable<T> entities)
+    public async Task AddMultipleAsync(IEnumerable<TEntity> entities)
     {
         _dbSet.AddRange(entities);
         await _dbContext.SaveChangesAsync();
@@ -49,7 +45,7 @@ public class Repository<T> : IRepository<T> where T : class
     /// Update 
     /// </summary>
     /// <param name="entity">Needs to be Dto</param>
-    public async Task UpdateAsync(T entity)
+    public async Task UpdateAsync(TEntity entity)
     {
         _dbSet.Update(entity);
         await _dbContext.SaveChangesAsync();

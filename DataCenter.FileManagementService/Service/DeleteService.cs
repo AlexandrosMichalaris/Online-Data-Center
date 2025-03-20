@@ -3,7 +3,7 @@ using Hangfire;
 using Microsoft.Extensions.Logging;
 using StorageService.Exceptions;
 using StorageService.Model.Domain;
-using StorageService.Model.Dto;
+using StorageService.Model.Entities;
 using StorageService.Repository.Interface;
 using StorageService.Service.Interface;
 
@@ -102,7 +102,7 @@ public class DeleteService : IDeleteService
     private async Task ScheduleFileDeletionAsync(FileRecord fileRecord)
     {
         var jobId = BackgroundJob.Schedule(() => DeleteJobFiles(fileRecord), TimeSpan.FromDays(30));
-        var jobRecord = new JobFileRecordDto
+        var jobRecord = new JobFileRecordEntity
         {
             FileId = fileRecord.Id,
             JobId = long.Parse(jobId),

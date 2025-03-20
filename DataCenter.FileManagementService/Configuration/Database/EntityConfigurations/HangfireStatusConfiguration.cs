@@ -1,12 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using StorageService.Model.Dto;
+using StorageService.Model.Entities;
 
 namespace Data_Center.Configuration.Database;
 
-public class HangfireStatusConfiguration: IEntityTypeConfiguration<HangfireStateDto>
+public class HangfireStatusConfiguration: IEntityTypeConfiguration<HangfireStateEntity>
 {
-    public void Configure(EntityTypeBuilder<HangfireStateDto> builder)
+    public void Configure(EntityTypeBuilder<HangfireStateEntity> builder)
     {
         builder.ToTable("state", "hangfire");
 

@@ -1,7 +1,7 @@
 using FileProcessing.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using StorageService.Model.Dto;
+using StorageService.Model.Entities;
 
 namespace Data_Center.Configuration.Database;
 
@@ -14,11 +14,11 @@ public class DatabaseContext : DbContext
         _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
     }
 
-    public DbSet<FileRecordDto> FileRecords { get; set; }
-    public DbSet<JobFileRecordDto> JobFileRecords { get; set; }
-    public DbSet<HangfireJobDto> HangfireJobs { get; set; }
+    public DbSet<FileRecordEntity> FileRecords { get; set; }
+    public DbSet<JobFileRecordEntity> JobFileRecords { get; set; }
+    public DbSet<HangfireJobEntity> HangfireJobs { get; set; }
     
-    public DbSet<HangfireStateDto> HangfireStates { get; set; }
+    public DbSet<HangfireStateEntity> HangfireStates { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

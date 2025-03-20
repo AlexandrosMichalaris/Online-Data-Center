@@ -1,8 +1,8 @@
-using StorageService.Model.Dto;
+using StorageService.Model.Entities;
 
 namespace StorageService.Repository.Interface;
 
-public interface IHangfireJobRepository : IRepository<HangfireJobDto>
+public interface IHangfireJobRepository : IRepository<HangfireJobEntity>
 {
     
 }

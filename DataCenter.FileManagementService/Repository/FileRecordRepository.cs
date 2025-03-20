@@ -12,10 +12,10 @@ namespace StorageService.Repository;
 /// File Record Repository
 /// Every operation done here, is considered to be done into the storage too.
 /// </summary>
-public class FileRecordRepository : Repository<FileRecordDto>, IFileRecordRepository
+public class FileRecordRepository : Repository<FileRecordEntity>, IFileRecordRepository
 {
     private readonly DatabaseContext _dbContext;
-    private readonly DbSet<FileRecordDto> _dbSet;
+    private readonly DbSet<FileRecordEntity> _dbSet;
     private readonly ILogger<FileRecordRepository> _logger;
 
     #region Ctor
@@ -23,7 +23,7 @@ public class FileRecordRepository : Repository<FileRecordDto>, IFileRecordReposi
     public FileRecordRepository(DatabaseContext dbContext, ILogger<FileRecordRepository> logger) : base(dbContext)
     {
         _dbContext = dbContext;
-        _dbSet = _dbContext.Set<FileRecordDto>();
+        _dbSet = _dbContext.Set<FileRecordEntity>();
         _logger = logger;
     }
 
@@ -60,7 +60,7 @@ public class FileRecordRepository : Repository<FileRecordDto>, IFileRecordReposi
         }
     }
     
-    public async Task<FileRecordDto?> GetFileRecordByJobIdAsync(int jobId)
+    public async Task<FileRecordEntity?> GetFileRecordByJobIdAsync(int jobId)
     {
         var job = await _dbContext.JobFileRecords.FindAsync(jobId);
 
@@ -75,7 +75,7 @@ public class FileRecordRepository : Repository<FileRecordDto>, IFileRecordReposi
         return await _dbSet.FindAsync(job.FileId);
     }
     
-    public async Task<List<FileRecordDto>> GetScheduledDeletedFileRecordsAsync()
+    public async Task<List<FileRecordEntity>> GetScheduledDeletedFileRecordsAsync()
     {
         return await _dbSet
             .IgnoreQueryFilters()
@@ -84,7 +84,7 @@ public class FileRecordRepository : Repository<FileRecordDto>, IFileRecordReposi
             .ToListAsync();
     }
 
-    public async Task<FileRecordDto?> GetDeletedFileRecordAsync(int id)
+    public async Task<FileRecordEntity?> GetDeletedFileRecordAsync(int id)
     {
         return await _dbSet
             .IgnoreQueryFilters()

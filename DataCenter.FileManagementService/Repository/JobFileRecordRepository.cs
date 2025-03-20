@@ -2,32 +2,32 @@ using Data_Center.Configuration.Database;
 using FileProcessing.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using StorageService.Model.Dto;
+using StorageService.Model.Entities;
 using StorageService.Repository.Interface;
 
 namespace StorageService.Repository;
 
-public class JobFileRecordRepository : Repository<JobFileRecordDto>, IJobFileRecordRepository
+public class JobFileRecordRepository : Repository<JobFileRecordEntity>, IJobFileRecordRepository
 {
     private readonly DatabaseContext _dbContext;
-    private readonly DbSet<JobFileRecordDto> _dbSet;
+    private readonly DbSet<JobFileRecordEntity> _dbSet;
     private readonly ILogger<JobFileRecordRepository> _logger;
     
     public JobFileRecordRepository(DatabaseContext dbContext, ILogger<JobFileRecordRepository> logger) : base(dbContext)
     {
         _dbContext = dbContext;
-        _dbSet = _dbContext.Set<JobFileRecordDto>();
+        _dbSet = _dbContext.Set<JobFileRecordEntity>();
         _logger = logger;
     }
 
-    public async Task<IEnumerable<JobFileRecordDto>> GetFileRecordJobsAsync(int fileRecordId)
+    public async Task<IEnumerable<JobFileRecordEntity>> GetFileRecordJobsAsync(int fileRecordId)
     {
         return await _dbSet
             .Where(job => job.FileId == fileRecordId)
             .ToListAsync();
     }
 
-    public async Task<JobFileRecordDto?> GetActiveJobOfFileRecordAsync(int fileRecordId)
+    public async Task<JobFileRecordEntity?> GetActiveJobOfFileRecordAsync(int fileRecordId)
     {
         var jobs = await _dbSet
             .Where(job => job.FileId == fileRecordId && job.ScheduledAt > DateTimeOffset.UtcNow)
@@ -55,7 +55,7 @@ public class JobFileRecordRepository : Repository<JobFileRecordDto>, IJobFileRec
         }
     }
     
-    public List<JobFileRecordDto> GetPendingJobs()
+    public List<JobFileRecordEntity> GetPendingJobs()
     {
         return _dbContext.JobFileRecords
             .Join(
@@ -78,7 +78,7 @@ public class JobFileRecordRepository : Repository<JobFileRecordDto>, IJobFileRec
             )
             .Where(result => result.latestState != null &&
                              (result.latestState.Name == "Scheduled" || result.latestState.Name == "Enqueued"))
-            .Select(result => new JobFileRecordDto
+            .Select(result => new JobFileRecordEntity
             {
                 Id = result.jfr.Id,
                 FileId = result.jfr.FileId,

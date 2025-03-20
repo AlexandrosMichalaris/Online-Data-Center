@@ -2,11 +2,11 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using FileProcessing.Model.Interface;
 using StorageService.Model.Domain;
-using StorageService.Model.Dto;
+using StorageService.Model.Entities;
 
 namespace FileProcessing.Model;
 
-public class FileRecordDto : IDeletable
+public class FileRecordEntity : IDeletable
 {
     /// <summary>
     /// Primary key for the entity
@@ -68,5 +68,5 @@ public class FileRecordDto : IDeletable
     [Column("isdeleted")]
     public bool IsDeleted { get; set; } = false;
     
-    public virtual ICollection<JobFileRecordDto> JobFileRecords { get; set; }
+    public virtual ICollection<JobFileRecordEntity> JobFileRecords { get; set; }
 }

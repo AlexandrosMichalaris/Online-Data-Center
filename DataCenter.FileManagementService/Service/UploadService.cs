@@ -47,14 +47,9 @@ public class UploadService : IUploadService
                 return FileResultGeneric<FileMetadata>.Failure($"File {file.FileName} already exists.", 400);
             
             //Build file record dto object (because of filepath)
-            var fileRecord = _mapper.Map<FileRecordDto>(new FileRecord()
-            {
-                FileName = file.FileName,
-                FileType = FileTypeMapper.GetFileTypeFromContentType(file.ContentType).ToString(),
-                Status = FileStatus.Pending,
-                Checksum = calculatedChecksum,
-                FileSize = file.Length
-            });
+            var fileRecord = _mapper.Map<FileRecordEntity>(new FileRecord(fileName: file.FileName,
+                fileType: FileTypeMapper.GetFileTypeFromContentType(file.ContentType).ToString(),
+                status: FileStatus.Pending, checksum: calculatedChecksum, fileSize: file.Length));
             
             // Get storage strategy handler based on file type.
             var saveFileStrategyHandler = _saveFileStrategy.GetFileHandler(FileTypeMapper.GetFileTypeFromContentType(file.ContentType));

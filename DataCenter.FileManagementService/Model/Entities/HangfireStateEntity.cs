@@ -2,10 +2,10 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using StorageService.Model.Domain;
 
-namespace StorageService.Model.Dto;
+namespace StorageService.Model.Entities;
 
 [Table("state", Schema = "hangfire")]
-public class HangfireStateDto
+public class HangfireStateEntity
 {
     [Key]
     public int Id { get; set; }
@@ -25,8 +25,8 @@ public class HangfireStateDto
 
     // Navigation to HangfireJob
     [ForeignKey(nameof(JobId))]
-    public virtual HangfireJobDto Job { get; set; }
+    public virtual HangfireJobEntity Job { get; set; }
 
     // Navigation to JobFileRecord by JobId
-    public virtual JobFileRecordDto JobFileRecord { get; set; }
+    public virtual JobFileRecordEntity JobFileRecord { get; set; }
 }

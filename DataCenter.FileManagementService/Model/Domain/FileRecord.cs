@@ -4,6 +4,15 @@ namespace StorageService.Model.Domain;
 
 public class FileRecord
 {
+    public FileRecord(string fileName, string fileType, FileStatus status, string? checksum, long fileSize)
+    {
+        FileName = fileName;
+        FileType = fileType;
+        Status = status;
+        Checksum = checksum;
+        FileSize = fileSize;
+    }
+
     public int Id { get; set; }
     
     /// <summary>

@@ -1,11 +1,11 @@
 namespace StorageService.Repository.Interface;
 
-public interface IRepository<T> where T : class
+public interface IRepository<TEntity> where TEntity : class
 {
-    Task<T?> GetByIdAsync(int id);
-    Task<IEnumerable<T>> GetAllAsync();
-    Task<T> AddAsync(T entity);
-    Task AddMultipleAsync(IEnumerable<T> entities);
-    Task UpdateAsync(T entity);
+    Task<TEntity?> GetByIdAsync(int id);
+    Task<IEnumerable<TEntity>> GetAllAsync();
+    Task<TEntity> AddAsync(TEntity entity);
+    Task AddMultipleAsync(IEnumerable<TEntity> entities);
+    Task UpdateAsync(TEntity entity);
     Task DeleteAsync(int id);
 }

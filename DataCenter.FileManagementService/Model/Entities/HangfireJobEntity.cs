@@ -2,11 +2,11 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using StorageService.Model.Domain;
 
-namespace StorageService.Model.Dto;
+namespace StorageService.Model.Entities;
 
 // Model for Hangfire Job table
 [Table("job", Schema = "hangfire")]
-public class HangfireJobDto
+public class HangfireJobEntity
 {
     [Key]
     [Column("id")]
@@ -31,8 +31,8 @@ public class HangfireJobDto
     public DateTime? ExpiresAt { get; set; }
 
     // Navigation property to Hangfire States
-    public virtual ICollection<HangfireStateDto> States { get; set; }
+    public virtual ICollection<HangfireStateEntity> States { get; set; }
 
     // Navigation property to your JobFileRecord entity
-    public virtual ICollection<JobFileRecordDto> JobFileRecords { get; set; }
+    public virtual ICollection<JobFileRecordEntity> JobFileRecords { get; set; }
 }

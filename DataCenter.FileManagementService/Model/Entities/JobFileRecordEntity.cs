@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 using FileProcessing.Model;
 using StorageService.Model.Domain;
 
-namespace StorageService.Model.Dto;
+namespace StorageService.Model.Entities;
 
-public class JobFileRecordDto
+public class JobFileRecordEntity
 {
     [Key]
     public int Id { get; set; }
@@ -27,8 +27,8 @@ public class JobFileRecordDto
 
     // Navigation properties
     [ForeignKey("FileId")]
-    public virtual FileRecordDto File { get; set; }
+    public virtual FileRecordEntity File { get; set; }
 
     [ForeignKey("JobId")]
-    public virtual HangfireJobDto JobDto { get; set; }
+    public virtual HangfireJobEntity JobEntity { get; set; }
 }

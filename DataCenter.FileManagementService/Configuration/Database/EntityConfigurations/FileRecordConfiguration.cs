@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Data_Center.Configuration.Database;
 
-public class FileRecordConfiguration : IEntityTypeConfiguration<FileRecordDto>
+public class FileRecordConfiguration : IEntityTypeConfiguration<FileRecordEntity>
 {
-    public void Configure(EntityTypeBuilder<FileRecordDto> builder)
+    public void Configure(EntityTypeBuilder<FileRecordEntity> builder)
     {
         builder.ToTable("filerecord");
         

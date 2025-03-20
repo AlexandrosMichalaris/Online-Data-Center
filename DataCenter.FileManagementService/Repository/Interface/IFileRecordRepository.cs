@@ -4,7 +4,7 @@ using StorageService.Model.Domain;
 
 namespace StorageService.Repository.Interface;
 
-public interface IFileRecordRepository : IRepository<FileRecordDto>
+public interface IFileRecordRepository : IRepository<FileRecordEntity>
 {
     Task UpdateStatusAsync(int id, FileStatus status);
 
@@ -12,11 +12,11 @@ public interface IFileRecordRepository : IRepository<FileRecordDto>
 
     Task RecoverAsync(int id);
     
-    Task<FileRecordDto?> GetFileRecordByJobIdAsync(int jobId);
+    Task<FileRecordEntity?> GetFileRecordByJobIdAsync(int jobId);
     
     Task<bool> CheckDuplicateFile(IFormFile file, string computedChecksum);
     
-    Task<List<FileRecordDto>> GetScheduledDeletedFileRecordsAsync();
+    Task<List<FileRecordEntity>> GetScheduledDeletedFileRecordsAsync();
     
-    Task<FileRecordDto?> GetDeletedFileRecordAsync(int id);
+    Task<FileRecordEntity?> GetDeletedFileRecordAsync(int id);
 }

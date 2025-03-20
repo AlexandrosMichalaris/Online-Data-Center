@@ -1,4 +1,4 @@
-using StorageService.Model.Dto;
+using StorageService.Model.Entities;
 
 namespace StorageService.Model.Domain;
 
@@ -16,5 +16,5 @@ public class JobFileRecord
     
     public virtual FileRecord File { get; set; }
     
-    public virtual HangfireJobDto JobDto { get; set; }
+    public virtual HangfireJobEntity JobEntity { get; set; }
 }

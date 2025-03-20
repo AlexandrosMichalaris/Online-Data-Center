@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FileProcessing.Model;
 
-public class FileStatusDto
+public class FileStatusEntity
 {
     [Key]
     public int Id { get; set; }

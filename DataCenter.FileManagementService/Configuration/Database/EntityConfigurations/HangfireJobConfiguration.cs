@@ -1,13 +1,13 @@
 // HangfireJobConfiguration.cs
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using StorageService.Model.Dto;
+using StorageService.Model.Entities;
 
 namespace Data_Center.Configuration.Database;
 
-public class HangfireJobConfiguration : IEntityTypeConfiguration<HangfireJobDto>
+public class HangfireJobConfiguration : IEntityTypeConfiguration<HangfireJobEntity>
 {
-    public void Configure(EntityTypeBuilder<HangfireJobDto> builder)
+    public void Configure(EntityTypeBuilder<HangfireJobEntity> builder)
     {
         builder.ToTable("job", "hangfire");
 
@@ -40,7 +40,7 @@ public class HangfireJobConfiguration : IEntityTypeConfiguration<HangfireJobDto>
             .HasForeignKey(s => s.JobId);
 
         builder.HasMany(j => j.JobFileRecords)
-            .WithOne(jfr => jfr.JobDto)
+            .WithOne(jfr => jfr.JobEntity)
             .HasForeignKey(jfr => jfr.JobId);
     }
 }

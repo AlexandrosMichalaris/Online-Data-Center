@@ -1,15 +1,15 @@
 using FileProcessing.Model;
-using StorageService.Model.Dto;
+using StorageService.Model.Entities;
 
 namespace StorageService.Repository.Interface;
 
-public interface IJobFileRecordRepository : IRepository<JobFileRecordDto>
+public interface IJobFileRecordRepository : IRepository<JobFileRecordEntity>
 {
-    Task<IEnumerable<JobFileRecordDto>> GetFileRecordJobsAsync(int fileRecordId);
+    Task<IEnumerable<JobFileRecordEntity>> GetFileRecordJobsAsync(int fileRecordId);
     
-    Task<JobFileRecordDto?> GetActiveJobOfFileRecordAsync(int fileRecordId);
+    Task<JobFileRecordEntity?> GetActiveJobOfFileRecordAsync(int fileRecordId);
     
     Task DeleteJobByRecordIdAsync(int recordId);
 
-    List<JobFileRecordDto> GetPendingJobs();
+    List<JobFileRecordEntity> GetPendingJobs();
 }

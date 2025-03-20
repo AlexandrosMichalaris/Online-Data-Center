@@ -8,7 +8,7 @@ public class FileRecordProfile : Profile
 {
     public FileRecordProfile()
     {
-        CreateMap<FileRecord, FileRecordDto>()
+        CreateMap<FileRecord, FileRecordEntity>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.FileName, opt => opt.MapFrom(src => src.FileName))
             .ForMember(dest => dest.FileType, opt => opt.MapFrom(src => src.FileType))

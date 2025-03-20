@@ -1,12 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using StorageService.Model.Dto;
+using StorageService.Model.Entities;
 
 namespace Data_Center.Configuration.Database;
 
-public class JobFileRecordConfiguration: IEntityTypeConfiguration<JobFileRecordDto>
+public class JobFileRecordConfiguration: IEntityTypeConfiguration<JobFileRecordEntity>
 {
-    public void Configure(EntityTypeBuilder<JobFileRecordDto> builder)
+    public void Configure(EntityTypeBuilder<JobFileRecordEntity> builder)
     {
         builder.ToTable("jobfilerecords");
         
@@ -38,7 +38,7 @@ public class JobFileRecordConfiguration: IEntityTypeConfiguration<JobFileRecordD
             .OnDelete(DeleteBehavior.Cascade); // or whatever behavior fits
 
         // Relationship to HangfireJobDto
-        builder.HasOne(e => e.JobDto)
+        builder.HasOne(e => e.JobEntity)
             .WithMany(h => h.JobFileRecords) // assumes ICollection<JobFileRecordDto> in HangfireJobDto
             .HasForeignKey(e => e.JobId)
             .HasPrincipalKey(h => h.Id)      // explicitly linking to HangfireJobDto.Id

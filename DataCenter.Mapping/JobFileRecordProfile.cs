@@ -1,6 +1,6 @@
 using AutoMapper;
 using StorageService.Model.Domain;
-using StorageService.Model.Dto;
+using StorageService.Model.Entities;
 
 namespace DataCenter.Mapping;
 
@@ -8,7 +8,7 @@ public class JobFileRecordProfile : Profile
 {
     public JobFileRecordProfile()
     {
-        CreateMap<JobFileRecord, JobFileRecordDto>()
+        CreateMap<JobFileRecord, JobFileRecordEntity>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.FileName, opt => opt.MapFrom(src => src.FileName))
             .ForMember(dest => dest.FileId, opt => opt.MapFrom(src => src.FileId))
