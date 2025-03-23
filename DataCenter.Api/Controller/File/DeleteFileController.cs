@@ -26,23 +26,45 @@ public class DeleteFileController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<ActionResult<ApiResponse<FileMetadata>>> Delete(int id)
     {
-        _logger.LogInformation($"{typeof(DeleteFileController)} - Delete file START.");
-        
+        _logger.LogInformation("{Controller} - Delete file START. FileRecordId: {FileId}", nameof(DeleteFileController), id);
+
         var result = await _deleteService.DeleteFileAsync(id);
-        
-        if (!result.IsSuccess || result.Data is null)
+
+        if (!result.IsSuccess)
         {
-            _logger.LogError($"{nameof(DeleteFileController)} - Delete file FAILED.");
+            var errorMessage = result.ErrorMessage ?? $"Failed to delete file with id {id}.";
+        
+            _logger.LogWarning("{Controller} - Delete file FAILED. FileRecordId: {FileId}, Error: {ErrorMessage}", nameof(DeleteFileController), id, errorMessage);
+
+            return NotFound(new ApiResponse<FileMetadata>(
+                data: null,
+                success: false,
+                message: errorMessage
+            ));
+        }
+
+        if (result.Data is null)
+        {
+            var errorMessage = $"Delete operation succeeded but returned no data. FileRecordId: {id}";
+
+            _logger.LogWarning("{Controller} - Delete file returned no data. FileRecordId: {FileId}", nameof(DeleteFileController), id);
+
             return StatusCode(
-                (int)HttpStatusCode.InternalServerError, 
+                (int)HttpStatusCode.InternalServerError,
                 new ApiResponse<FileMetadata>(
-                    result.Data, 
-                    false, 
-                    $"Error On Deletion. Result failed with data null."
+                    data: null,
+                    success: false,
+                    message: errorMessage
                 )
             );
         }
-        
-        return new ApiResponse<FileMetadata>(result.Data, "File Deleted successfully. File recover can happen the next 30 days");
+
+        _logger.LogInformation("{Controller} - Delete file SUCCESS. FileRecordId: {FileId}", nameof(DeleteFileController), id);
+
+        return Ok(new ApiResponse<FileMetadata>(
+            data: result.Data,
+            success: true,
+            message: "File deleted successfully. Recovery is available for 30 days."
+        ));
     }
 }

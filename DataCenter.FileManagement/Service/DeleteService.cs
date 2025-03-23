@@ -1,4 +1,5 @@
 using AutoMapper;
+using DataCenter.Infrastructure.Repository.DomainRepository.Interface;
 using Hangfire;
 using Microsoft.Extensions.Logging;
 using StorageService.Exceptions;
@@ -12,24 +13,24 @@ namespace StorageService.Service;
 public class DeleteService : IDeleteService
 {
     private readonly ILogger<DeleteService> _logger;
-    private readonly IFileRecordRepository _fileRecordRepository;
+    private readonly IFileRecordDomainRepository _fileRecordDomainRepository;
     private readonly IDeleteFileService _deleteFileService;
-    private readonly IJobFileRecordRepository _jobFileRecordRepository;
+    private readonly IJobFileRecordDomainRepository _jobFileRecordDomainRepository;
     private readonly IMapper _mapper;
 
     #region Ctor
 
     public DeleteService(
         ILogger<DeleteService> logger, 
-        IFileRecordRepository fileRecordRepository,
+        IFileRecordDomainRepository fileRecordDomainRepository,
         IDeleteFileService deleteFileService,
-        IJobFileRecordRepository jobFileRecordRepository,
+        IJobFileRecordDomainRepository jobFileRecordDomainRepository,
         IMapper mapper)
     {
         _logger = logger;
-        _fileRecordRepository = fileRecordRepository;
+        _fileRecordDomainRepository = fileRecordDomainRepository;
         _deleteFileService = deleteFileService;
-        _jobFileRecordRepository = jobFileRecordRepository;
+        _jobFileRecordDomainRepository = jobFileRecordDomainRepository;
         _mapper = mapper;
     }
 
@@ -38,8 +39,8 @@ public class DeleteService : IDeleteService
     public async Task<FileResultGeneric<FileMetadata>> DeleteFileAsync(int id)
     {
         try
-        {
-            var fileRecord = _mapper.Map<FileRecord>(await _fileRecordRepository.GetByIdAsync(id));
+        {   
+            var fileRecord = await _fileRecordDomainRepository.GetByIdAsync(id);
             if (fileRecord is null)
             {
                 _logger.LogError($"{nameof(DeleteService)} - DeleteFileAsync failed. File Record {id} was not found.");
@@ -57,7 +58,7 @@ public class DeleteService : IDeleteService
             await action;
             
             // SoftDelete on Db
-            await _fileRecordRepository.DeleteAsync(id);
+            await _fileRecordDomainRepository.DeleteAsync(id);
             
             return FileResultGeneric<FileMetadata>.Success(new FileMetadata(
                 filePath: fileRecord.FilePath,
@@ -87,7 +88,7 @@ public class DeleteService : IDeleteService
     
     private async Task HandleFileInTrashAsync(FileRecord fileRecord)
     {
-        var activeJob = await _jobFileRecordRepository.GetActiveJobOfFileRecordAsync(fileRecord.Id);
+        var activeJob = await _jobFileRecordDomainRepository.GetActiveJobOfFileRecordAsync(fileRecord.Id);
 
         if (activeJob is null)
         {
@@ -102,14 +103,14 @@ public class DeleteService : IDeleteService
     private async Task ScheduleFileDeletionAsync(FileRecord fileRecord)
     {
         var jobId = BackgroundJob.Schedule(() => DeleteJobFiles(fileRecord), TimeSpan.FromDays(30));
-        var jobRecord = new JobFileRecordEntity
+        var jobRecord = new JobFileRecord
         {
             FileId = fileRecord.Id,
             JobId = long.Parse(jobId),
             FileName = fileRecord.FileName,
         };
 
-        await _jobFileRecordRepository.AddAsync(jobRecord);
+        await _jobFileRecordDomainRepository.AddAsync(jobRecord);
     }
     
     /// <summary>
@@ -119,6 +120,6 @@ public class DeleteService : IDeleteService
     public void DeleteJobFiles(FileRecord fileRecord)
     {
         _deleteFileService.DeleteFileFromTrashAsync(fileRecord.FilePath).GetAwaiter().GetResult();
-        _jobFileRecordRepository.DeleteJobByRecordIdAsync(fileRecord.Id).GetAwaiter().GetResult();
+        _jobFileRecordDomainRepository.DeleteJobByRecordIdAsync(fileRecord.Id).GetAwaiter().GetResult();
     }
 }

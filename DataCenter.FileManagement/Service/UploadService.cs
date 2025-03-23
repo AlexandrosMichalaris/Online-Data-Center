@@ -1,4 +1,5 @@
 using AutoMapper;
+using DataCenter.Infrastructure.Repository.DomainRepository.Interface;
 using FileProcessing.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
@@ -13,24 +14,21 @@ public class UploadService : IUploadService
 {
     private readonly ILogger<UploadService> _logger;
     private readonly ISaveFileStrategy _saveFileStrategy;
-    private readonly IFileRecordRepository _fileRecordRepository;
+    private readonly IFileRecordDomainRepository _fileRecordDomainRepository;
     private readonly ICheckSumService _checkSumService;
-    private readonly IMapper _mapper;
     
     #region Ctor
     public UploadService(
         ISaveFileStrategy saveFileStrategy,
-        IFileRecordRepository fileRecordRepository,
+        IFileRecordDomainRepository fileRecordDomainRepository,
         ICheckSumService checkSumService,
-        ILogger<UploadService> logger,
-        IMapper mapper
+        ILogger<UploadService> logger
     )
     {
         _logger = logger;
         _saveFileStrategy = saveFileStrategy;
-        _fileRecordRepository = fileRecordRepository;
+        _fileRecordDomainRepository = fileRecordDomainRepository;
         _checkSumService = checkSumService;
-        _mapper = mapper;
     }
     #endregion
 
@@ -39,22 +37,23 @@ public class UploadService : IUploadService
         _logger.LogInformation($"{nameof(UploadService)} - UploadFileAsync - Uploading file {file.FileName}");
         
         try
-        { //TODO: Validate File type (second base) sos
+        { //TODO: Validate File type (second base)
             //Calculate unique file hash
             var calculatedChecksum = await _checkSumService.ComputeChecksumAsync(file);
             
-            if(await _fileRecordRepository.CheckDuplicateFile(file, calculatedChecksum))
+            if(await _fileRecordDomainRepository.CheckDuplicateFile(file, calculatedChecksum))
                 return FileResultGeneric<FileMetadata>.Failure($"File {file.FileName} already exists.", 400);
             
             //Build file record dto object (because of filepath)
-            var fileRecord = _mapper.Map<FileRecordEntity>(new FileRecord(fileName: file.FileName,
+            var fileRecord = new FileRecord(
+                fileName: file.FileName,
                 fileType: FileTypeMapper.GetFileTypeFromContentType(file.ContentType).ToString(),
-                status: FileStatus.Pending, checksum: calculatedChecksum, fileSize: file.Length));
+                status: FileStatus.Pending, checksum: calculatedChecksum, fileSize: file.Length);
             
             // Get storage strategy handler based on file type.
             var saveFileStrategyHandler = _saveFileStrategy.GetFileHandler(FileTypeMapper.GetFileTypeFromContentType(file.ContentType));
             
-            var record = await _fileRecordRepository.AddAsync(fileRecord);
+            var record = await _fileRecordDomainRepository.AddAsync(fileRecord);
             
             var fileStorageResult = await SaveFileWithHandlingAsync(saveFileStrategyHandler, file, record.Id, connectionId);
             
@@ -62,7 +61,7 @@ public class UploadService : IUploadService
             if (!fileStorageResult.IsSuccess || fileStorageResult.Data is null)
             {
                 _logger.LogError($"{nameof(UploadService)} - UploadFileAsync - File {file.FileName} could not be saved. FileStorageResult: {fileStorageResult}");
-                await _fileRecordRepository.UpdateStatusAsync(record.Id, FileStatus.Failed);
+                await _fileRecordDomainRepository.UpdateStatusAsync(record.Id, FileStatus.Failed);
                 return fileStorageResult;
             }
             
@@ -70,7 +69,7 @@ public class UploadService : IUploadService
             record.FilePath = fileStorageResult.Data.FilePath;
             record.Status = FileStatus.Completed;
             
-            await _fileRecordRepository.UpdateAsync(record);
+            await _fileRecordDomainRepository.UpdateAsync(record);
 
             return fileStorageResult;
         }
@@ -107,7 +106,7 @@ public class UploadService : IUploadService
         }
         catch (Exception)
         {
-            await _fileRecordRepository.UpdateStatusAsync(recordId, FileStatus.Failed);
+            await _fileRecordDomainRepository.UpdateStatusAsync(recordId, FileStatus.Failed);
             throw;
         }
     }

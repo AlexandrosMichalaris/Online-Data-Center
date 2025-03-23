@@ -21,22 +21,30 @@ public class RecoverFileController : ControllerBase
     [HttpPatch("{id}/recover")]
     public async Task<ActionResult<ApiResponse<FileMetadata>>> RecoverFile(int id)
     {
+        _logger.LogInformation("{Controller} - Recover file START. FileRecordId: {FileId}", nameof(RecoverFileController), id);
+
         var result = await _recoverService.RecoverFileAsync(id);
-        
+
         if (!result.IsSuccess || result.Data is null)
         {
-            _logger.LogError($"{nameof(RecoverFileController)} - Recover file FAILED.");
-            return StatusCode(
-                (int)HttpStatusCode.InternalServerError, 
-                new ApiResponse<FileMetadata>(
-                    result.Data, 
-                    false, 
-                    $"Error On Recover. Result failed with data null."
-                )
-            );
+            var errorMessage = result.ErrorMessage ?? $"Failed to recover file with id {id}.";
+
+            _logger.LogWarning("{Controller} - Recover file FAILED. FileRecordId: {FileId}, Error: {ErrorMessage}", nameof(RecoverFileController), id, errorMessage);
+
+            return NotFound(new ApiResponse<FileMetadata>(
+                data: null,
+                success: false,
+                message: errorMessage
+            ));
         }
-        
-        return new ApiResponse<FileMetadata>(result.Data, "File Recovered successfully.");
+
+        _logger.LogInformation("{Controller} - Recover file SUCCESS. FileRecordId: {FileId}", nameof(RecoverFileController), id);
+
+        return Ok(new ApiResponse<FileMetadata>(
+            data: result.Data,
+            success: true,
+            message: "File recovered successfully."
+        ));
     }
     
 }

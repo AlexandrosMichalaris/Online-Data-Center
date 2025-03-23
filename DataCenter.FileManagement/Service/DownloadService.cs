@@ -1,5 +1,6 @@
 using AutoMapper;
 using Data_Center.Configuration.Constants;
+using DataCenter.Infrastructure.Repository.DomainRepository.Interface;
 using Microsoft.Extensions.Logging;
 using StorageService.Exceptions;
 using StorageService.Model;
@@ -12,7 +13,7 @@ namespace StorageService.Service;
 public class DownloadService : IDownloadService
 {
     private readonly ILogger<DownloadService> _logger;
-    private readonly IFileRecordRepository _fileRecordRepository;
+    private readonly IFileRecordDomainRepository _fileRecordDomainRepository;
     private readonly IGetFileStreamService _getFileStreamService;
     private readonly IMapper _mapper;
 
@@ -20,13 +21,13 @@ public class DownloadService : IDownloadService
     #region Ctor
     public DownloadService(
         ILogger<DownloadService> logger,
-        IFileRecordRepository fileRecordRepository,
+        IFileRecordDomainRepository fileRecordDomainRepository,
         IGetFileStreamService getFileStreamService,
         IMapper mapper
     )
     {
         _logger = logger;
-        _fileRecordRepository = fileRecordRepository;
+        _fileRecordDomainRepository = fileRecordDomainRepository;
         _getFileStreamService = getFileStreamService;
         _mapper = mapper;
     }
@@ -36,7 +37,7 @@ public class DownloadService : IDownloadService
     {
         try
         {
-            var fileRecord = _mapper.Map<FileRecord>((await _fileRecordRepository.GetByIdAsync(id)));
+            var fileRecord = await _fileRecordDomainRepository.GetByIdAsync(id);
             if (fileRecord is null)
             {
                 _logger.LogError($"{nameof(DownloadService)} - DownloadFileAsync failed. File Record {id} was not found.");
@@ -97,6 +98,7 @@ public class DownloadService : IDownloadService
         try
         {
             //Only for PDF Files
+            //TODO
             throw new System.NotImplementedException();
         }
         catch (StorageException<Stream> ex)

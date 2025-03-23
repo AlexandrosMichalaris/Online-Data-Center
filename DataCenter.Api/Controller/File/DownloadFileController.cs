@@ -30,22 +30,24 @@ public class DownloadFileController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<ApiResponse<FileMetadata>>> Download(int id)
     {
-        _logger.LogInformation($"{typeof(DownloadFileController)} - Download file START.");
-        
+        _logger.LogInformation("{Controller} - Download file START. FileRecordId: {FileId}", nameof(DownloadFileController), id);
+
         var result = await _downloadService.DownloadFileAsync(id);
-        
+
         if (!result.IsSuccess || result.Data is null)
         {
-            _logger.LogError($"{nameof(DownloadFileController)} - Download file FAILED.");
-            return StatusCode(
-                (int)HttpStatusCode.NotFound, 
-                new ApiResponse<FileMetadata>(
-                    null, 
-                    false, 
-                    result.ErrorMessage ?? "Download file FAILED."
-                )
-            );
+            var errorMessage = result.ErrorMessage ?? $"Failed to download file with id {id}.";
+
+            _logger.LogWarning("{Controller} - Download file FAILED. FileRecordId: {FileId}, Error: {ErrorMessage}", nameof(DownloadFileController), id, errorMessage);
+
+            return NotFound(new ApiResponse<FileMetadata>(
+                data: null,
+                success: false,
+                message: errorMessage
+            ));
         }
+
+        _logger.LogInformation("{Controller} - Download file SUCCESS. FileRecordId: {FileId}", nameof(DownloadFileController), id);
 
         return File(result.Data.Stream, result.Data.FileContentType, result.Data.FileName);
     }

@@ -1,4 +1,5 @@
 using AutoMapper;
+using DataCenter.Infrastructure.Repository.DomainRepository.Interface;
 using Hangfire;
 using Microsoft.Extensions.Logging;
 using StorageService.Exceptions;
@@ -11,8 +12,8 @@ namespace StorageService.Service;
 public class RecoverService : IRecoverService
 {
     private readonly ILogger<RecoverService> _logger;
-    private readonly IFileRecordRepository _fileRecordRepository;
-    private readonly IJobFileRecordRepository _jobFileRecordRepository;
+    private readonly IFileRecordDomainRepository _fileRecordDomainRepository;
+    private readonly IJobFileRecordDomainRepository _jobFileRecordDomainRepository;
     private readonly IRecoverFileService _recoverFileService;
     private readonly IMapper _mapper;
 
@@ -20,15 +21,15 @@ public class RecoverService : IRecoverService
 
     public RecoverService(
         ILogger<RecoverService> logger, 
-        IFileRecordRepository fileRecordRepository,
-        IJobFileRecordRepository jobFileRecordRepository,
+        IFileRecordDomainRepository fileRecordDomainRepository,
+        IJobFileRecordDomainRepository jobFileRecordDomainRepository,
         IMapper mapper,
         IRecoverFileService recoverFileService
     )
     {
         _logger = logger;
-        _fileRecordRepository = fileRecordRepository;
-        _jobFileRecordRepository = jobFileRecordRepository;
+        _fileRecordDomainRepository = fileRecordDomainRepository;
+        _jobFileRecordDomainRepository = jobFileRecordDomainRepository;
         _recoverFileService = recoverFileService;
         _mapper = mapper;
     }
@@ -40,7 +41,7 @@ public class RecoverService : IRecoverService
     {
         try
         {
-            var fileRecord = _mapper.Map<FileRecord>(await _fileRecordRepository.GetDeletedFileRecordAsync(id));
+            var fileRecord = await _fileRecordDomainRepository.GetDeletedFileRecordAsync(id);
             
             if (fileRecord is null || !fileRecord.IsDeleted)
             {
@@ -49,7 +50,7 @@ public class RecoverService : IRecoverService
             }
             
             // Get active job of fileRecord if exist
-            var activeJob = await _jobFileRecordRepository.GetActiveJobOfFileRecordAsync(fileRecord.Id);
+            var activeJob = await _jobFileRecordDomainRepository.GetActiveJobOfFileRecordAsync(fileRecord.Id);
 
             if (activeJob is null)
             {
@@ -64,10 +65,10 @@ public class RecoverService : IRecoverService
             BackgroundJob.Delete(activeJob.JobId.ToString());
 
             // Make isDeleted = false
-            await _fileRecordRepository.RecoverAsync(fileRecord.Id);
+            await _fileRecordDomainRepository.RecoverAsync(fileRecord.Id);
             
             // Delete job record entry
-            await _jobFileRecordRepository.DeleteJobByRecordIdAsync(fileRecord.Id);
+            await _jobFileRecordDomainRepository.DeleteJobByRecordIdAsync(fileRecord.Id);
             
             return FileResultGeneric<FileMetadata>.Success(new FileMetadata(
                 filePath: fileRecord.FilePath,
