@@ -24,7 +24,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\DataCenter.Domain\DataCenter.Domain.csproj" />
+      <ProjectReference Include="..\DataCenter.Model\DataCenter.Model.csproj" />
       <ProjectReference Include="..\DataCenter.Infrastructure\DataCenter.Infrastructure.csproj" />
       <ProjectReference Include="..\DataCenter.Storage\DataCenter.Storage.csproj" />
     </ItemGroup>

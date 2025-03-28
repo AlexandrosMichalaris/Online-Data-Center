@@ -748,14 +748,14 @@
           "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
       },
-      "DataCenter.Domain/1.0.0": {
+      "DataCenter.Model/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "compile": {
-          "bin/placeholder/DataCenter.Domain.dll": {}
+          "bin/placeholder/DataCenter.Model.dll": {}
         },
         "runtime": {
-          "bin/placeholder/DataCenter.Domain.dll": {}
+          "bin/placeholder/DataCenter.Model.dll": {}
         }
       }
     }
@@ -1935,16 +1935,16 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "DataCenter.Domain/1.0.0": {
+    "DataCenter.Model/1.0.0": {
       "type": "project",
-      "path": "../DataCenter.Domain/DataCenter.Domain.csproj",
-      "msbuildProject": "../DataCenter.Domain/DataCenter.Domain.csproj"
+      "path": "../DataCenter.Model/DataCenter.Model.csproj",
+      "msbuildProject": "../DataCenter.Model/DataCenter.Model.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
       "AutoMapper >= 14.0.0",
-      "DataCenter.Domain >= 1.0.0",
+      "DataCenter.Model >= 1.0.0",
       "Hangfire.Core >= 1.8.18",
       "Hangfire.MemoryStorage >= 1.8.1.1",
       "Hangfire.PostgreSql >= 1.20.10",
@@ -1980,8 +1980,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.Domain/DataCenter.Domain.csproj": {
-              "projectPath": "/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.Domain/DataCenter.Domain.csproj"
+            "/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.Model/DataCenter.Model.csproj": {
+              "projectPath": "/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.Model/DataCenter.Model.csproj"
             }
           }
         }

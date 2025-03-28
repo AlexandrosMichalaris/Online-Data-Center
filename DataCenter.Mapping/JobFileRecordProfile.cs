@@ -14,6 +14,7 @@ public class JobFileRecordProfile : Profile
             .ForMember(dest => dest.FileId, opt => opt.MapFrom(src => src.FileId))
             .ForMember(dest => dest.JobId, opt => opt.MapFrom(src => src.JobId))
             .ForMember(dest => dest.ScheduledAt, opt => opt.MapFrom(src => src.ScheduledAt))
+            .ForMember(dest => dest.Checksum, opt => opt.MapFrom(src => src.Checksum))
             .ReverseMap();
     }
 }

@@ -70,6 +70,9 @@ public class UploadService : IUploadService
             record.Status = FileStatus.Completed;
             
             await _fileRecordDomainRepository.UpdateAsync(record);
+            
+            //Add Database entry id to response.
+            fileStorageResult.Data.FileId = record.Id;
 
             return fileStorageResult;
         }

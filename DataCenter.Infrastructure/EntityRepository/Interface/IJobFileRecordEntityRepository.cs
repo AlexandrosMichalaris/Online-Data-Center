@@ -6,8 +6,10 @@ namespace StorageService.Repository.Interface;
 public interface IJobFileRecordEntityRepository : IEntityRepository<JobFileRecordEntity>
 {
     Task<IEnumerable<JobFileRecordEntity>> GetFileRecordJobsAsync(int fileRecordId);
+
+    Task<JobFileRecordEntity?> GetActiveJobOfFileRecordAsync(string fileName, string checksum);
     
-    Task<JobFileRecordEntity?> GetActiveJobOfFileRecordAsync(int fileRecordId);
+    Task<JobFileRecordEntity?> GetActiveJobOfFileRecordAsync(int filerecordId);
     
     Task DeleteJobByRecordIdAsync(int recordId);
 

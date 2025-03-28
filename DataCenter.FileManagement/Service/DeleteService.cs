@@ -4,8 +4,6 @@ using Hangfire;
 using Microsoft.Extensions.Logging;
 using StorageService.Exceptions;
 using StorageService.Model.Domain;
-using StorageService.Model.Entities;
-using StorageService.Repository.Interface;
 using StorageService.Service.Interface;
 
 namespace StorageService.Service;
@@ -48,7 +46,7 @@ public class DeleteService : IDeleteService
             }
 
             var (fileName, trashFolder) = StorageHelper.GetFileNameAndTrashFolder(fileRecord.FilePath);
-            var fileExistsInTrash = StorageHelper.FileExists(trashFolder);
+            var fileExistsInTrash = StorageHelper.FileExists(Path.Combine(trashFolder, fileName));
 
             await _deleteFileService.RecycleFileAsync(fileRecord.FilePath);
 
@@ -61,6 +59,7 @@ public class DeleteService : IDeleteService
             await _fileRecordDomainRepository.DeleteAsync(id);
             
             return FileResultGeneric<FileMetadata>.Success(new FileMetadata(
+                fileId: fileRecord.Id,
                 filePath: fileRecord.FilePath,
                 fileName: fileRecord.FileName,
                 fileSize: fileRecord.FileSize,
@@ -88,7 +87,8 @@ public class DeleteService : IDeleteService
     
     private async Task HandleFileInTrashAsync(FileRecord fileRecord)
     {
-        var activeJob = await _jobFileRecordDomainRepository.GetActiveJobOfFileRecordAsync(fileRecord.Id);
+        var activeJob =
+            await _jobFileRecordDomainRepository.GetActiveJobOfFileRecordAsync(fileRecord.FileName, fileRecord.Checksum);
 
         if (activeJob is null)
         {
@@ -96,7 +96,7 @@ public class DeleteService : IDeleteService
             _logger.LogError(errorMessage);
             throw new ApplicationException(errorMessage);
         }
-
+        
         BackgroundJob.Reschedule(activeJob.JobId.ToString(), TimeSpan.FromDays(30));
     }
 
@@ -108,6 +108,7 @@ public class DeleteService : IDeleteService
             FileId = fileRecord.Id,
             JobId = long.Parse(jobId),
             FileName = fileRecord.FileName,
+            Checksum = fileRecord.Checksum,
         };
 
         await _jobFileRecordDomainRepository.AddAsync(jobRecord);

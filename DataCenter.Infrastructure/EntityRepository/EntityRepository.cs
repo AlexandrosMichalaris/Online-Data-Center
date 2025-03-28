@@ -58,7 +58,7 @@ public class EntityRepository<TEntity> : IEntityRepository<TEntity> where TEntit
 
         if (existingEntity == null)
         {
-            throw new InvalidOperationException("Entity not found in the database.");
+            throw new InvalidOperationException($"{nameof(EntityRepository<TEntity>)} - UpdateAsync - Entity not found in the database.");
         }
 
         // Apply changes from the passed-in entity to the tracked one

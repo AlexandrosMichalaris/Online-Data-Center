@@ -12,7 +12,6 @@ public class JobFileRecordDomainRepository : DomainRepository<JobFileRecordEntit
     private readonly IJobFileRecordEntityRepository _jobFileRecordEntityRepository;
     
     public JobFileRecordDomainRepository(
-        //IEntityRepository<JobFileRecordEntity> entityRepository, 
         IMapper mapper,
         IJobFileRecordEntityRepository jobFileRecordEntityRepository
         ) : base(jobFileRecordEntityRepository, mapper)
@@ -25,7 +24,13 @@ public class JobFileRecordDomainRepository : DomainRepository<JobFileRecordEntit
         var entities = await _jobFileRecordEntityRepository.GetFileRecordJobsAsync(fileRecordId);
         return _mapper.Map<IEnumerable<JobFileRecord>>(entities);
     }
-
+    
+    public async Task<JobFileRecord?> GetActiveJobOfFileRecordAsync(string fileName, string checksum)
+    {
+        var entity = await _jobFileRecordEntityRepository.GetActiveJobOfFileRecordAsync(fileName, checksum);
+        return _mapper.Map<JobFileRecord>(entity);
+    }
+    
     public async Task<JobFileRecord?> GetActiveJobOfFileRecordAsync(int fileRecordId)
     {
         var entity = await _jobFileRecordEntityRepository.GetActiveJobOfFileRecordAsync(fileRecordId);

@@ -10,7 +10,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataCenter.Mapping", "DataC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataCenter.Infrastructure", "DataCenter.Infrastructure\DataCenter.Infrastructure.csproj", "{3A97C640-72FA-4B34-913B-B8E0DBF59C20}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataCenter.Domain", "DataCenter.Domain\DataCenter.Domain.csproj", "{5F115B60-0DD9-400D-878C-A51BFB128846}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataCenter.Model", "DataCenter.Model\DataCenter.Model.csproj", "{5F115B60-0DD9-400D-878C-A51BFB128846}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

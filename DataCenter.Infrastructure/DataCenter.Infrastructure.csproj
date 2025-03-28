@@ -19,7 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\DataCenter.Domain\DataCenter.Domain.csproj" />
+      <ProjectReference Include="..\DataCenter.Model\DataCenter.Model.csproj" />
     </ItemGroup>
 
 </Project>

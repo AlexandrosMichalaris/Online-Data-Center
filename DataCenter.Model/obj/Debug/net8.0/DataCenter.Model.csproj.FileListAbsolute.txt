@@ -1,0 +1,12 @@
+/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.Model/bin/Debug/net8.0/DataCenter.Model.deps.json
+/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.Model/bin/Debug/net8.0/DataCenter.Model.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.Model/bin/Debug/net8.0/DataCenter.Model.pdb
+/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.Model/obj/Debug/net8.0/DataCenter.Model.GeneratedMSBuildEditorConfig.editorconfig
+/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.Model/obj/Debug/net8.0/DataCenter.Model.AssemblyInfoInputs.cache
+/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.Model/obj/Debug/net8.0/DataCenter.Model.AssemblyInfo.cs
+/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.Model/obj/Debug/net8.0/DataCenter.Model.csproj.CoreCompileInputs.cache
+/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.Model/obj/Debug/net8.0/DataCenter.Model.sourcelink.json
+/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.Model/obj/Debug/net8.0/DataCenter.Model.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.Model/obj/Debug/net8.0/refint/DataCenter.Model.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.Model/obj/Debug/net8.0/DataCenter.Model.pdb
+/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.Model/obj/Debug/net8.0/ref/DataCenter.Model.dll

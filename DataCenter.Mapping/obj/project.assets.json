@@ -1234,23 +1234,13 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "DataCenter.Domain/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v8.0",
-        "compile": {
-          "bin/placeholder/DataCenter.Domain.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/DataCenter.Domain.dll": {}
-        }
-      },
       "DataCenter.FileManagement/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
           "AutoMapper": "14.0.0",
-          "DataCenter.Domain": "1.0.0",
           "DataCenter.Infrastructure": "1.0.0",
+          "DataCenter.Model": "1.0.0",
           "DataCenter.Storage": "1.0.0",
           "Hangfire.Core": "1.8.18",
           "Hangfire.MemoryStorage": "1.8.1.1",
@@ -1276,7 +1266,7 @@
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
           "AutoMapper": "14.0.0",
-          "DataCenter.Domain": "1.0.0",
+          "DataCenter.Model": "1.0.0",
           "Hangfire.Core": "1.8.18",
           "Hangfire.MemoryStorage": "1.8.1.1",
           "Hangfire.PostgreSql": "1.20.10",
@@ -1291,6 +1281,16 @@
         },
         "runtime": {
           "bin/placeholder/DataCenter.Infrastructure.dll": {}
+        }
+      },
+      "DataCenter.Model/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/DataCenter.Model.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DataCenter.Model.dll": {}
         }
       },
       "DataCenter.Storage/1.0.0": {
@@ -2971,11 +2971,6 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "DataCenter.Domain/1.0.0": {
-      "type": "project",
-      "path": "../DataCenter.Domain/DataCenter.Domain.csproj",
-      "msbuildProject": "../DataCenter.Domain/DataCenter.Domain.csproj"
-    },
     "DataCenter.FileManagement/1.0.0": {
       "type": "project",
       "path": "../DataCenter.FileManagement/DataCenter.FileManagement.csproj",
@@ -2985,6 +2980,11 @@
       "type": "project",
       "path": "../DataCenter.Infrastructure/DataCenter.Infrastructure.csproj",
       "msbuildProject": "../DataCenter.Infrastructure/DataCenter.Infrastructure.csproj"
+    },
+    "DataCenter.Model/1.0.0": {
+      "type": "project",
+      "path": "../DataCenter.Model/DataCenter.Model.csproj",
+      "msbuildProject": "../DataCenter.Model/DataCenter.Model.csproj"
     },
     "DataCenter.Storage/1.0.0": {
       "type": "project",

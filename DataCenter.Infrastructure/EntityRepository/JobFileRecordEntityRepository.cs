@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using Data_Center.Configuration.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -11,13 +12,17 @@ public class JobFileRecordEntityRepository : EntityRepository<JobFileRecordEntit
     private readonly DatabaseContext _dbContext;
     private readonly DbSet<JobFileRecordEntity> _dbSet;
     private readonly ILogger<JobFileRecordEntityRepository> _logger;
-    
+
+    #region Ctor
+
     public JobFileRecordEntityRepository(DatabaseContext dbContext, ILogger<JobFileRecordEntityRepository> logger) : base(dbContext)
     {
         _dbContext = dbContext;
         _dbSet = _dbContext.Set<JobFileRecordEntity>();
         _logger = logger;
     }
+
+    #endregion
 
     public async Task<IEnumerable<JobFileRecordEntity>> GetFileRecordJobsAsync(int fileRecordId)
     {
@@ -26,25 +31,16 @@ public class JobFileRecordEntityRepository : EntityRepository<JobFileRecordEntit
             .ToListAsync();
     }
 
+    public async Task<JobFileRecordEntity?> GetActiveJobOfFileRecordAsync(string fileName, string checksum)
+    {
+        return await GetSingleActiveJobAsync(job => job.FileName == fileName && job.Checksum == checksum, 
+            $"FileRecord Name: {fileName}");
+    }
+
     public async Task<JobFileRecordEntity?> GetActiveJobOfFileRecordAsync(int fileRecordId)
     {
-        var activeJobs = await _dbSet
-            .Where(job => job.FileId == fileRecordId && job.ScheduledAt > DateTimeOffset.UtcNow)
-            .ToListAsync();
-
-        if (activeJobs.Count != 1)
-        {
-            var errorMessage = $"{nameof(JobFileRecordEntityRepository)} - GetActiveJobOfFileRecordAsync - Expected exactly 1 active job but found {activeJobs.Count}. FileRecordId: {fileRecordId}";
-
-            _logger.LogError(errorMessage);
-
-            throw new InvalidOperationException(errorMessage);
-        }
-
-        _logger.LogInformation("{Repo} - Active job found for FileRecordId: {FileRecordId}, JobId: {JobId}.",
-            nameof(JobFileRecordEntityRepository), fileRecordId, activeJobs.First().Id);
-
-        return activeJobs.First();
+        return await GetSingleActiveJobAsync(job => job.FileId == fileRecordId, 
+            $"FileRecordId: {fileRecordId}");
     }
 
     public async Task DeleteJobByRecordIdAsync(int recordId)
@@ -99,5 +95,26 @@ public class JobFileRecordEntityRepository : EntityRepository<JobFileRecordEntit
                 ScheduledAt = result.jfr.ScheduledAt
             })
             .ToList();
+    }
+    
+    private async Task<JobFileRecordEntity?> GetSingleActiveJobAsync(
+        Expression<Func<JobFileRecordEntity, bool>> predicate, 
+        string identifier)
+    {
+        var job = await _dbSet
+            .Where(predicate)
+            .Where(job => job.ScheduledAt > DateTimeOffset.UtcNow)
+            .SingleOrDefaultAsync();
+
+        if (job is null)
+        {
+            _logger.LogWarning("{Repo} - No active job found. {Identifier}", nameof(JobFileRecordEntityRepository), identifier);
+            return null;
+        }
+
+        _logger.LogInformation("{Repo} - Active job found. FileRecordId: {FileRecordId}, JobId: {JobId}.",
+            nameof(JobFileRecordEntityRepository), job.FileId, job.Id);
+
+        return job;
     }
 }
