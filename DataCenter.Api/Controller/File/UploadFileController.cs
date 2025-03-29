@@ -1,5 +1,6 @@
 using System.Net;
 using ApiResponse;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StorageService.Service.Interface;
 
@@ -28,6 +29,7 @@ public class UploadFileController : ControllerBase
     /// <param name="file"></param>
     /// <param name="connectionId">Connection id for signalR to show the percentage.</param>
     /// <returns></returns>
+    [Authorize]
     [HttpPost]
     [Route("[controller]")]
     public async Task<ActionResult<ApiResponse<FileMetadata>>> Upload([FromForm]IFormFile file, [FromQuery] string connectionId = "")

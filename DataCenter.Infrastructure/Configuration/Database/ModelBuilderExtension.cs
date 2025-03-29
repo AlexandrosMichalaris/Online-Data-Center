@@ -13,6 +13,8 @@ public static class ModelBuilderExtensions
         modelBuilder.ApplyConfiguration(new FileRecordConfiguration());
         modelBuilder.ApplyConfiguration(new HangfireJobConfiguration());
         modelBuilder.ApplyConfiguration(new JobFileRecordConfiguration());
+        modelBuilder.ApplyConfiguration(new TrustedIpConfiguration());
+        modelBuilder.ApplyConfiguration(new LoginAttemptConfiguration());
     }
 
     public static void ApplyGlobalQueryFilters(this ModelBuilder modelBuilder)

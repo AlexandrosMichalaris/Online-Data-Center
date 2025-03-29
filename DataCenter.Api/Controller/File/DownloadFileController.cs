@@ -1,5 +1,6 @@
 using System.Net;
 using ApiResponse;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StorageService.Service.Interface;
 
@@ -27,6 +28,7 @@ public class DownloadFileController : ControllerBase
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
+    [Authorize]
     [HttpGet("{id}")]
     public async Task<ActionResult<ApiResponse<FileMetadata>>> Download(int id)
     {

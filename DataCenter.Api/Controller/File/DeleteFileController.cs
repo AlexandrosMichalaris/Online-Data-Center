@@ -1,5 +1,6 @@
 using System.Net;
 using ApiResponse;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StorageService.Service.Interface;
 
@@ -23,6 +24,7 @@ public class DeleteFileController : ControllerBase
 
     #endregion
 
+    [Authorize]
     [HttpDelete("{id}")]
     public async Task<ActionResult<ApiResponse<FileMetadata>>> Delete(int id)
     {

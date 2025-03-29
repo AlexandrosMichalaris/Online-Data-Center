@@ -1,4 +1,6 @@
 using Data_Center.Notifications;
+using DataCenter.Authentication.Services;
+using DataCenter.Authentication.Services.Interface;
 using DataCenter.Infrastructure.Repository.DomainRepository;
 using DataCenter.Infrastructure.Repository.DomainRepository.Interface;
 using DataCenter.Infrastructure.Repository.EntityRepository;
@@ -28,9 +30,6 @@ public static class DiConfiguration
         services.AddScoped<IHangfireJobEntityRepository, HangfireJobEntityRepository>();
         services.AddScoped<IJobFileRecordEntityRepository, JobFileRecordEntityRepository>();
         services.AddScoped<IFileRecordEntityRepository, FileRecordEntityRepository>();
-        // services.AddScoped<IEntityRepository<FileRecordEntity>, EntityRepository<FileRecordEntity>>();
-        // services.AddScoped<IEntityRepository<HangfireJobEntity>, EntityRepository<HangfireJobEntity>>();
-        // services.AddScoped<IEntityRepository<JobFileRecordEntity>, EntityRepository<JobFileRecordEntity>>();
         
         services.AddScoped<IHangfireJobDomainRepository, HangfireJobDomainRepository>();
         services.AddScoped<IJobFileRecordDomainRepository, JobFileRecordDomainRepository>();
@@ -41,8 +40,14 @@ public static class DiConfiguration
         services.AddScoped<ISaveFile, SaveImageFileService>();
         services.AddScoped<ISaveFileStrategy, SaveSaveFileStrategy>();
         
+        services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<IJwtTokenService, JwtTokenService>();
+        services.AddScoped<ITotpService, TotpService>();
+        
         // Auto register profiles
         services.AddAutoMapper(typeof(FileRecordProfile)); // points to any profile in that assembly
         services.AddAutoMapper(typeof(JobFileRecordProfile)); // points to any profile in that assembly
+        services.AddAutoMapper(typeof(LoginAttemptProfile));
+        services.AddAutoMapper(typeof(TrustedIpProfile));
     }
 }

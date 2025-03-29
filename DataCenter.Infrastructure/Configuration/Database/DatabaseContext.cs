@@ -1,3 +1,4 @@
+using DataCenter.Domain.Entities;
 using FileProcessing.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

@@ -10,3 +10,4 @@
 /Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.Model/obj/Debug/net8.0/refint/DataCenter.Model.dll
 /Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.Model/obj/Debug/net8.0/DataCenter.Model.pdb
 /Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.Model/obj/Debug/net8.0/ref/DataCenter.Model.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.Model/obj/Debug/net8.0/DataCenter.Model.csproj.AssemblyReference.cache

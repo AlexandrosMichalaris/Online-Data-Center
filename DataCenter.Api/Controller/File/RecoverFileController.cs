@@ -1,5 +1,6 @@
 using System.Net;
 using ApiResponse;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StorageService.Service.Interface;
 
@@ -16,8 +17,8 @@ public class RecoverFileController : ControllerBase
         _logger = logger;
         _recoverService = recoverService;
     }
-
-
+    
+    [Authorize]
     [HttpPatch("{id}/recover")]
     public async Task<ActionResult<ApiResponse<FileMetadata>>> RecoverFile(int id)
     {
