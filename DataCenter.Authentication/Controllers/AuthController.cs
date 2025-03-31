@@ -1,13 +1,7 @@
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using DataCenter.Authentication.Services;
 using DataCenter.Authentication.Services.Interface;
 using DataCenter.Domain.Dto;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
+using Model.ApiResponse;
 
 namespace DataCenter.Authentication.Controllers;
 
@@ -23,14 +17,16 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] LoginDto model)
+    public async Task<ActionResult<ApiResponse<string>>> Login([FromBody] LoginDto model)
     {
         var ip = HttpContext.Connection.RemoteIpAddress?.ToString();
-        var token = await _authService.AuthenticateUser(model.Email, model.TwoFactorCode, ip);
+        var (token, errorMessage) = await _authService.AuthenticateUser(model.Email, model.TwoFactorCode, ip);
 
         if (token == null)
-            return Unauthorized("Invalid 2FA or IP not trusted.");
+        {
+            return Unauthorized(new ApiResponse<string>(null, false, errorMessage ?? "Authentication failed."));
+        }
 
-        return Ok(new { Token = token });
+        return Ok(new ApiResponse<string>(token, true, "Login successful."));
     }
 }

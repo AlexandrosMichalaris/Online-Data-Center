@@ -30,10 +30,12 @@ public static class DiConfiguration
         services.AddScoped<IHangfireJobEntityRepository, HangfireJobEntityRepository>();
         services.AddScoped<IJobFileRecordEntityRepository, JobFileRecordEntityRepository>();
         services.AddScoped<IFileRecordEntityRepository, FileRecordEntityRepository>();
+        services.AddScoped<ILoginAttemptEntityRepository, LoginAttemptEntityRepository>();
         
         services.AddScoped<IHangfireJobDomainRepository, HangfireJobDomainRepository>();
         services.AddScoped<IJobFileRecordDomainRepository, JobFileRecordDomainRepository>();
         services.AddScoped<IFileRecordDomainRepository, FileRecordDomainRepository>();
+        services.AddScoped<ILoginAttemptDomainRepository, ILoginAttemptDomainRepository>();
         
         services.AddScoped<ISaveFile, SaveDefaultFileService>();
         services.AddScoped<ISaveFile, SaveDocumentFileService>();

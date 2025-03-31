@@ -1,5 +1,6 @@
 using System.Net;
 using System.Text.Json;
+using Model.ApiResponse;
 
 namespace Data_Center.Configuration;
 
@@ -28,7 +29,7 @@ public class ExceptionMiddleware
             response.ContentType = "application/json";
             response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
-            var errorResponse = new ApiResponse.ApiResponse(ex.Message, false, response.StatusCode);
+            var errorResponse = new ApiResponse(ex.Message, false, response.StatusCode);
             
             var result = JsonSerializer.Serialize(errorResponse);
             await response.WriteAsync(result);

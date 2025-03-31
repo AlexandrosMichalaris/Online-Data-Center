@@ -1,7 +1,6 @@
-using System.Net;
-using ApiResponse;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Model.ApiResponse;
 using StorageService.Service.Interface;
 
 namespace Data_Center.Controller;

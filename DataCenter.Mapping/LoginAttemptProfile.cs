@@ -14,6 +14,7 @@ public class LoginAttemptProfile : Profile
             .ForMember(dest => dest.IpAddress, opt => opt.MapFrom(src => src.IpAddress))
             .ForMember(dest => dest.Success, opt => opt.MapFrom(src => src.Success))
             .ForMember(dest => dest.AttemptAt, opt => opt.MapFrom(src => src.AttemptedAt))
+            .ForMember(dest => dest.Reason, opt => opt.MapFrom(src => src.Reason))
             .ReverseMap();
     }
 }

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DataCenter.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+471fffd3dbb47ac8e334dd1ff4fc3ccc58a319c3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3b955fbac9f5158796301b40f75e6986f55e795f")]
 [assembly: System.Reflection.AssemblyProductAttribute("DataCenter.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DataCenter.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

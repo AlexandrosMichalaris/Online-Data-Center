@@ -9,7 +9,7 @@ public class LoginAttemptEntity
     public int Id { get; set; }
 
     [Required]
-    public string UserId { get; set; } = string.Empty;
+    public string? UserId { get; set; } = string.Empty;
 
     [ForeignKey("UserId")]
     public virtual ApplicationUserEntity UserEntity { get; set; }
@@ -19,6 +19,9 @@ public class LoginAttemptEntity
 
     [Required]
     public bool Success { get; set; }  // true = successful, false = failed
+    
+    [Required]
+    public string? Reason { get; set; } = string.Empty;
 
     [Required]
     public DateTime AttemptAt { get; set; } = DateTime.UtcNow;

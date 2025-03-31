@@ -1,4 +1,4 @@
-﻿namespace ApiResponse;
+﻿namespace Model.ApiResponse;
 
 public class ApiResponse<T> : ApiResponse where T : class
 {
