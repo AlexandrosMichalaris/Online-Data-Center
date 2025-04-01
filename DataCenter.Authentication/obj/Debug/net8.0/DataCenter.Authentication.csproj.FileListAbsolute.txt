@@ -3,8 +3,10 @@
 /Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.Authentication/bin/Debug/net8.0/DataCenter.Authentication.pdb
 /Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.Authentication/bin/Debug/net8.0/DataCenter.Infrastructure.dll
 /Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.Authentication/bin/Debug/net8.0/DataCenter.Model.dll
+/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.Authentication/bin/Debug/net8.0/DataCenter.Storage.dll
 /Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.Authentication/bin/Debug/net8.0/DataCenter.Infrastructure.pdb
 /Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.Authentication/bin/Debug/net8.0/DataCenter.Model.pdb
+/Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.Authentication/bin/Debug/net8.0/DataCenter.Storage.pdb
 /Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.Authentication/obj/Debug/net8.0/DataCenter.Authentication.csproj.AssemblyReference.cache
 /Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.Authentication/obj/Debug/net8.0/DataCenter.Authentication.GeneratedMSBuildEditorConfig.editorconfig
 /Users/alexandrosmichalaris/RiderProjects/Data Center/DataCenter.Authentication/obj/Debug/net8.0/DataCenter.Authentication.AssemblyInfoInputs.cache

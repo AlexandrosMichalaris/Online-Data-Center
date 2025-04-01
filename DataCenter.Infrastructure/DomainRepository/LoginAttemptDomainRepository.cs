@@ -8,7 +8,18 @@ namespace DataCenter.Infrastructure.Repository.DomainRepository;
 
 public class LoginAttemptDomainRepository : DomainRepository<LoginAttemptEntity, LoginAttempt>, ILoginAttemptDomainRepository
 {
-    public LoginAttemptDomainRepository(IEntityRepository<LoginAttemptEntity> entityRepository, IMapper mapper) : base(entityRepository, mapper)
+    private readonly ILoginAttemptEntityRepository _loginAttemptEntityRepository;
+    
+    public LoginAttemptDomainRepository(
+        ILoginAttemptEntityRepository entityRepository, 
+        IMapper mapper,
+        ILoginAttemptEntityRepository loginAttemptEntityRepository) : base(entityRepository, mapper)
     {
+        _loginAttemptEntityRepository = loginAttemptEntityRepository;
+    }
+
+    public async Task<bool> CheckTrustedIp(string userId, string ipAddress)
+    {
+        return await _loginAttemptEntityRepository.CheckTrustedIp(userId, ipAddress);
     }
 }

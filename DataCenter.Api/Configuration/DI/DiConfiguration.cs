@@ -35,7 +35,7 @@ public static class DiConfiguration
         services.AddScoped<IHangfireJobDomainRepository, HangfireJobDomainRepository>();
         services.AddScoped<IJobFileRecordDomainRepository, JobFileRecordDomainRepository>();
         services.AddScoped<IFileRecordDomainRepository, FileRecordDomainRepository>();
-        services.AddScoped<ILoginAttemptDomainRepository, ILoginAttemptDomainRepository>();
+        services.AddScoped<ILoginAttemptDomainRepository, LoginAttemptDomainRepository>();
         
         services.AddScoped<ISaveFile, SaveDefaultFileService>();
         services.AddScoped<ISaveFile, SaveDocumentFileService>();

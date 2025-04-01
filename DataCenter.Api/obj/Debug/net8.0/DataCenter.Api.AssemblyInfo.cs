@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DataCenter.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3b955fbac9f5158796301b40f75e6986f55e795f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f565fd4854480ab306d88e52691080b48961cbf9")]
 [assembly: System.Reflection.AssemblyProductAttribute("DataCenter.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DataCenter.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -57,7 +57,7 @@ public class AuthService : IAuthService
         }
 
         // Check Trusted IP
-        bool isTrustedIp = await _dbContext.TrustedIps.AnyAsync(t => t.UserId == user.Id && t.IpAddress == ip);
+        var isTrustedIp = await _loginAttemptDomainRepository.CheckTrustedIp(user.Id, ip);
         if (!isTrustedIp)
         {
             await LogFailedLogin(ip, "IP not trusted.");
