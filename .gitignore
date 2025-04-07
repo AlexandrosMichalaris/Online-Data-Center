@@ -1,5 +1,7 @@
-# Ignore the appsettings files
+# App config
 **/appsettings.json
 **/appsettings.*.json
+
+# Docker setup
 **/compose.yaml
-**/DockerFile
+**/Dockerfile
