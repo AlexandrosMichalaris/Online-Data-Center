@@ -5,3 +5,7 @@
 # Docker setup
 **/compose.yaml
 **/Dockerfile
+
+
+# EF Migrations (optional)
+**/Migrations/
