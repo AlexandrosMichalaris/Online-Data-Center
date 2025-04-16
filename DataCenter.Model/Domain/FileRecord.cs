@@ -4,13 +4,16 @@ namespace StorageService.Model.Domain;
 
 public class FileRecord
 {
-    public FileRecord(string fileName, string fileType, FileStatus status, string? checksum, long fileSize)
+    public FileRecord(string fileName, string fileType, FileStatus status, string? checksum, long fileSize, string filepath)
     {
         FileName = fileName;
         FileType = fileType;
         Status = status;
         Checksum = checksum;
         FileSize = fileSize;
+        FilePath = filepath;
+        CreatedAt = DateTime.UtcNow;
+        UpdatedAt = DateTime.UtcNow;
     }
 
     public int Id { get; set; }
@@ -38,12 +41,12 @@ public class FileRecord
     /// <summary>
     /// Date of file upload
     /// </summary>
-    public DateTimeOffset CreatedAt { get; set; }
+    public DateTimeOffset? CreatedAt { get; set; }
     
     /// <summary>
     /// Updated timestamp
     /// </summary>
-    public DateTimeOffset UpdatedAt { get; set; }
+    public DateTimeOffset? UpdatedAt { get; set; }
     
     /// <summary>
     /// Optional: Hash of the file for validation

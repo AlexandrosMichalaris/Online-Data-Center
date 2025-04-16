@@ -12,7 +12,7 @@ public class AuthService : IAuthService
 {
     private readonly UserManager<ApplicationUserEntity> _userManager;
     private readonly IJwtTokenService _jwtService;
-    private readonly AuthDatabaseContext _dbContext;
+    private readonly PasswordHasher<ApplicationUserEntity> _passwordHasher;
     private readonly ITotpService _totpService;
     private readonly ILoginAttemptDomainRepository _loginAttemptDomainRepository;
 
@@ -21,38 +21,40 @@ public class AuthService : IAuthService
     public AuthService(
         UserManager<ApplicationUserEntity> userManager, 
         IJwtTokenService jwtService, 
-        AuthDatabaseContext dbContext, 
         ITotpService totpService,
-        ILoginAttemptDomainRepository loginAttemptDomainRepository)
+        ILoginAttemptDomainRepository loginAttemptDomainRepository,
+        PasswordHasher<ApplicationUserEntity> passwordHasher)
     {
         _userManager = userManager;
         _jwtService = jwtService;
-        _dbContext = dbContext;
         _totpService = totpService;
         _loginAttemptDomainRepository = loginAttemptDomainRepository;
+        _passwordHasher = passwordHasher;
     }
 
     #endregion
 
-    public async Task<(string? Token, string? ErrorMessage)> AuthenticateUser(string email, string twoFactorCode, string ip)
+    public async Task<(string? Token, string? ErrorMessage)> AuthenticateUser(string email, string twoFactorCode, string password, string ip)
     {
         var user = await _userManager.FindByEmailAsync(email);
         if (user == null)
         {
-            await LogFailedLogin(ip, "User not found.");
+            await LogFailedLogin(null, ip, "User not found.");
             return (null, "Invalid email or 2FA.");
         }
-
-        if (!user.Is2FAEnabled || string.IsNullOrEmpty(user.TwoFactorSecretKey))
-        {
-            await LogFailedLogin(ip, "2FA not enabled.");
-            return (null, "2FA is not set up for this account.");
-        }
+        
+        // var passwordResult = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, password);
+        //
+        // if (passwordResult == PasswordVerificationResult.Failed)
+        // {
+        //     await LogFailedLogin(null, ip, "Wrong password.");
+        //     return (null, "Wrong password.");
+        // }
 
         // Validate TOTP
-        if (!_totpService.VerifyTotpCode(user.TwoFactorSecretKey, twoFactorCode))
+        if (!user.Is2FAEnabled || string.IsNullOrEmpty(user.TwoFactorSecretKey) || !_totpService.VerifyTotpCode(user.TwoFactorSecretKey, twoFactorCode))
         {
-            await LogFailedLogin(ip, "Invalid 2FA code.");
+            await LogFailedLogin(user.Id, ip, "Invalid 2FA code.");
             return (null, "Invalid 2FA code.");
         }
 
@@ -60,7 +62,7 @@ public class AuthService : IAuthService
         var isTrustedIp = await _loginAttemptDomainRepository.CheckTrustedIp(user.Id, ip);
         if (!isTrustedIp)
         {
-            await LogFailedLogin(ip, "IP not trusted.");
+            await LogFailedLogin(user.Id, ip, "IP not trusted.");
             return (null, "Your IP address is not trusted.");
         }
 
@@ -70,10 +72,11 @@ public class AuthService : IAuthService
     }
 
 // Logs failed login attempt
-    private async Task LogFailedLogin(string ip, string reason)
+    private async Task LogFailedLogin(string? userId, string ip, string reason)
     {
         var loginAttempt = new LoginAttempt
         {
+            UserId = userId,
             IpAddress = ip,
             AttemptedAt = DateTime.UtcNow,
             Success = false,

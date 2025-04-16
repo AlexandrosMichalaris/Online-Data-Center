@@ -1,6 +1,8 @@
 namespace DataCenter.Infrastructure.Configuration;
 
-public class Constants
+public static class Constants
 {
-    
+    public const string ConfigProject = "DataCenter.Api";
+    public const string ConfigFile = "appsettings.Development.json";
+    public const string ConnectionString = "DataCenter";
 }

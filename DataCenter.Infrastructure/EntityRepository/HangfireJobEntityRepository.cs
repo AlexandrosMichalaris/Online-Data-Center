@@ -5,7 +5,7 @@ using StorageService.Repository.Interface;
 
 namespace DataCenter.Infrastructure.Repository.EntityRepository;
 
-public class HangfireJobEntityRepository : EntityRepository<HangfireJobEntity>, IHangfireJobEntityRepository
+public class HangfireJobEntityRepository : EntityRepository<HangfireJobEntity, DatabaseContext>, IHangfireJobEntityRepository
 {
     public HangfireJobEntityRepository(DatabaseContext dbContext) : base(dbContext) { }
 }

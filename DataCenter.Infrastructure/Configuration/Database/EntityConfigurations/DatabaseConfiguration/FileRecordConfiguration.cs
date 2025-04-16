@@ -35,11 +35,13 @@ public class FileRecordConfiguration : IEntityTypeConfiguration<FileRecordEntity
 
         builder.Property(e => e.CreatedAt)
             .IsRequired()
-            .HasColumnName("created_at");
+            .HasColumnName("created_at")
+            .HasDefaultValueSql("NOW()");;
 
         builder.Property(e => e.UpdatedAt)
             .IsRequired()
-            .HasColumnName("updated_at");
+            .HasColumnName("updated_at")
+            .HasDefaultValueSql("NOW()");;
 
         builder.Property(e => e.Checksum)
             .HasColumnName("checksum");

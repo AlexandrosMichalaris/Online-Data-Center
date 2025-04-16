@@ -12,7 +12,7 @@ namespace DataCenter.Infrastructure.Repository.EntityRepository;
 /// File Record Repository
 /// Every operation done here, is considered to be done into the storage too.
 /// </summary>
-public class FileRecordEntityRepository : EntityRepository<FileRecordEntity>, IFileRecordEntityRepository
+public class FileRecordEntityRepository : EntityRepository<FileRecordEntity, DatabaseContext>, IFileRecordEntityRepository
 {
     private readonly DatabaseContext _dbContext;
     private readonly DbSet<FileRecordEntity> _dbSet;

@@ -7,15 +7,15 @@ using StorageService.Repository.Interface;
 
 namespace DataCenter.Infrastructure.Repository.EntityRepository;
 
-public class LoginAttemptEntityRepository : EntityRepository<LoginAttemptEntity>, ILoginAttemptEntityRepository
+public class LoginAttemptEntityRepository : EntityRepository<LoginAttemptEntity, AuthDatabaseContext>, ILoginAttemptEntityRepository
 {
-    private readonly DatabaseContext _dbContext;
+    private readonly AuthDatabaseContext _dbContext;
     private readonly DbSet<LoginAttemptEntity> _dbSet;
     private readonly ILogger<LoginAttemptEntityRepository> _logger;
 
     #region Ctor
 
-    public LoginAttemptEntityRepository(DatabaseContext dbContext, ILogger<LoginAttemptEntityRepository> logger) : base(dbContext)
+    public LoginAttemptEntityRepository(AuthDatabaseContext dbContext, ILogger<LoginAttemptEntityRepository> logger) : base(dbContext)
     {
         _dbContext = dbContext;
         _dbSet = _dbContext.Set<LoginAttemptEntity>();
@@ -27,6 +27,6 @@ public class LoginAttemptEntityRepository : EntityRepository<LoginAttemptEntity>
 
     public async Task<bool> CheckTrustedIp(string userId, string ipAddress)
     {
-        return await _dbSet.AnyAsync(t => t.UserId == userId && t.IpAddress == ipAddress);
+        return await _dbContext.TrustedIps.AnyAsync(t => t.UserId == userId && t.IpAddress == ipAddress);
     }
 }

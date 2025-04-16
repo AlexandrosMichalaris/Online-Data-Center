@@ -1,10 +1,12 @@
 using Data_Center.Notifications;
 using DataCenter.Authentication.Services;
 using DataCenter.Authentication.Services.Interface;
+using DataCenter.Domain.Entities;
 using DataCenter.Infrastructure.Repository.DomainRepository;
 using DataCenter.Infrastructure.Repository.DomainRepository.Interface;
 using DataCenter.Infrastructure.Repository.EntityRepository;
 using DataCenter.Mapping;
+using Microsoft.AspNetCore.Identity;
 using StorageService;
 using StorageService.Repository.Interface;
 using StorageService.Service;
@@ -45,6 +47,7 @@ public static class DiConfiguration
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IJwtTokenService, JwtTokenService>();
         services.AddScoped<ITotpService, TotpService>();
+        services.AddScoped<PasswordHasher<ApplicationUserEntity>>();
         
         // Auto register profiles
         services.AddAutoMapper(typeof(FileRecordProfile)); // points to any profile in that assembly

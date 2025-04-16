@@ -7,7 +7,7 @@ using StorageService.Repository.Interface;
 
 namespace DataCenter.Infrastructure.Repository.EntityRepository;
 
-public class JobFileRecordEntityRepository : EntityRepository<JobFileRecordEntity>, IJobFileRecordEntityRepository
+public class JobFileRecordEntityRepository : EntityRepository<JobFileRecordEntity, DatabaseContext>, IJobFileRecordEntityRepository
 {
     private readonly DatabaseContext _dbContext;
     private readonly DbSet<JobFileRecordEntity> _dbSet;

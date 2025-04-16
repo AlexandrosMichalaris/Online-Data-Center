@@ -12,7 +12,7 @@ public class LoginAttemptEntity
     public string? UserId { get; set; } = string.Empty;
 
     [ForeignKey("UserId")]
-    public virtual ApplicationUserEntity UserEntity { get; set; }
+    public virtual ApplicationUserEntity? UserEntity { get; set; }
 
     [Required]
     public string IpAddress { get; set; } = string.Empty;

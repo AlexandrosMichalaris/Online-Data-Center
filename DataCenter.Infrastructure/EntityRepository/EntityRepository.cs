@@ -4,12 +4,14 @@ using StorageService.Repository.Interface;
 
 namespace DataCenter.Infrastructure.Repository.EntityRepository;
 
-public class EntityRepository<TEntity> : IEntityRepository<TEntity> where TEntity : class
+public class EntityRepository<TEntity, TContext> : IEntityRepository<TEntity> 
+    where TEntity : class
+    where TContext : DbContext
 {
-    private readonly DatabaseContext _dbContext;
+    private readonly TContext _dbContext;
     private readonly DbSet<TEntity> _dbSet;
     
-    public EntityRepository(DatabaseContext dbContext)
+    public EntityRepository(TContext dbContext)
     {
         _dbContext = dbContext;
         _dbSet = _dbContext.Set<TEntity>();
@@ -58,7 +60,7 @@ public class EntityRepository<TEntity> : IEntityRepository<TEntity> where TEntit
 
         if (existingEntity == null)
         {
-            throw new InvalidOperationException($"{nameof(EntityRepository<TEntity>)} - UpdateAsync - Entity not found in the database.");
+            throw new InvalidOperationException($"{nameof(EntityRepository<TEntity, TContext>)} - UpdateAsync - Entity not found in the database.");
         }
 
         // Apply changes from the passed-in entity to the tracked one

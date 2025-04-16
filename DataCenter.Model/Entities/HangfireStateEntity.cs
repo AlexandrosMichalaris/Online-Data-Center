@@ -21,7 +21,7 @@ public class HangfireStateEntity
     public string Data { get; set; } // JSON blob with ScheduledAt, EnqueueAt
 
     [Column("createdat")]
-    public DateTime CreatedAt { get; set; }
+    public DateTime? CreatedAt { get; set; } = DateTime.UtcNow;
 
     // Navigation to HangfireJob
     [ForeignKey(nameof(JobId))]

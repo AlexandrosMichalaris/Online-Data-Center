@@ -16,7 +16,8 @@ public class LoginAttemptConfiguration : IEntityTypeConfiguration<LoginAttemptEn
             .HasColumnName("id");
         
         builder.Property(x => x.UserId)
-            .HasColumnName("userid");
+            .HasColumnName("userid")
+            .IsRequired(false); ;
         
         builder.Property(x => x.IpAddress)
             .HasColumnName("ipaddress");

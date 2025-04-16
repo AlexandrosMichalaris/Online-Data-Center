@@ -31,8 +31,8 @@ public class HangfireJobConfiguration : IEntityTypeConfiguration<HangfireJobEnti
         builder.Property(j => j.Arguments)
             .HasColumnName("arguments");
 
-        builder.Property(j => j.ExpiresAt)
-            .HasColumnName("expiresat");
+        builder.Property(j => j.ExpireAt)
+            .HasColumnName("expireat");
 
         // Relationships
         builder.HasMany(j => j.States)

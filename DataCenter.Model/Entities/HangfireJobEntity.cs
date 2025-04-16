@@ -27,8 +27,8 @@ public class HangfireJobEntity
     [Column("arguments")]
     public string Arguments { get; set; }
 
-    [Column("expiresat")]
-    public DateTime? ExpiresAt { get; set; }
+    [Column("expireat")]
+    public DateTime? ExpireAt { get; set; }
 
     // Navigation property to Hangfire States
     public virtual ICollection<HangfireStateEntity> States { get; set; }

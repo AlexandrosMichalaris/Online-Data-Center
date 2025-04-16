@@ -26,12 +26,11 @@ public class UploadFileController : ControllerBase
     /// <summary>
     /// Upload file controller
     /// </summary>
-    /// <param name="file"></param>
     /// <param name="connectionId">Connection id for signalR to show the percentage.</param>
     /// <returns></returns>
-    [Authorize]
     [HttpPost]
     [Route("[controller]")]
+    [Authorize]
     public async Task<ActionResult<ApiResponse<FileMetadata>>> Upload([FromForm]IFormFile file, [FromQuery] string connectionId = "")
     {
         _logger.LogInformation("{Controller} - Upload file START. FileName: {FileName}", nameof(UploadFileController), file?.FileName);

@@ -1,4 +1,5 @@
 using DataCenter.Domain.Entities;
+using DataCenter.Infrastructure.Configuration;
 using FileProcessing.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -25,19 +26,30 @@ public class DatabaseContext : DbContext
     {
         if (!optionsBuilder.IsConfigured)
         {
-            var connectionString = _configuration.GetConnectionString("DataCenter");
+            var basePath = Path.Combine(Directory.GetCurrentDirectory(), "..", "DataCenter.Api"); // adjust as needed
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(basePath)
+                .AddJsonFile("appsettings.json", optional: false)
+                .Build();
+
+            var connectionString = configuration.GetConnectionString("DataCenter");
+
             if (string.IsNullOrEmpty(connectionString))
             {
                 throw new InvalidOperationException("Connection string 'DataCenter' is missing.");
             }
-            optionsBuilder.UseNpgsql(connectionString);
+
+            // Use this context's assembly for migrations
+            var assemblyName = typeof(AuthDatabaseContext).Assembly.GetName().Name;
+
+            optionsBuilder.UseNpgsql(connectionString, b => b.MigrationsAssembly(assemblyName));
         }
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        modelBuilder.ApplyConfigurations(); // Extension method for entity configurations
+        modelBuilder.ApplyFileConfigurations(); // Extension method for entity configurations
         modelBuilder.ApplyGlobalQueryFilters(); // Extension method for global filters
     }
 }

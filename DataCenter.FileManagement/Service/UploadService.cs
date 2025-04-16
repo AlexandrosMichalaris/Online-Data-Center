@@ -48,7 +48,9 @@ public class UploadService : IUploadService
             var fileRecord = new FileRecord(
                 fileName: file.FileName,
                 fileType: FileTypeMapper.GetFileTypeFromContentType(file.ContentType).ToString(),
-                status: FileStatus.Pending, checksum: calculatedChecksum, fileSize: file.Length);
+                status: FileStatus.Pending, checksum: calculatedChecksum, fileSize: file.Length,
+                filepath: $"{file.ContentType}/{file.FileName}" // Temporary value in case storage service breaks
+                );
             
             // Get storage strategy handler based on file type.
             var saveFileStrategyHandler = _saveFileStrategy.GetFileHandler(FileTypeMapper.GetFileTypeFromContentType(file.ContentType));

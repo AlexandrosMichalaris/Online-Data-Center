@@ -57,16 +57,16 @@ public class RecoverService : IRecoverService
                 return FileResultGeneric<FileMetadata>.Failure($"{nameof(RecoverService)} - RecoverFileAsync failed. No active job was found for record {id}.");
             }
             
+            // If file already exists in original folder, this means there is an existing fileRecord
+            // with isDelete false. So there is no need to recover the deleted file record entry.
+            if(!StorageHelper.FileExists(fileRecord.FilePath))
+                await _fileRecordDomainRepository.RecoverAsync(fileRecord.Id); // Make isDelete property to false
+            
             // Move file from trash to original folder. If it exists, it overrides it.
             await _recoverFileService.RecoverFileAsync(fileRecord.FilePath);
 
             // Remove scheduled delete job
             BackgroundJob.Delete(activeJob.JobId.ToString());
-
-            // If file already exists in original folder, this means there is an existing fileRecord
-            // with isDelete false. So there is no need to recover the deleted file record entry.
-            if(!StorageHelper.FileExists(fileRecord.FilePath))
-                await _fileRecordDomainRepository.RecoverAsync(fileRecord.Id); // Make isDelete property to false
             
             // Delete job record entry
             await _jobFileRecordDomainRepository.DeleteJobByRecordIdAsync(fileRecord.Id);

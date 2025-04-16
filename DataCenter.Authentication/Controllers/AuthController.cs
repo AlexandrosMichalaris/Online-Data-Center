@@ -5,7 +5,7 @@ using Model.ApiResponse;
 
 namespace DataCenter.Authentication.Controllers;
 
-[Route("api/auth")]
+[Route("api/[controller]")]
 [ApiController]
 public class AuthController : ControllerBase
 {
@@ -20,7 +20,7 @@ public class AuthController : ControllerBase
     public async Task<ActionResult<ApiResponse<string>>> Login([FromBody] LoginDto model)
     {
         var ip = HttpContext.Connection.RemoteIpAddress?.ToString();
-        var (token, errorMessage) = await _authService.AuthenticateUser(model.Email, model.TwoFactorCode, ip);
+        var (token, errorMessage) = await _authService.AuthenticateUser(model.Email, model.TwoFactorCode, model.Password, ip);
 
         if (token == null)
         {

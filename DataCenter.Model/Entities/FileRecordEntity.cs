@@ -42,13 +42,13 @@ public class FileRecordEntity : IDeletable
     /// Date of file upload
     /// </summary>
     [Column("createdat")]
-    public DateTimeOffset CreatedAt { get; set; }
+    public required DateTimeOffset? CreatedAt { get; set; }
     
     /// <summary>
     /// Updated timestamp
     /// </summary>
     [Column("updatedat")]
-    public DateTimeOffset UpdatedAt { get; set; }
+    public required DateTimeOffset? UpdatedAt { get; set; }
     
     /// <summary>
     /// Optional: Hash of the file for validation
