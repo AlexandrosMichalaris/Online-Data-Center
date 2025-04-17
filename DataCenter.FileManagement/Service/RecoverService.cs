@@ -15,7 +15,6 @@ public class RecoverService : IRecoverService
     private readonly IFileRecordDomainRepository _fileRecordDomainRepository;
     private readonly IJobFileRecordDomainRepository _jobFileRecordDomainRepository;
     private readonly IRecoverFileService _recoverFileService;
-    private readonly IMapper _mapper;
 
     #region Ctor
 
@@ -23,7 +22,6 @@ public class RecoverService : IRecoverService
         ILogger<RecoverService> logger, 
         IFileRecordDomainRepository fileRecordDomainRepository,
         IJobFileRecordDomainRepository jobFileRecordDomainRepository,
-        IMapper mapper,
         IRecoverFileService recoverFileService
     )
     {
@@ -31,7 +29,6 @@ public class RecoverService : IRecoverService
         _fileRecordDomainRepository = fileRecordDomainRepository;
         _jobFileRecordDomainRepository = jobFileRecordDomainRepository;
         _recoverFileService = recoverFileService;
-        _mapper = mapper;
     }
 
     #endregion

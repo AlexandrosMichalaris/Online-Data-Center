@@ -1,5 +1,6 @@
 using FileProcessing.Model;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Data_Center.Configuration.Database;
@@ -35,13 +36,12 @@ public class FileRecordConfiguration : IEntityTypeConfiguration<FileRecordEntity
 
         builder.Property(e => e.CreatedAt)
             .IsRequired()
-            .HasColumnName("created_at")
-            .HasDefaultValueSql("NOW()");;
+            .HasColumnName("created_at");
 
         builder.Property(e => e.UpdatedAt)
             .IsRequired()
             .HasColumnName("updated_at")
-            .HasDefaultValueSql("NOW()");;
+            .Metadata.SetAfterSaveBehavior(PropertySaveBehavior.Ignore); // important!
 
         builder.Property(e => e.Checksum)
             .HasColumnName("checksum");

@@ -28,6 +28,7 @@ public static class DiConfiguration
         services.AddScoped<IDeleteService, DeleteService>();
         services.AddScoped<IRecoverService, RecoverService>();
         services.AddScoped<IRecoverFileService, RecoverFileService>();
+        services.AddScoped<IFileInfoService, FileInfoService>();
         
         services.AddScoped<IHangfireJobEntityRepository, HangfireJobEntityRepository>();
         services.AddScoped<IJobFileRecordEntityRepository, JobFileRecordEntityRepository>();

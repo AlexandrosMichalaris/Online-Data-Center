@@ -1,3 +1,4 @@
+using System.Net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Model.ApiResponse;
@@ -29,19 +30,35 @@ public class DownloadFileController : ControllerBase
     /// <returns></returns>
     [Authorize]
     [HttpGet("{id}")]
-    public async Task<ActionResult<ApiResponse<FileMetadata>>> Download(int id)
+    public async Task<IActionResult> Download(int id)
     {
         _logger.LogInformation("{Controller} - Download file START. FileRecordId: {FileId}", nameof(DownloadFileController), id);
 
         var result = await _downloadService.DownloadFileAsync(id);
 
-        if (!result.IsSuccess || result.Data is null)
+        if (!result.IsSuccess)
         {
-            var errorMessage = result.ErrorMessage ?? $"Failed to download file with id {id}.";
+            var errorMessage = result.ErrorMessage ??
+                               (result.StatusCode == (int)HttpStatusCode.NotFound
+                                   ? $"File with ID {id} was not found."
+                                   : "Unexpected error occurred during file download.");
 
             _logger.LogWarning("{Controller} - Download file FAILED. FileRecordId: {FileId}, Error: {ErrorMessage}", nameof(DownloadFileController), id, errorMessage);
 
-            return NotFound(new ApiResponse<FileMetadata>(
+            return StatusCode(result.StatusCode ?? (int)HttpStatusCode.InternalServerError, new ApiResponse<FileMetadata>(
+                data: null,
+                success: false,
+                message: errorMessage
+            ));
+        }
+
+        if (result.Data is null)
+        {
+            var errorMessage = $"Download succeeded but returned no file data for ID {id}.";
+
+            _logger.LogWarning("{Controller} - Download file returned no data. FileRecordId: {FileId}", nameof(DownloadFileController), id);
+
+            return StatusCode((int)HttpStatusCode.InternalServerError, new ApiResponse<FileMetadata>(
                 data: null,
                 success: false,
                 message: errorMessage

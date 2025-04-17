@@ -39,17 +39,17 @@ public class AuthService : IAuthService
         var user = await _userManager.FindByEmailAsync(email);
         if (user == null)
         {
-            await LogFailedLogin(null, ip, "User not found.");
-            return (null, "Invalid email or 2FA.");
+            //await LogFailedLogin(null, ip, "User not found.");
+            return (null, "Invalid email.");
         }
         
-        // var passwordResult = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, password);
-        //
-        // if (passwordResult == PasswordVerificationResult.Failed)
-        // {
-        //     await LogFailedLogin(null, ip, "Wrong password.");
-        //     return (null, "Wrong password.");
-        // }
+        var passwordResult = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, password);
+        
+        if (passwordResult == PasswordVerificationResult.Failed)
+        {
+            await LogFailedLogin(user.Id, ip, "Wrong password.");
+            return (null, "Wrong password.");
+        }
 
         // Validate TOTP
         if (!user.Is2FAEnabled || string.IsNullOrEmpty(user.TwoFactorSecretKey) || !_totpService.VerifyTotpCode(user.TwoFactorSecretKey, twoFactorCode))
