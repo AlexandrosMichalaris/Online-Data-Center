@@ -1,3 +1,6 @@
+/// <summary>
+/// Metadata of storage file.
+/// </summary>
 public class FileMetadata
 {
     public int? FileId { get; set; }

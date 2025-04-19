@@ -6,6 +6,8 @@ namespace StorageService.Repository.Interface;
 
 public interface IFileRecordEntityRepository : IEntityRepository<FileRecordEntity>
 {
+    Task<IEnumerable<FileRecordEntity>> GetPagedFileRecordAsync(int page, int pageSize);
+    
     Task UpdateStatusAsync(int id, FileStatus status);
 
     Task DeleteAsync(int id);

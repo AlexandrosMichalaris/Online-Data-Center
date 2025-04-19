@@ -6,6 +6,8 @@ namespace DataCenter.Infrastructure.Repository.DomainRepository.Interface;
 
 public interface IFileRecordDomainRepository : IDomainRepository<FileRecord>
 {
+    Task<IEnumerable<FileRecord>> GetPagedFileRecordAsync(int page, int pageSize);
+    
     Task UpdateStatusAsync(int id, FileStatus status);
 
     Task DeleteAsync(int id);

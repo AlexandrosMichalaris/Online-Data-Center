@@ -23,8 +23,7 @@ public class DownloadService : IDownloadService
         ILogger<DownloadService> logger,
         IFileRecordDomainRepository fileRecordDomainRepository,
         IGetFileStreamService getFileStreamService,
-        IMapper mapper
-    )
+        IMapper mapper)
     {
         _logger = logger;
         _fileRecordDomainRepository = fileRecordDomainRepository;

@@ -28,6 +28,21 @@ public class FileRecordEntityRepository : EntityRepository<FileRecordEntity, Dat
     }
 
     #endregion
+
+    public async Task<IEnumerable<FileRecordEntity>> GetPagedFileRecordAsync(int page, int pageSize)
+    {
+        // That query is still an IQueryable — it hasn’t executed yet.
+        var query = _dbSet.AsNoTracking()
+            .Where(f => !f.IsDeleted)
+            .OrderByDescending(f => f.CreatedAt);
+        
+        // With Skip/Take we manage the pages. It translater to
+        // OFFSET 40 ROWS FETCH NEXT 20 ROWS ONLY;
+        return await query
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+    }
     
     public async Task UpdateStatusAsync(int id, FileStatus status)
     {

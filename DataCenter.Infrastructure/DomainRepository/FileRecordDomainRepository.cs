@@ -23,6 +23,12 @@ public class FileRecordDomainRepository : DomainRepository<FileRecordEntity, Fil
 
     #endregion
 
+    public async Task<IEnumerable<FileRecord>> GetPagedFileRecordAsync(int page, int pageSize)
+    {
+        var entities = await _fileRecordEntityRepository.GetPagedFileRecordAsync(page, pageSize);
+        return _mapper.Map<IEnumerable<FileRecord>>(entities);
+    }
+
     public async Task UpdateStatusAsync(int id, FileStatus status)
     {
         await _fileRecordEntityRepository.UpdateStatusAsync(id, status);
