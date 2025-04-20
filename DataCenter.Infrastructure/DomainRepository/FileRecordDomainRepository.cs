@@ -50,9 +50,9 @@ public class FileRecordDomainRepository : DomainRepository<FileRecordEntity, Fil
         return await _fileRecordEntityRepository.CheckDuplicateFile(file, computedChecksum);
     }
 
-    public async Task<IEnumerable<FileRecord>> GetScheduledDeletedFileRecordsAsync()
+    public async Task<IEnumerable<FileRecord>> GetScheduledDeletedRecordsPagedAsync(int page, int pageSize)
     {
-        var entities = await _fileRecordEntityRepository.GetScheduledDeletedFileRecordsAsync();
+        var entities = await _fileRecordEntityRepository.GetScheduledDeletedRecordsPagedAsync(page, pageSize);
         return _mapper.Map<IEnumerable<FileRecord>>(entities);
     }
 

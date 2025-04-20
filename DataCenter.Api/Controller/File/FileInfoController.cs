@@ -1,7 +1,6 @@
 using DataCenter.Domain.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Model.ApiResponse;
 using StorageService.Service.Interface;
 
@@ -23,15 +22,32 @@ public class FileInfoController : ControllerBase
     [Authorize]
     [HttpGet]
     [Route("retrieve/paged")]
-    public async Task<ActionResult<ApiResponse<IEnumerable<FileRecordMetadata>>>> GetPagedFileRecords([FromQuery] int page = 1, [FromQuery] int pageSize = 20)
+    public Task<ActionResult<ApiResponse<IEnumerable<FileRecordMetadata>>>> GetPagedFileRecords(
+        [FromQuery] int page = 1, [FromQuery] int pageSize = 20)
     {
-        _logger.LogInformation($"Received request to fetch paged file records. Page: {page}, PageSize: {pageSize}");
+        return GetPagedFileRecordsInternal(page, pageSize, isDeleted: false);
+    }
 
-        var result = await _fileInfoService.GetPagedFileRecordsAsync(page, pageSize);
+    [Authorize]
+    [HttpGet]
+    [Route("retrieve/deleted/paged")]
+    public Task<ActionResult<ApiResponse<IEnumerable<FileRecordMetadata>>>> GetDeletedPagedFileRecords(
+        [FromQuery] int page = 1, [FromQuery] int pageSize = 20)
+    {
+        return GetPagedFileRecordsInternal(page, pageSize, isDeleted: true);
+    }
+
+    private async Task<ActionResult<ApiResponse<IEnumerable<FileRecordMetadata>>>> GetPagedFileRecordsInternal(
+        int page, int pageSize, bool isDeleted)
+    {
+        var type = isDeleted ? "deleted" : "active";
+        _logger.LogInformation($"Received request to fetch {type} paged file records. Page: {page}, PageSize: {pageSize}");
+
+        var result = await _fileInfoService.GetPagedFileRecordsAsync(page, pageSize, isDeleted);
 
         if (!result.IsSuccess)
         {
-            _logger.LogWarning($"Failed to fetch paged file records. Reason: {result.ErrorMessage}");
+            _logger.LogWarning($"Failed to fetch {type} paged file records. Reason: {result.ErrorMessage}");
             return BadRequest(new ApiResponse<IEnumerable<FileRecordMetadata>>(
                 data: null,
                 success: false,
@@ -42,7 +58,7 @@ public class FileInfoController : ControllerBase
         return Ok(new ApiResponse<IEnumerable<FileRecordMetadata>>(
             data: result.Data,
             success: true,
-            message: result.ErrorMessage ?? "Paged file records retrieved successfully."
+            message: result.ErrorMessage ?? $"Paged {type} file records retrieved successfully."
         ));
     }
 }

@@ -22,7 +22,7 @@ public class FileInfoService : IFileInfoService
         _logger = logger;
     }
 
-    public async Task<FileResultGeneric<IEnumerable<FileRecordMetadata>>> GetPagedFileRecordsAsync(int page, int pageSize)
+    public async Task<FileResultGeneric<IEnumerable<FileRecordMetadata>>> GetPagedFileRecordsAsync(int page, int pageSize, bool isDeleted = false)
     {
         _logger.LogInformation($"Fetching paged file records. Page: {page}, PageSize: {pageSize}");
 
@@ -35,7 +35,9 @@ public class FileInfoService : IFileInfoService
 
         try
         {
-            var records = await _fileRecordDomainRepository.GetPagedFileRecordAsync(page, pageSize);
+            var records = isDeleted ?
+                await _fileRecordDomainRepository.GetScheduledDeletedRecordsPagedAsync(page, pageSize)
+                : await _fileRecordDomainRepository.GetPagedFileRecordAsync(page, pageSize);
             
             if (!records.Any())
             {
@@ -50,7 +52,8 @@ public class FileInfoService : IFileInfoService
                 ContentType = f.FileType,
                 Size = f.FileSize,
                 CreatedAt = f.CreatedAt,
-                UpdatedAt = f.UpdatedAt
+                UpdatedAt = f.UpdatedAt,
+                IsDeleted = f.IsDeleted,
             });
 
             _logger.LogInformation($"Fetched {fileMetadataList.Count()} file records for page {page}");

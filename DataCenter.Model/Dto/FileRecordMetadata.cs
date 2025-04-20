@@ -12,6 +12,8 @@ public class FileRecordMetadata
     
     public string Folder { get; set; } = string.Empty;
     
+    public bool IsDeleted { get; set; }
+    
     public DateTimeOffset? CreatedAt { get; set; }
     
     public DateTimeOffset? UpdatedAt { get; set; }

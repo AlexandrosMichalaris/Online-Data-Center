@@ -103,13 +103,19 @@ public class FileRecordEntityRepository : EntityRepository<FileRecordEntity, Dat
         return await _dbSet.AsNoTracking().FirstOrDefaultAsync(f => f.Id == job.FileId);
     }
     
-    public async Task<List<FileRecordEntity>> GetScheduledDeletedFileRecordsAsync()
+    public async Task<List<FileRecordEntity>> GetScheduledDeletedRecordsPagedAsync(int page, int pageSize)
     {
-        return await _dbSet
+        var query = _dbSet
             .IgnoreQueryFilters()
             .AsNoTracking()
-            .Where(x => x.Status == FileStatus.Completed && x.IsDeleted) 
-            .Where(file => _dbContext.JobFileRecords.Any(jfr => jfr.FileId == file.Id)) //Check if there is JobFileRecord 
+            .Where(x => x.Status == FileStatus.Completed && x.IsDeleted)
+            .Where(file =>
+                _dbContext.JobFileRecords.Any(jfr => jfr.FileId == file.Id)); //Check if there is JobFileRecord 
+        //.ToListAsync();
+        
+        return await query
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
             .ToListAsync();
     }
 

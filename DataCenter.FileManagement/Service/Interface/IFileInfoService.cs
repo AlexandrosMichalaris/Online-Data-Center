@@ -4,5 +4,6 @@ namespace StorageService.Service.Interface;
 
 public interface IFileInfoService
 {
-    Task<FileResultGeneric<IEnumerable<FileRecordMetadata>>> GetPagedFileRecordsAsync(int page, int pageSize);
+    Task<FileResultGeneric<IEnumerable<FileRecordMetadata>>> GetPagedFileRecordsAsync(int page, int pageSize,
+        bool isDeleted = false);
 }

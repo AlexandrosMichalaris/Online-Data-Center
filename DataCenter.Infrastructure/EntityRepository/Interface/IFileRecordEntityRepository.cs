@@ -18,7 +18,7 @@ public interface IFileRecordEntityRepository : IEntityRepository<FileRecordEntit
     
     Task<bool> CheckDuplicateFile(IFormFile file, string computedChecksum);
     
-    Task<List<FileRecordEntity>> GetScheduledDeletedFileRecordsAsync();
+    Task<List<FileRecordEntity>> GetScheduledDeletedRecordsPagedAsync(int page, int pageSize);
     
     Task<FileRecordEntity?> GetDeletedFileRecordAsync(int id);
 }
