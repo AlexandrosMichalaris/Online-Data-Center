@@ -17,7 +17,7 @@ public class DomainRepository<TEntity, TDomainModel> : IDomainRepository<TDomain
         _mapper = mapper;
     }
 
-    public async Task<TDomainModel?> GetByIdAsync(int id)
+    public async Task<TDomainModel?> GetByIdAsync(Guid id)
     {
         var entity = await _entityRepository.GetByIdAsync(id);
         return _mapper.Map<TDomainModel>(entity);
@@ -42,7 +42,7 @@ public class DomainRepository<TEntity, TDomainModel> : IDomainRepository<TDomain
         await _entityRepository.UpdateAsync(entity);
     }
 
-    public async Task DeleteAsync(int id)
+    public async Task DeleteAsync(Guid id)
     {
         await _entityRepository.DeleteAsync(id);
     }

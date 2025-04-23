@@ -44,7 +44,7 @@ public class FileRecordEntityRepository : EntityRepository<FileRecordEntity, Dat
             .ToListAsync();
     }
     
-    public async Task UpdateStatusAsync(int id, FileStatus status)
+    public async Task UpdateStatusAsync(Guid id, FileStatus status)
     {
         var record = await _dbSet.AsNoTracking().FirstOrDefaultAsync(r => r.Id == id);
 
@@ -58,7 +58,7 @@ public class FileRecordEntityRepository : EntityRepository<FileRecordEntity, Dat
         }
     }
     
-    public override async Task DeleteAsync(int id)
+    public override async Task DeleteAsync(Guid id)
     {
         var entity = await _dbSet.AsNoTracking().FirstOrDefaultAsync(e => e.Id == id);
 
@@ -71,7 +71,7 @@ public class FileRecordEntityRepository : EntityRepository<FileRecordEntity, Dat
         }
     }
 
-    public async Task RecoverAsync(int id)
+    public async Task RecoverAsync(Guid id)
     {
         var entity = await _dbSet
             .IgnoreQueryFilters()
@@ -88,7 +88,7 @@ public class FileRecordEntityRepository : EntityRepository<FileRecordEntity, Dat
         }
     }
     
-    public async Task<FileRecordEntity?> GetFileRecordByJobIdAsync(int jobId)
+    public async Task<FileRecordEntity?> GetFileRecordByJobIdAsync(Guid jobId)
     {
         var job = await _dbContext.JobFileRecords.AsNoTracking().FirstOrDefaultAsync(j => j.Id == jobId);
 
@@ -119,7 +119,7 @@ public class FileRecordEntityRepository : EntityRepository<FileRecordEntity, Dat
             .ToListAsync();
     }
 
-    public async Task<FileRecordEntity?> GetDeletedFileRecordAsync(int id)
+    public async Task<FileRecordEntity?> GetDeletedFileRecordAsync(Guid id)
     {
         return await _dbSet
             .IgnoreQueryFilters()

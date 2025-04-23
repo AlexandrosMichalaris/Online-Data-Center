@@ -8,17 +8,17 @@ public interface IFileRecordEntityRepository : IEntityRepository<FileRecordEntit
 {
     Task<IEnumerable<FileRecordEntity>> GetPagedFileRecordAsync(int page, int pageSize);
     
-    Task UpdateStatusAsync(int id, FileStatus status);
+    Task UpdateStatusAsync(Guid id, FileStatus status);
 
-    Task DeleteAsync(int id);
+    Task DeleteAsync(Guid id);
 
-    Task RecoverAsync(int id);
+    Task RecoverAsync(Guid id);
     
-    Task<FileRecordEntity?> GetFileRecordByJobIdAsync(int jobId);
+    Task<FileRecordEntity?> GetFileRecordByJobIdAsync(Guid jobId);
     
     Task<bool> CheckDuplicateFile(IFormFile file, string computedChecksum);
     
     Task<List<FileRecordEntity>> GetScheduledDeletedRecordsPagedAsync(int page, int pageSize);
     
-    Task<FileRecordEntity?> GetDeletedFileRecordAsync(int id);
+    Task<FileRecordEntity?> GetDeletedFileRecordAsync(Guid id);
 }

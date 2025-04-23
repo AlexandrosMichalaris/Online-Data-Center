@@ -18,8 +18,8 @@ public class EntityRepository<TEntity, TContext> : IEntityRepository<TEntity>
     }
     
 
-    public async Task<TEntity?> GetByIdAsync(int id) => 
-        await _dbSet.AsNoTracking().FirstOrDefaultAsync(e => EF.Property<int>(e, "Id") == id);
+    public async Task<TEntity?> GetByIdAsync(Guid id) => 
+        await _dbSet.AsNoTracking().FirstOrDefaultAsync(e => EF.Property<Guid>(e, "Id") == id);
 
     public async Task<IEnumerable<TEntity>> GetAllAsync() => 
         await _dbSet.AsNoTracking().ToListAsync();
@@ -69,7 +69,7 @@ public class EntityRepository<TEntity, TContext> : IEntityRepository<TEntity>
         await _dbContext.SaveChangesAsync();
     }
 
-    public virtual async Task DeleteAsync(int id)
+    public virtual async Task DeleteAsync(Guid id)
     {
         var entity = await GetByIdAsync(id);
         if (entity is not null)

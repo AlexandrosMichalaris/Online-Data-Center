@@ -29,17 +29,17 @@ public class FileRecordDomainRepository : DomainRepository<FileRecordEntity, Fil
         return _mapper.Map<IEnumerable<FileRecord>>(entities);
     }
 
-    public async Task UpdateStatusAsync(int id, FileStatus status)
+    public async Task UpdateStatusAsync(Guid id, FileStatus status)
     {
         await _fileRecordEntityRepository.UpdateStatusAsync(id, status);
     }
 
-    public async Task RecoverAsync(int id)
+    public async Task RecoverAsync(Guid id)
     {
         await _fileRecordEntityRepository.RecoverAsync(id);
     }
 
-    public async Task<FileRecord?> GetFileRecordByJobIdAsync(int jobId)
+    public async Task<FileRecord?> GetFileRecordByJobIdAsync(Guid jobId)
     {
         var entity = await _fileRecordEntityRepository.GetFileRecordByJobIdAsync(jobId);
         return _mapper.Map<FileRecord>(entity);
@@ -56,7 +56,7 @@ public class FileRecordDomainRepository : DomainRepository<FileRecordEntity, Fil
         return _mapper.Map<IEnumerable<FileRecord>>(entities);
     }
 
-    public async Task<FileRecord?> GetDeletedFileRecordAsync(int id)
+    public async Task<FileRecord?> GetDeletedFileRecordAsync(Guid id)
     {
         var entity = await _fileRecordEntityRepository.GetDeletedFileRecordAsync(id);
         return _mapper.Map<FileRecord>(entity);

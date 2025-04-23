@@ -24,7 +24,7 @@ public class JobFileRecordEntityRepository : EntityRepository<JobFileRecordEntit
 
     #endregion
 
-    public async Task<IEnumerable<JobFileRecordEntity>> GetFileRecordJobsAsync(int fileRecordId)
+    public async Task<IEnumerable<JobFileRecordEntity>> GetFileRecordJobsAsync(Guid fileRecordId)
     {
         return await _dbSet
             .Where(job => job.FileId == fileRecordId)
@@ -37,13 +37,13 @@ public class JobFileRecordEntityRepository : EntityRepository<JobFileRecordEntit
             $"FileRecord Name: {fileName}");
     }
 
-    public async Task<JobFileRecordEntity?> GetActiveJobOfFileRecordAsync(int fileRecordId)
+    public async Task<JobFileRecordEntity?> GetActiveJobOfFileRecordAsync(Guid fileRecordId)
     {
         return await GetSingleActiveJobAsync(job => job.FileId == fileRecordId, 
             $"FileRecordId: {fileRecordId}");
     }
 
-    public async Task DeleteJobByRecordIdAsync(int recordId)
+    public async Task DeleteJobByRecordIdAsync(Guid recordId)
     {
         var job = await _dbSet
             .FirstOrDefaultAsync(job => job.FileId == recordId);

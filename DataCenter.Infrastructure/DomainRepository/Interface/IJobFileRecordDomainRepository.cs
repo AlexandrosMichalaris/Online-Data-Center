@@ -4,11 +4,11 @@ namespace DataCenter.Infrastructure.Repository.DomainRepository.Interface;
 
 public interface IJobFileRecordDomainRepository : IDomainRepository<JobFileRecord>
 {
-    Task<IEnumerable<JobFileRecord>> GetFileRecordJobsAsync(int fileRecordId);
+    Task<IEnumerable<JobFileRecord>> GetFileRecordJobsAsync(Guid fileRecordId);
     Task<JobFileRecord?> GetActiveJobOfFileRecordAsync(string fileName, string checksum);
 
-    Task<JobFileRecord?> GetActiveJobOfFileRecordAsync(int fileRecordId);
+    Task<JobFileRecord?> GetActiveJobOfFileRecordAsync(Guid fileRecordId);
     
-    Task DeleteJobByRecordIdAsync(int recordId);
+    Task DeleteJobByRecordIdAsync(Guid recordId);
     IEnumerable<JobFileRecord> GetPendingJobs();
 }

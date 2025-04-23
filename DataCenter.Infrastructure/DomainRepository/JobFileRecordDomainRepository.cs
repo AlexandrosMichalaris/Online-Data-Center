@@ -19,7 +19,7 @@ public class JobFileRecordDomainRepository : DomainRepository<JobFileRecordEntit
         _jobFileRecordEntityRepository = jobFileRecordEntityRepository;
     }
 
-    public async Task<IEnumerable<JobFileRecord>> GetFileRecordJobsAsync(int fileRecordId)
+    public async Task<IEnumerable<JobFileRecord>> GetFileRecordJobsAsync(Guid fileRecordId)
     {
         var entities = await _jobFileRecordEntityRepository.GetFileRecordJobsAsync(fileRecordId);
         return _mapper.Map<IEnumerable<JobFileRecord>>(entities);
@@ -31,13 +31,13 @@ public class JobFileRecordDomainRepository : DomainRepository<JobFileRecordEntit
         return _mapper.Map<JobFileRecord>(entity);
     }
     
-    public async Task<JobFileRecord?> GetActiveJobOfFileRecordAsync(int fileRecordId)
+    public async Task<JobFileRecord?> GetActiveJobOfFileRecordAsync(Guid fileRecordId)
     {
         var entity = await _jobFileRecordEntityRepository.GetActiveJobOfFileRecordAsync(fileRecordId);
         return _mapper.Map<JobFileRecord>(entity);
     }
 
-    public async Task DeleteJobByRecordIdAsync(int recordId)
+    public async Task DeleteJobByRecordIdAsync(Guid recordId)
     {
         await _jobFileRecordEntityRepository.DeleteJobByRecordIdAsync(recordId);
     }

@@ -14,7 +14,7 @@ public class FileRecordConfiguration : IEntityTypeConfiguration<FileRecordEntity
         builder.HasKey(x => x.Id);
 
         builder.Property(e => e.Id)
-            .ValueGeneratedOnAdd()
+            //.ValueGeneratedOnAdd()
             .HasColumnName("id");
 
         builder.Property(e => e.FileName)

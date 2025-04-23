@@ -13,7 +13,7 @@ public class JobFileRecordConfiguration: IEntityTypeConfiguration<JobFileRecordE
         builder.HasKey(x => x.Id);
 
         builder.Property(e => e.Id)
-            .ValueGeneratedOnAdd()
+            //.ValueGeneratedOnAdd()
             .HasColumnName("id");
 
         builder.Property(e => e.FileId)
