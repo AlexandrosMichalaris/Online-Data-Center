@@ -32,7 +32,7 @@ public class DownloadService : IDownloadService
     }
     #endregion
 
-    public async Task<FileResultGeneric<StreamData>> DownloadFileAsync(int id)
+    public async Task<FileResultGeneric<StreamData>> DownloadFileAsync(Guid id)
     {
         try
         {
@@ -74,7 +74,7 @@ public class DownloadService : IDownloadService
         }
     }
     
-    public async Task<FileResultGeneric<StreamData>> DownloadMultipleFilesAsync(IEnumerable<int> ids)
+    public async Task<FileResultGeneric<StreamData>> DownloadMultipleFilesAsync(IEnumerable<Guid> ids)
     {
         try
         {

@@ -30,7 +30,7 @@ public class DownloadFileController : ControllerBase
     /// <returns></returns>
     [Authorize]
     [HttpGet("{id}")]
-    public async Task<IActionResult> Download(int id)
+    public async Task<IActionResult> Download(Guid id)
     {
         _logger.LogInformation("{Controller} - Download file START. FileRecordId: {FileId}", nameof(DownloadFileController), id);
 

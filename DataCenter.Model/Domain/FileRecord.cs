@@ -16,7 +16,7 @@ public class FileRecord
         UpdatedAt = DateTime.UtcNow;
     }
 
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     
     /// <summary>
     /// Name of the file

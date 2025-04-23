@@ -34,7 +34,7 @@ public class DeleteService : IDeleteService
 
     #endregion
     
-    public async Task<FileResultGeneric<FileMetadata>> DeleteFileAsync(int id)
+    public async Task<FileResultGeneric<FileMetadata>> DeleteFileAsync(Guid id)
     {
         try
         {   

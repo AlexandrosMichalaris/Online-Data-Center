@@ -19,7 +19,7 @@ public class RecoverFileController : ControllerBase
     
     [Authorize]
     [HttpPatch("{id}/recover")]
-    public async Task<ActionResult<ApiResponse<FileMetadata>>> RecoverFile(int id)
+    public async Task<ActionResult<ApiResponse<FileMetadata>>> RecoverFile(Guid id)
     {
         _logger.LogInformation("{Controller} - Recover file START. FileRecordId: {FileId}", nameof(RecoverFileController), id);
 

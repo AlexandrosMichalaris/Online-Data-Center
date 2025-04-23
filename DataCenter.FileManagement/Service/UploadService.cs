@@ -103,7 +103,7 @@ public class UploadService : IUploadService
     /// <param name="file"></param>
     /// <param name="recordId"></param>
     /// <returns></returns>
-    private async Task<FileResultGeneric<FileMetadata>> SaveFileWithHandlingAsync(ISaveFile saveFileHandler, IFormFile file, int recordId, string connectionId)
+    private async Task<FileResultGeneric<FileMetadata>> SaveFileWithHandlingAsync(ISaveFile saveFileHandler, IFormFile file, Guid recordId, string connectionId)
     {
         try
         {

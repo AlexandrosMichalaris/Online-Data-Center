@@ -2,7 +2,7 @@ namespace DataCenter.Domain.Domain;
 
 public class TrustedIp
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     
     public string IpAddress { get; set; } = string.Empty;
 

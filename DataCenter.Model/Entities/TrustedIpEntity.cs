@@ -6,7 +6,7 @@ namespace DataCenter.Domain.Entities;
 public class TrustedIpEntity
 {
     [Key]
-    public int Id { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
 
     [Required]
     public string IpAddress { get; set; } = string.Empty;

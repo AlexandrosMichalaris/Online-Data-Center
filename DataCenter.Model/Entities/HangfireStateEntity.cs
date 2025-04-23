@@ -8,7 +8,7 @@ namespace StorageService.Model.Entities;
 public class HangfireStateEntity
 {
     [Key]
-    public int Id { get; set; }
+    public int Id { get; set; } 
 
     [Required]
     public long JobId { get; set; } // FK to HangfireJob
@@ -28,5 +28,6 @@ public class HangfireStateEntity
     public virtual HangfireJobEntity Job { get; set; }
 
     // Navigation to JobFileRecord by JobId
+    [NotMapped]
     public virtual JobFileRecordEntity JobFileRecord { get; set; }
 }

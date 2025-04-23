@@ -33,7 +33,7 @@ public class RecoverService : IRecoverService
 
     #endregion
     
-    public async Task<FileResultGeneric<FileMetadata>> RecoverFileAsync(int id)
+    public async Task<FileResultGeneric<FileMetadata>> RecoverFileAsync(Guid id)
     {
         try
         {

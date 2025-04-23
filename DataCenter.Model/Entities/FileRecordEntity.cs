@@ -12,7 +12,7 @@ public class FileRecordEntity : IDeletable
     /// Primary key for the entity
     /// </summary>
     [Key]
-    public int Id { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
     
     /// <summary>
     /// Name of the file

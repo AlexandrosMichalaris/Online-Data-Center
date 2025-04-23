@@ -4,9 +4,9 @@ namespace StorageService.Model.Domain;
 
 public class JobFileRecord
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
-    public int FileId { get; set; }  // Foreign key to FileRecords
+    public Guid FileId { get; set; }  // Foreign key to FileRecords
 
     public long JobId { get; set; } // Foreign key to Hangfire Job table
     

@@ -26,7 +26,7 @@ public class DeleteFileController : ControllerBase
 
     [Authorize]
     [HttpDelete("{id}")]
-    public async Task<ActionResult<ApiResponse<FileMetadata>>> Delete(int id)
+    public async Task<ActionResult<ApiResponse<FileMetadata>>> Delete(Guid id)
     {
         _logger.LogInformation("{Controller} - Delete file START. FileRecordId: {FileId}", nameof(DeleteFileController), id);
 

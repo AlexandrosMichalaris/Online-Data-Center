@@ -8,11 +8,11 @@ namespace StorageService.Model.Entities;
 public class JobFileRecordEntity
 {
     [Key]
-    public int Id { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
 
     [Required]
     [Column("fileid")]
-    public int FileId { get; set; }  // Foreign key to FileRecords
+    public Guid FileId { get; set; }  // Foreign key to FileRecords
 
     [Required]
     [Column("jobid")]

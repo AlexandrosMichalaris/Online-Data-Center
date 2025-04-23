@@ -3,7 +3,7 @@
 /// </summary>
 public class FileMetadata
 {
-    public int? FileId { get; set; }
+    public Guid? FileId { get; set; }
     
     public string FilePath { get; }
     public string FileName { get; }
@@ -22,7 +22,7 @@ public class FileMetadata
         StorageFolder = storageFolder;
     }
     
-    public FileMetadata(int fileId, string filePath, string fileName, long fileSize, string mimeType, DateTime uploadTime, string? storageFolder)
+    public FileMetadata(Guid fileId, string filePath, string fileName, long fileSize, string mimeType, DateTime uploadTime, string? storageFolder)
     {
         FileId = fileId;
         FilePath = filePath;

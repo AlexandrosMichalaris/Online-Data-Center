@@ -2,7 +2,7 @@ namespace DataCenter.Domain.Dto;
 
 public class FileRecordMetadata
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     
     public string FileName { get; set; } = string.Empty;
     
