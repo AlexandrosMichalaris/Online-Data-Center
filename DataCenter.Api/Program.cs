@@ -72,6 +72,18 @@ builder.Host.UseSerilog((context, config) =>
 
 var app = builder.Build();
 
+// // Run migrations each time the app runs (Only in development)
+// if (app.Environment.IsDevelopment())
+// {
+//     // Only in dev
+//     using var scope = app.Services.CreateScope();
+//     var db = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
+//     db.Database.Migrate();
+//     
+//     var authDb = scope.ServiceProvider.GetRequiredService<AuthDatabaseContext>();
+//     authDb.Database.Migrate();
+// }
+
 app.UseRouting();
 
 app.UseAuthentication();

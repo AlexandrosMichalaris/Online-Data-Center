@@ -7,6 +7,13 @@
         <RootNamespace>Data_Center</RootNamespace>
     </PropertyGroup>
 
+    <!--When building, copy appsettings.Development.json to the bin/ directory.-->
+    <ItemGroup>
+        <None Update="appsettings.Development.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
     <ItemGroup>
         <PackageReference Include="AutoMapper" Version="14.0.0" />
         <PackageReference Include="Hangfire.AspNetCore" Version="1.8.18" />
