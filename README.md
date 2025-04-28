@@ -77,6 +77,45 @@ It acts as a foundation for future expansion — whether adding a front-end UI, 
 - [PostgreSQL](https://www.postgresql.org/) (if not using Docker)
 
 ---
+
+🔒 **Important Notes**
+
+For security reasons, sensitive configuration files such as appsettings.Development.json, appsettings.Production.json, and Docker-related files (docker-compose.yml) have not been included in the repository.
+
+These files typically contain environment-specific settings like:
+•	Database connection strings
+•	JWT authentication keys
+•	API secrets
+•	Docker credentials and configurations
+
+If you wish to run the project locally:
+•	You will need to **create your own appsettings.Development.json** based on the structure defined in appsettings.json.
+•	You may also need to configure your own Docker setup if you intend to containerize PostgreSQL or the application.
+•	Ensure that necessary environment variables (such as ASPNETCORE_ENVIRONMENT) are properly set.
+
+This approach follows best practices for protecting sensitive information while maintaining a clean and secure public repository.
+
+**Example of appsettings.Development.json structure:**
+```json
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Host=localhost;Database=DataCenterDb;Username=youruser;Password=yourpassword"
+  },
+  "Jwt": {
+    "Key": "your-secret-key",
+    "Issuer": "your-app",
+    "Audience": "your-app"
+  }
+}
+```
+
+⚡ **Docker Support:**
+While this project is designed to work seamlessly with Docker (for easier database setup and environment management), Docker configuration files (docker-compose.yml) have not been included in the repository for security and privacy reasons.
+
+You can easily configure your own docker-compose.yml to spin up a local PostgreSQL instance or run the backend inside a container.
+
+
+---
 ### **Setup Instructions**
 
 1. **Clone the Repository**
