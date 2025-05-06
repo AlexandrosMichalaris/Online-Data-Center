@@ -6,6 +6,7 @@ using StorageService.Service.Interface;
 
 namespace Data_Center.Controller;
 
+[ApiController]
 [Route("api/file_operations/[controller]")]
 public class DownloadFileController : ControllerBase
 {
@@ -30,6 +31,10 @@ public class DownloadFileController : ControllerBase
     /// <returns></returns>
     [Authorize]
     [HttpGet("{id}")]
+    [Produces("application/octet-stream")] // is a general-purpose binary download MIME type
+    [ProducesResponseType(typeof(FileContentResult), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse<FileMetadata>), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ApiResponse<FileMetadata>), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> Download(Guid id)
     {
         _logger.LogInformation("{Controller} - Download file START. FileRecordId: {FileId}", nameof(DownloadFileController), id);
@@ -71,14 +76,8 @@ public class DownloadFileController : ControllerBase
     }
     
     //Download multiple (in .zip)
-    [HttpGet]
+    [HttpGet("multiple")]
     public async Task<IActionResult> DownloadMultiple([FromBody] IEnumerable<int> ids)
-    {
-        return Ok();
-    }
-    
-    [HttpGet]
-    public async Task<IActionResult> Preview([FromBody] IEnumerable<int> ids)
     {
         return Ok();
     }

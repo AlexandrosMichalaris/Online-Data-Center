@@ -1,4 +1,5 @@
 using System.Net;
+using DataCenter.Domain.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Model.ApiResponse;
@@ -6,6 +7,7 @@ using StorageService.Service.Interface;
 
 namespace Data_Center.Controller;
 
+[ApiController]
 [Route("api/file_operations")]
 public class UploadFileController : ControllerBase
 {
@@ -31,10 +33,12 @@ public class UploadFileController : ControllerBase
     [HttpPost]
     [Route("[controller]")]
     [Authorize]
-    public async Task<ActionResult<ApiResponse<FileMetadata>>> Upload([FromForm]IFormFile file, [FromQuery] string connectionId = "")
+    public async Task<ActionResult<ApiResponse<FileMetadata>>> Upload([FromForm]UploadFileRequestDto uploadedFile, [FromQuery] string connectionId = "")
     {
+        var file = uploadedFile.File;
+        
         _logger.LogInformation("{Controller} - Upload file START. FileName: {FileName}", nameof(UploadFileController), file?.FileName);
-
+        
         if (file == null || file.Length == 0)
         {
             _logger.LogWarning("{Controller} - Upload file FAILED. No file was uploaded.", nameof(UploadFileController));

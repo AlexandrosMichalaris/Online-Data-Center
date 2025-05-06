@@ -11,6 +11,7 @@ using DataCenter.Domain.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +32,17 @@ builder.Services.AddIdentity<ApplicationUserEntity, IdentityRole>()
     .AddDefaultTokenProviders();
 
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "DataCenter API", Version = "v1" });
+
+    // Tell Swagger how to interpret IFormFile
+    c.MapType<IFormFile>(() => new Microsoft.OpenApi.Models.OpenApiSchema
+    {
+        Type = "string",
+        Format = "binary"
+    });
+});
 
 builder.Services.AddControllers();
 builder.Services.AddSignalR();
@@ -68,9 +80,16 @@ builder.Services.AddAuthorization();
 builder.Host.UseSerilog((context, config) =>
     config.ReadFrom.Configuration(context.Configuration));
 
-//builder.WebHost.UseUrls("http://*:80");
-
 var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c => 
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
+    });
+}
 
 // // Run migrations each time the app runs (Only in development)
 // if (app.Environment.IsDevelopment())

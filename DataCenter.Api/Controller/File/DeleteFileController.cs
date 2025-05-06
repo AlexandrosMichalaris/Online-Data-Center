@@ -6,6 +6,7 @@ using StorageService.Service.Interface;
 
 namespace Data_Center.Controller;
 
+[ApiController]
 [Route("api/file_operations/[controller]")]
 public class DeleteFileController : ControllerBase
 {
