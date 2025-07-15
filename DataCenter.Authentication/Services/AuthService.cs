@@ -71,7 +71,7 @@ public class AuthService : IAuthService
         return (token, null);
     }
 
-// Logs failed login attempt
+    // Logs failed login attempt
     private async Task LogFailedLogin(string? userId, string ip, string reason)
     {
         var loginAttempt = new LoginAttempt

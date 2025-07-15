@@ -24,10 +24,11 @@ public class UploadFileController : ControllerBase
         _logger = logger;
     }
     #endregion
-    
+
     /// <summary>
     /// Upload file controller
     /// </summary>
+    /// <param name="uploadedFile"></param>
     /// <param name="connectionId">Connection id for signalR to show the percentage.</param>
     /// <returns></returns>
     [HttpPost]
