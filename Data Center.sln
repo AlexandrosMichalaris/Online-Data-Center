@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataCenter.Model", "DataCen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataCenter.Authentication", "DataCenter.Authentication\DataCenter.Authentication.csproj", "{5FD1CBDA-4876-4736-AF52-6E8CAF30DFB2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueueMessageManagment", "QueueMessageManagment\QueueMessageManagment.csproj", "{1E29B477-5B22-44BA-8611-E38A21A41F34}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +50,10 @@ Global
 		{5FD1CBDA-4876-4736-AF52-6E8CAF30DFB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5FD1CBDA-4876-4736-AF52-6E8CAF30DFB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5FD1CBDA-4876-4736-AF52-6E8CAF30DFB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E29B477-5B22-44BA-8611-E38A21A41F34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E29B477-5B22-44BA-8611-E38A21A41F34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E29B477-5B22-44BA-8611-E38A21A41F34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E29B477-5B22-44BA-8611-E38A21A41F34}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
