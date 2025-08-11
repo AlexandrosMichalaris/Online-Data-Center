@@ -60,6 +60,7 @@ public class SaveDefaultFileService : ISaveFile
                 // while you haven't read the entire file.
                 while ((bytesRead = await sourceStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
                 {
+                    // 
                     await targetStream.WriteAsync(buffer, 0, bytesRead);
                     totalRead += bytesRead; // Increase the total read of file
 
