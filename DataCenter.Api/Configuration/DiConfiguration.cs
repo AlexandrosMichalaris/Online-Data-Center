@@ -57,13 +57,10 @@ public static class DiConfiguration
         // Connection & Producer
         services.AddSingleton<IRabbitMqConnection, RabbitMqConnection>();
         services.AddSingleton<IMessageProducer, RabbitMqProducer>();
-
         // Consumers
         //services.AddSingleton<IConsumer<FileChunk>, FileChunkConsumer>();
-
         // Dispatcher
         services.AddSingleton<RabbitMqDispatcher>();
-        
         
         
         // Auto register profiles
