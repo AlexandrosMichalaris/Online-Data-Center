@@ -7,6 +7,9 @@ using DataCenter.Infrastructure.Repository.DomainRepository.Interface;
 using DataCenter.Infrastructure.Repository.EntityRepository;
 using DataCenter.Mapping;
 using Microsoft.AspNetCore.Identity;
+using QueueMessageManagement.Interfaces;
+using QueueMessageManagement.Producer;
+using QueueMessageManagment.Consumer;
 using StorageService;
 using StorageService.Repository.Interface;
 using StorageService.Service;
@@ -17,7 +20,7 @@ namespace Data_Center.Configuration.DI;
 
 public static class DiConfiguration
 {
-    public static void ConfigureServices(this IServiceCollection services)
+    public static void ConfigureDiServices(this IServiceCollection services)
     {
         services.AddScoped<IUploadService, UploadService>();
         services.AddScoped<IDownloadService, DownloadService>();
@@ -49,6 +52,16 @@ public static class DiConfiguration
         services.AddScoped<IJwtTokenService, JwtTokenService>();
         services.AddScoped<ITotpService, TotpService>();
         services.AddScoped<PasswordHasher<ApplicationUserEntity>>();
+        
+        //RabbitMq
+        // Connection & Producer
+        services.AddSingleton<IRabbitMqConnection, RabbitMqConnection>();
+        services.AddSingleton<IMessageProducer, RabbitMqProducer>();
+        // Consumers
+        //services.AddSingleton<IConsumer<FileChunk>, FileChunkConsumer>();
+        // Dispatcher
+        services.AddSingleton<RabbitMqDispatcher>();
+        
         
         // Auto register profiles
         services.AddAutoMapper(typeof(FileRecordProfile)); // points to any profile in that assembly
