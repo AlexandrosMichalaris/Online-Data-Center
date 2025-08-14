@@ -13,6 +13,9 @@
 bin/
 obj/
 
+.DS_Store
+.idea/
+
 # Ignore DLL files
 *.dll
 
