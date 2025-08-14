@@ -188,4 +188,4 @@ to view the Swagger API documentation.
 
 ## Notes on the queue message management
 
-- [RabbitMQ Queue Project Notes.md](RabbitMQ Queue Project Notes.md)
+- [RabbitMQ Queue Project Notes.md](https://github.com/AlexandrosMichalaris/Online-Data-Center/blob/queueMessage/RabbitMQ%20Queue%20Project%20Notes.md)
