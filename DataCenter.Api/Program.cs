@@ -1,84 +1,41 @@
-using System.Text;
 using Data_Center.Configuration;
-using Data_Center.Configuration.Database;
 using Data_Center.Configuration.DI;
-using Microsoft.EntityFrameworkCore;
 using Hangfire;
-using Hangfire.MemoryStorage;
-using Hangfire.PostgreSql;
 using Serilog;
-using DataCenter.Domain.Entities;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
+using QueueMessageManagement.Config;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure services using the static class method
-builder.Services.ConfigureServices();
+builder.Services.ConfigureDiServices();
 
+builder.Services.Configure<RabbitMqOptions>(
+    builder.Configuration.GetSection("RabbitMq"));
+
+//Config for RabbitMq connection options
 builder.Services.Configure<FileStorageOptions>(
     builder.Configuration.GetSection("FileStorage"));
 
-builder.Services.AddDbContext<DatabaseContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DataCenter")));
-
-builder.Services.AddDbContext<AuthDatabaseContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DataCenter")));
-
-builder.Services.AddIdentity<ApplicationUserEntity, IdentityRole>()
-    .AddEntityFrameworkStores<AuthDatabaseContext>()
-    .AddDefaultTokenProviders();
+builder.ConfigureDatabaseContextServices();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "DataCenter API", Version = "v1" });
-
-    // Tell Swagger how to interpret IFormFile
-    c.MapType<IFormFile>(() => new Microsoft.OpenApi.Models.OpenApiSchema
-    {
-        Type = "string",
-        Format = "binary"
-    });
-});
+builder.ConfigureSwaggerServices();
 
 builder.Services.AddControllers();
 builder.Services.AddSignalR();
 
-builder.Services.AddHangfire(config => config.UseMemoryStorage());
-builder.Services.AddHangfireServer();
+builder.ConfigureHangfireServices();
 
-builder.Services.AddHangfire(config =>
-    config.UsePostgreSqlStorage(builder.Configuration.GetConnectionString("DataCenter")));
-
-builder.Services.AddAuthentication(options =>
-    {
-        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    })
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-            ValidAudience = builder.Configuration["Jwt:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretKey"]))
-        };
-
-        options.RequireHttpsMetadata = false; // only for local testing
-    });
+builder.ConfigureAuthenticationServices();
 
 builder.Services.AddAuthorization();
 
 // Replace default logging with Serilog and Read Serilog config from appsettings.json
 builder.Host.UseSerilog((context, config) =>
     config.ReadFrom.Configuration(context.Configuration));
+
+// RabbitMq section Register hosted service to manage lifecycle
+builder.Services.AddHostedService<RabbitMqStartupService>();
 
 var app = builder.Build();
 
@@ -91,17 +48,6 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-// // Run migrations each time the app runs (Only in development)
-// if (app.Environment.IsDevelopment())
-// {
-//     // Only in dev
-//     using var scope = app.Services.CreateScope();
-//     var db = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
-//     db.Database.Migrate();
-//     
-//     var authDb = scope.ServiceProvider.GetRequiredService<AuthDatabaseContext>();
-//     authDb.Database.Migrate();
-// }
 
 app.UseRouting();
 

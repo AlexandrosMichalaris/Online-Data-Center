@@ -49,6 +49,7 @@
       <ProjectReference Include="..\DataCenter.Authentication\DataCenter.Authentication.csproj" />
       <ProjectReference Include="..\DataCenter.FileManagement\DataCenter.FileManagement.csproj" />
       <ProjectReference Include="..\DataCenter.Mapping\DataCenter.Mapping.csproj" />
+      <ProjectReference Include="..\QueueMessageManagment\QueueMessageManagment.csproj" />
     </ItemGroup>
 
 </Project>
