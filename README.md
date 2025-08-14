@@ -185,3 +185,7 @@ to view the Swagger API documentation.
 - Entity-relationship mappings handled via EF Core.
 
 - Migrations created and applied using Entity Framework Core tooling.
+
+## Notes on the queue message management
+
+- [RabbitMQ Queue Project Notes.md](RabbitMQ Queue Project Notes.md)

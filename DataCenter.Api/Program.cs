@@ -2,10 +2,7 @@ using Data_Center.Configuration;
 using Data_Center.Configuration.DI;
 using Hangfire;
 using Serilog;
-using Microsoft.OpenApi.Models;
 using QueueMessageManagement.Config;
-using QueueMessageManagement.Interfaces;
-using QueueMessageManagment.Consumer;
 
 var builder = WebApplication.CreateBuilder(args);
 

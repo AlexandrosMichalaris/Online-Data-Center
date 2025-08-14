@@ -1,5 +1,6 @@
 using System.Text;
 using System.Text.Json;
+using Microsoft.Extensions.DependencyInjection;
 using QueueMessageManagement.Interfaces;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -8,10 +9,11 @@ namespace QueueMessageManagment.Consumer;
 
 public class RabbitMqDispatcher
 {
-     private readonly IRabbitMqConnection _connection;
-    private readonly IEnumerable<object> _consumers;
+    private readonly IRabbitMqConnection _connection;
+    private readonly IServiceProvider _serviceProvider;
+    private readonly IEnumerable<IConsumerBase> _consumers;
 
-    public RabbitMqDispatcher(IRabbitMqConnection connection, IEnumerable<object> consumers)
+    public RabbitMqDispatcher(IRabbitMqConnection connection, IEnumerable<IConsumerBase> consumers)
     {
         _connection = connection;
         _consumers = consumers;

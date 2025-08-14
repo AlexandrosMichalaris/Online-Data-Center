@@ -9,6 +9,7 @@ using DataCenter.Mapping;
 using Microsoft.AspNetCore.Identity;
 using QueueMessageManagement.Interfaces;
 using QueueMessageManagement.Producer;
+using QueueMessageManagment;
 using QueueMessageManagment.Consumer;
 using StorageService;
 using StorageService.Repository.Interface;
@@ -58,7 +59,7 @@ public static class DiConfiguration
         services.AddSingleton<IRabbitMqConnection, RabbitMqConnection>();
         services.AddSingleton<IMessageProducer, RabbitMqProducer>();
         // Consumers
-        //services.AddSingleton<IConsumer<FileChunk>, FileChunkConsumer>();
+        //services.AddSingleton<IConsumerBase, TestConsumer>();
         // Dispatcher
         services.AddSingleton<RabbitMqDispatcher>();
         

@@ -1,6 +1,6 @@
 namespace QueueMessageManagement.Interfaces;
 
-public interface IConsumerWithMetadata<T> : IConsumer<T>
+public interface IConsumerWithMetadata<T> : IConsumer<T> where T : class
 {
     string ExchangeName { get; }
     

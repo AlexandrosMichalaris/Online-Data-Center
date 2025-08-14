@@ -2,6 +2,7 @@ using AutoMapper;
 using DataCenter.Domain.Dto;
 using DataCenter.Infrastructure.Repository.DomainRepository.Interface;
 using Microsoft.Extensions.Logging;
+using QueueMessageManagement.Interfaces;
 using StorageService.Service.Interface;
 
 namespace StorageService.Service;
@@ -10,15 +11,12 @@ public class FileInfoService : IFileInfoService
 {
     private readonly ILogger<FileInfoService> _logger;
     private readonly IFileRecordDomainRepository _fileRecordDomainRepository;
-    private readonly IMapper _mapper;
 
     public FileInfoService(
-        IFileRecordDomainRepository fileRecordDomainRepository, 
-        IMapper mapper,
+        IFileRecordDomainRepository fileRecordDomainRepository,
         ILogger<FileInfoService> logger)
     {
         _fileRecordDomainRepository = fileRecordDomainRepository;
-        _mapper = mapper;
         _logger = logger;
     }
 
@@ -71,5 +69,4 @@ public class FileInfoService : IFileInfoService
             throw new ApplicationException("An unexpected error occurred while retrieving file records.");
         }
     }
-    
 }

@@ -24,7 +24,7 @@ public class RabbitMqProducer : IMessageProducer
         return _channel;
     }
 
-    public async Task SendAsync<T>(string queueName, T message, CancellationToken cancellationToken = default)
+    public async Task SendAsync<T>(string queueName, T message, CancellationToken cancellationToken)
     {
         var channel = await GetOrCreateChannelAsync();
 

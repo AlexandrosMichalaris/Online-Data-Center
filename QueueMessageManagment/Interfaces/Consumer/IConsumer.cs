@@ -1,8 +1,6 @@
 namespace QueueMessageManagement.Interfaces;
 
-public interface IConsumer<T>
+public interface IConsumer<T> : IConsumerBase where T : class
 {
-    string QueueName { get; }
-    
     Task ExecuteAsync(T message, CancellationToken cancellationToken);
 }

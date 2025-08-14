@@ -28,6 +28,7 @@
       <ProjectReference Include="..\DataCenter.Model\DataCenter.Model.csproj" />
       <ProjectReference Include="..\DataCenter.Infrastructure\DataCenter.Infrastructure.csproj" />
       <ProjectReference Include="..\DataCenter.Storage\DataCenter.Storage.csproj" />
+      <ProjectReference Include="..\QueueMessageManagment\QueueMessageManagment.csproj" />
     </ItemGroup>
 
 </Project>
