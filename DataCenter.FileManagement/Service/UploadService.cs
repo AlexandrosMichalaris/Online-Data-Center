@@ -52,10 +52,15 @@ public class UploadService : IUploadService
                 filepath: $"{file.ContentType}/{file.FileName}" // Temporary value in case storage service breaks
                 );
             
+            var record = await _fileRecordDomainRepository.AddAsync(fileRecord);
+            
+            
+            
+            
+            
+            
             // Get storage strategy handler based on file type.
             var saveFileStrategyHandler = _saveFileStrategy.GetFileHandler(FileTypeMapper.GetFileTypeFromContentType(file.ContentType));
-            
-            var record = await _fileRecordDomainRepository.AddAsync(fileRecord);
             
             var fileStorageResult = await SaveFileWithHandlingAsync(saveFileStrategyHandler, file, record.Id, connectionId);
             

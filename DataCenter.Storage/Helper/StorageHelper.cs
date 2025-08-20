@@ -1,3 +1,5 @@
+using Data_Center.Configuration.Constants;
+using StorageService.Extensions;
 using StorageService.StorageConstants;
 
 namespace StorageService;
@@ -25,5 +27,14 @@ public class StorageHelper
     public static string? Combine(string path, string fileName)
     {
         return Path.Combine(path, fileName);
+    }
+    
+    public static int GetBufferSizeFromFileType(FileType fileType)
+    {
+        return fileType.GetDocumentFileTypes().Contains(fileType) 
+            ? Constants.DocumentFileBufferSize
+            : fileType.GetImageFileTypes().Contains(fileType)
+                ? Constants.ImageFileBufferSize
+                : Constants.DefaultFileBufferSize;
     }
 }
