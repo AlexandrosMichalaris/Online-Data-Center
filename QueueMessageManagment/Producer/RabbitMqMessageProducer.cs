@@ -5,7 +5,7 @@ using RabbitMQ.Client;
 
 namespace QueueMessageManagement.Producer;
 
-public class RabbitMqProducer : IMessageProducer
+public class RabbitMqProducer : IProducer
 {
     private readonly IRabbitMqConnection _connection;
     private IChannel? _channel;

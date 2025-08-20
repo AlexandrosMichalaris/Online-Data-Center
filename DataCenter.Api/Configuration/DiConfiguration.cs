@@ -48,6 +48,7 @@ public static class DiConfiguration
         services.AddScoped<ISaveFile, SaveDocumentFileService>();
         services.AddScoped<ISaveFile, SaveImageFileService>();
         services.AddScoped<ISaveFileStrategy, SaveSaveFileStrategy>();
+        services.AddScoped<IStorageService, FileSystemStorageService>();
         
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IJwtTokenService, JwtTokenService>();
@@ -57,7 +58,7 @@ public static class DiConfiguration
         //RabbitMq
         // Connection & Producer
         services.AddSingleton<IRabbitMqConnection, RabbitMqConnection>();
-        services.AddSingleton<IMessageProducer, RabbitMqProducer>();
+        services.AddSingleton<IProducer, RabbitMqProducer>();
         // Consumers
         //services.AddSingleton<IConsumerBase, TestConsumer>();
         // Dispatcher

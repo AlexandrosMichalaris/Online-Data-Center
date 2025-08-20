@@ -10,6 +10,8 @@ public class FileChunk
     
     public FileType FileType { get; set; }
     
+    public FolderType FolderType { get; set; }
+    
     public int ChunkNumber { get; set; }
     
     public int TotalChunks { get; set; }

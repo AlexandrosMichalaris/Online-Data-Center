@@ -1,3 +1,4 @@
+using Data_Center.Configuration.Constants;
 using DataCenter.Domain.Domain;
 using DataCenter.Domain.Queues;
 using Microsoft.AspNetCore.Http;
@@ -10,13 +11,13 @@ namespace StorageService.Service;
 
 public class FileChunkHandler : IFileChunkHandler
 {
-    private readonly IMessageProducer _producer;
+    private readonly IProducer _producer;
     private readonly IProgressNotifier _progressNotifier;
     private readonly ILogger<FileChunkHandler> _logger;
 
     #region Ctor
 
-    public FileChunkHandler(IMessageProducer producer, IProgressNotifier progressNotifier, ILogger<FileChunkHandler> logger)
+    public FileChunkHandler(IProducer producer, IProgressNotifier progressNotifier, ILogger<FileChunkHandler> logger)
     {
         _producer = producer;
         _progressNotifier = progressNotifier;
@@ -26,7 +27,8 @@ public class FileChunkHandler : IFileChunkHandler
     #endregion
     
     public async Task ChunkProducerAsync(
-        IFormFile file, 
+        IFormFile file,
+        FolderType folderType,
         Guid fileId, 
         string connectionId,
         CancellationToken cancellationToken = default)
@@ -57,7 +59,8 @@ public class FileChunkHandler : IFileChunkHandler
                         TotalChunks = totalChunks,
                         FileName = file.FileName,
                         Data = chunkData,
-                        FileType = fileType
+                        FileType = fileType,
+                        FolderType = folderType
                     };
 
                     await _producer.SendAsync(Queues.FileUploadQueue, chunk, cancellationToken);

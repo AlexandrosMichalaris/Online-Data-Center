@@ -4,11 +4,13 @@ namespace DataCenter.Domain.Dto;
 
 public class ReassembleFileMessage
 {
-    public Guid FileId;
+    public Guid FileId { get; set; }
+    
+    public string FileName { get; set; } = null!;
 
-    public int TotalChunks;
+    public int TotalChunks { get; set; }
     
-    public FileType FileType;
+    public FileType FileType { get; set; }
     
-    public FolderType FolderType;
+    public FolderType FolderType { get; set; }
 }

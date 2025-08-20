@@ -1,6 +1,6 @@
 namespace QueueMessageManagement.Interfaces;
 
-public interface IMessageProducer : IAsyncDisposable
+public interface IProducer : IAsyncDisposable
 {
     Task SendAsync<T>(string queueName, T message, CancellationToken cancellationToken = default);
 }
