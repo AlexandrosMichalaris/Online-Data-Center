@@ -7,10 +7,6 @@ using DataCenter.Infrastructure.Repository.DomainRepository.Interface;
 using DataCenter.Infrastructure.Repository.EntityRepository;
 using DataCenter.Mapping;
 using Microsoft.AspNetCore.Identity;
-using QueueMessageManagement.Interfaces;
-using QueueMessageManagement.Producer;
-using QueueMessageManagment;
-using QueueMessageManagment.Consumer;
 using StorageService;
 using StorageService.Repository.Interface;
 using StorageService.Service;
@@ -49,21 +45,12 @@ public static class DiConfiguration
         services.AddScoped<ISaveFile, SaveImageFileService>();
         services.AddScoped<ISaveFileStrategy, SaveSaveFileStrategy>();
         services.AddScoped<IStorageService, FileSystemStorageService>();
+        services.AddScoped<IFileChunkHandler, FileChunkHandler>();
         
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IJwtTokenService, JwtTokenService>();
         services.AddScoped<ITotpService, TotpService>();
         services.AddScoped<PasswordHasher<ApplicationUserEntity>>();
-        
-        //RabbitMq
-        // Connection & Producer
-        services.AddSingleton<IRabbitMqConnection, RabbitMqConnection>();
-        services.AddSingleton<IProducer, RabbitMqProducer>();
-        // Consumers
-        //services.AddSingleton<IConsumerBase, TestConsumer>();
-        // Dispatcher
-        services.AddSingleton<RabbitMqDispatcher>();
-        
         
         // Auto register profiles
         services.AddAutoMapper(typeof(FileRecordProfile)); // points to any profile in that assembly

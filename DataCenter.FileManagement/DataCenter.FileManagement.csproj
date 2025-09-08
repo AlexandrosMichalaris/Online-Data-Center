@@ -15,6 +15,7 @@
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.4" />
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.4" />
+        <PackageReference Include="rmq.message.management" Version="1.0.1" />
       <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
       <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
       <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
@@ -29,7 +30,6 @@
       <ProjectReference Include="..\DataCenter.Model\DataCenter.Model.csproj" />
       <ProjectReference Include="..\DataCenter.Infrastructure\DataCenter.Infrastructure.csproj" />
       <ProjectReference Include="..\DataCenter.Storage\DataCenter.Storage.csproj" />
-      <ProjectReference Include="..\QueueMessageManagment\QueueMessageManagment.csproj" />
     </ItemGroup>
 
 </Project>

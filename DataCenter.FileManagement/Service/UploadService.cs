@@ -56,7 +56,8 @@ public class UploadService : IUploadService
             
             
             
-            
+            // TODO: The entire architecture needs to change. Strategy might not be important. 
+            // TODO: If we keep the strategy, we only use it to pass the folder type, but it's over-engineering
             
             
             // Get storage strategy handler based on file type.

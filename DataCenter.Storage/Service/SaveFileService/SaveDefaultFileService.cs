@@ -1,5 +1,6 @@
 using Data_Center.Configuration;
 using Data_Center.Configuration.Constants;
+using DataCenter.Domain.Queues;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -15,17 +16,20 @@ public class SaveDefaultFileService : ISaveFile
     private readonly ILogger<SaveDefaultFileService> _logger;
     private readonly FileStorageOptions _options;
     private readonly IProgressNotifier _progressNotifier;
+    private readonly IFileChunkHandler _handler;
 
     #region Ctor
 
     public SaveDefaultFileService(
         IOptions<FileStorageOptions> options, 
         ILogger<SaveDefaultFileService> logger,
-        IProgressNotifier progressNotifier)
+        IProgressNotifier progressNotifier, 
+        IFileChunkHandler handler)
     {
         _logger = logger;
         _options = options.Value;
         _progressNotifier = progressNotifier;
+        _handler = handler;
     }
 
     #endregion
@@ -41,6 +45,8 @@ public class SaveDefaultFileService : ISaveFile
         
         try
         {
+            //await _handler.ChunkProducerAsync(file, FolderType,)
+            
             var folder = Path.Combine(_options.StoragePath, this.FolderType.ToString());
             if (!Directory.Exists(folder))
             {

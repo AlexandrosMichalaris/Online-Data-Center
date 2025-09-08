@@ -11,13 +11,16 @@ public class FileInfoService : IFileInfoService
 {
     private readonly ILogger<FileInfoService> _logger;
     private readonly IFileRecordDomainRepository _fileRecordDomainRepository;
+    private readonly IProducer _producer;
 
     public FileInfoService(
         IFileRecordDomainRepository fileRecordDomainRepository,
+        IProducer producer,
         ILogger<FileInfoService> logger)
     {
         _fileRecordDomainRepository = fileRecordDomainRepository;
         _logger = logger;
+        _producer = producer;
     }
 
     public async Task<FileResultGeneric<IEnumerable<FileRecordMetadata>>> GetPagedFileRecordsAsync(int page, int pageSize, bool isDeleted = false)

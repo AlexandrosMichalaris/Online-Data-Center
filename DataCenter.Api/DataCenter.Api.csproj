@@ -33,6 +33,7 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="rmq.message.management" Version="1.0.1" />
         <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
         <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
         <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
@@ -49,7 +50,6 @@
       <ProjectReference Include="..\DataCenter.Authentication\DataCenter.Authentication.csproj" />
       <ProjectReference Include="..\DataCenter.FileManagement\DataCenter.FileManagement.csproj" />
       <ProjectReference Include="..\DataCenter.Mapping\DataCenter.Mapping.csproj" />
-      <ProjectReference Include="..\QueueMessageManagment\QueueMessageManagment.csproj" />
     </ItemGroup>
 
 </Project>

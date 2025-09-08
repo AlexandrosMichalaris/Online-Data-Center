@@ -1,16 +1,13 @@
 using Data_Center.Configuration;
 using Data_Center.Configuration.DI;
 using Hangfire;
+using QueueMessageManagement.Extentions;
 using Serilog;
-using QueueMessageManagement.Config;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure services using the static class method
 builder.Services.ConfigureDiServices();
-
-builder.Services.Configure<RabbitMqOptions>(
-    builder.Configuration.GetSection("RabbitMq"));
 
 //Config for RabbitMq connection options
 builder.Services.Configure<FileStorageOptions>(
@@ -24,18 +21,20 @@ builder.ConfigureSwaggerServices();
 builder.Services.AddControllers();
 builder.Services.AddSignalR();
 
+// RabbitMq Manager
+builder.Services.AddQueueMessageManagement(builder.Configuration.GetSection("RabbitMq"));
+
 builder.ConfigureHangfireServices();
 
 builder.ConfigureAuthenticationServices();
+
+builder.ConfigureRedisService();
 
 builder.Services.AddAuthorization();
 
 // Replace default logging with Serilog and Read Serilog config from appsettings.json
 builder.Host.UseSerilog((context, config) =>
     config.ReadFrom.Configuration(context.Configuration));
-
-// RabbitMq section Register hosted service to manage lifecycle
-builder.Services.AddHostedService<RabbitMqStartupService>();
 
 var app = builder.Build();
 

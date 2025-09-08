@@ -1,6 +1,7 @@
 using Data_Center.Configuration;
 using DataCenter.Domain.Domain;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using StorageService.Service.Interface;
 
 namespace StorageService.Service;
@@ -10,10 +11,10 @@ public class FileSystemStorageService : IStorageService
     private readonly ILogger<FileSystemStorageService> _logger;
     private readonly FileStorageOptions _options;
 
-    public FileSystemStorageService(ILogger<FileSystemStorageService> logger, FileStorageOptions options)
+    public FileSystemStorageService(ILogger<FileSystemStorageService> logger, IOptions<FileStorageOptions> options)
     {
         _logger = logger;
-        _options = options;
+        _options = options.Value;
     }
 
     public async Task SaveChunkAsync(FileChunk chunk, CancellationToken cancellationToken)
